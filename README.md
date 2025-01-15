@@ -2,6 +2,17 @@
 OTP1 Software Engineering Project 1
 
 
+## Tehtävät
+
+- tuntilista(https://metropoliafi-my.sharepoint.com/:x:/g/personal/tonihirv_metropolia_fi/Ea14dZ-eydxItsQ5Mh2XgPcBL7n6WQnzVAWS_SRhqxHraQ?e=UqqDKj&nav=MTVfezAwMDAwMDAwLTAwMDEtMDAwMC0wMDAwLTAwMDAwMDAwMDAwMH0)
+- projectplan _ markdown/github
+- productvision _ markdown/github
+- setup trello
+- setup team
+
+
+
+
 ## Aiheet
 
 ### #8:
@@ -27,12 +38,12 @@ OTP1 Software Engineering Project 1
     - Set upper and lower limits for temperatures
     - Set an action for crossing set temperatures
 
-Microcontroller side:
+- Microcontroller side:
     - Connect to wifi network
     - Connect to an API
     - Read temperature sensor
     - Pinout according to set action
-    Technologies: JavaFX, MariaDB, ESP8266, NodeJS, ExpressJS
+    - Technologies: JavaFX, MariaDB, ESP8266, NodeJS, ExpressJS
 
 ## Trello
 
