@@ -19,16 +19,14 @@ Key Features and Functionality:
 
 **Goals and Objectives:**
 
-* Increase user adoption rates by [percentage] within [timeframe].
-* Improve user satisfaction scores to [target score] or above.
-* Generate [revenue goal] in revenue within [timeframe].
+* Increase user adoption rates by 50% within 1 year.
+* Improve user satisfaction scores to 4 or above.
+* Generate 500 000€ in revenue within 2 years.
 
 **Vision Statement:**
-Our vision is to [concisely summarize the purpose and value of the product]. We aim to [describe aspirations and goals] to empower our users and drive positive outcomes.
+Our vision is to create a simple solution to monitor sensor data and receive alarms within set thresholds allowing private and business entities information and control over their properties.
+We aim to provide inexpensive monitoring and managing of properties to empower our users and drive positive outcomes.
+In future we see possibilities to cross in to other industries for example aquariums, terrariums and similar.
 
-
-**__Submission__**
-
-The Scrum Master for Sprint 1 must submit the product vision as a PDF file in the OMA Dropbox within a week after the Scrum team is set up.
 
 
