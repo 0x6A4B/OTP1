@@ -1,20 +1,21 @@
 # Product Vision
 
 **Problem Statement:**
-Users in our target demographic struggle with [insert specific problem or challenge]. Existing solutions fail to adequately address their needs, leading to frustration and inefficiency.
+Users in our target demographic struggle with remotely managing and logging temperature. Existing solutions fail to adequately address their needs, leading to frustration and inefficiency.
 
 **Target Audience:**
-Our product is designed for [describe the target audience, including demographics, preferences, and needs].
+Our product is designed for property owners who own and/or manage storages, garages or summer cottages.
 
 **Value Proposition:**
-Our product offers [unique value proposition], providing users with [benefits and advantages] that surpass existing solutions.
+Our product offers inexpensive, providing users with data from different measuring devices about the property that surpass existing solutions.
 
 Key Features and Functionality:
 
-* [Feature 1]
-* [Feature 2]
-* [Feature 3]
-* ...
+* Temperature monitoring and logging
+* Light sensor, for example recognizing burglars
+* Humidity sensor to recognize water leaks
+* Alarms to notify when set thresholds 
+* Alarm notification toggle for select sensor
 
 **Goals and Objectives:**
 
