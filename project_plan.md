@@ -92,17 +92,30 @@ In this assignment, your task is to create a short project plan for your softwar
     - testing
     - deployment
   - **Milestones**:
-    - 
+    - Project setup
+    - Backend/API endpoints
+    - Basic client interface
+    - User authentication
+    - Functioning sensor
 
   Important deadlines and checkpoints.
   - **Gantt Chart or Timeline**:
 
+  |Task name|Start date|End date|Duration|Sprint 1.1|Sprint 1.2|Sprint 2.1|Sprint 2.2|Sprint 3.1|Sprint 3.2|Sprint 4.1|Sprint 4.2|
+  |--------|---|---|---|---|---|---|--|--|--|--|--|
+  |Project planning|xx|xx|xx|X|X||
+  |Setup|xx|xx|xx||X||
+
+
+
   Visual representation of the schedule (optional but recommended).
 
 ### 7. Monitoring and Reporting Mechanisms
-- Describe how you will monitor progress and report on the project's status, including:
-  - **Progress Tracking**: How you will track the completion of tasks and milestones.
-  - **Reporting**: How and when updates will be provided to stakeholders and team members (e.g., weekly reports, meetings).
+  - **Progress Tracking**: Trello
+  How you will track the completion of tasks and milestones.
+  - **Reporting**:
+    - To team members through daily scrums
+    - To stakeholders through sprint reviews
 
 
 
