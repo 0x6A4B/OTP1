@@ -1,13 +1,8 @@
-# Home Assignment: Software Engineering Project Plan
 
-## Assignment Overview
-In this assignment, your task is to create a short project plan for your software engineering project. The plan should be structured according to the sections outlined below. You must submit your completed project plan in PDF format to the designated Dropbox on Oma by **25th August**.
 
-**Note:** Remember to include your group number at the top of your report.
+# Project Plan
 
 **Group 9**
-
-## Plan Sections
 
 ### 1. Introduction
   - **Project Title**: I-SPY-U
@@ -66,23 +61,23 @@ In this assignment, your task is to create a short project plan for your softwar
     - Discord API
 
 ### 5. Work Breakdown
-  - **Task Description**:
-    1.0 Sensor management system
-        1.1 Client side software
-            1.1.1 UI
-            1.1.2 Businesslogic
-        1.2 Server side software
-            1.2.1 Backend API
-            1.2.2 Database
-            1.2.3
-        1.3 Microcontroller
-            1.3.1 Microcontroller software
-            1.3.2 Sensors
+  - **Task Description**:  
+    1.0 Sensor management system  
+        &nbsp;&nbsp;1.1 Client side software  
+            &nbsp;&nbsp;&nbsp;&nbsp;1.1.1 UI  
+            &nbsp;&nbsp;&nbsp;&nbsp;1.1.2 Businesslogic  
+        &nbsp;&nbsp;1.2 Server side software  
+            &nbsp;&nbsp;&nbsp;&nbsp;1.2.1 Backend API  
+            &nbsp;&nbsp;&nbsp;&nbsp;1.2.2 Database  
+            &nbsp;&nbsp;&nbsp;&nbsp;1.2.3  
+        &nbsp;&nbsp;1.3 Microcontroller  
+            &nbsp;&nbsp;&nbsp;&nbsp;1.3.1 Microcontroller software  
+            &nbsp;&nbsp;&nbsp;&nbsp;1.3.2 Sensors  
   - **Dependencies**:
     - UI is finish-to-finish dependent on businesslogic
     - Backend is finish-to-finish dependent on DB
     - Businesslogic is finish-to-finish dependent on backend
-  - **Team Member Assignment**: Responsibilities will be shared
+  - **Team Member Assignment**: Responsibilities will be shared and cycled
 
 ### 6. Project Schedule
   - **Timeline**:
@@ -98,43 +93,49 @@ In this assignment, your task is to create a short project plan for your softwar
     - User authentication
     - Functioning sensor
 
-  Important deadlines and checkpoints.
   - **Gantt Chart or Timeline**:
 
-  |Task name|Start date|End date|Duration|Sprint 1.1|Sprint 1.2|Sprint 2.1|Sprint 2.2|Sprint 3.1|Sprint 3.2|Sprint 4.1|Sprint 4.2|
-  |--------|---|---|---|---|---|---|--|--|--|--|--|
-  |Project planning|xx|xx|xx|X|X||
-  |Setup|xx|xx|xx||X||
+  |Task name|Start date|End date|Sprint 1.1|Sprint 1.2|Sprint 2.1|Sprint 2.2|Sprint 3.1|Sprint 3.2|Sprint 4.1|Sprint 4.2|
+  |------|--|--|--|--|--|--|--|--|--|--|
+  |Project planning|13.01|20.01|X|X||
+  |Setup|20.01|27.01||X||
+  |UI Design|27.01|03.02|||X|
+  |DB Design|20.01|27.01||X|
+  |Business Logic|03.02|10.02|||X|X|X|
+  |IOT Dev|10.02|17.02|||||X|
 
 
 
-  Visual representation of the schedule (optional but recommended).
 
 ### 7. Monitoring and Reporting Mechanisms
   - **Progress Tracking**: Trello
-  How you will track the completion of tasks and milestones.
   - **Reporting**:
     - To team members through daily scrums
     - To stakeholders through sprint reviews
 
 
+### Appendixes
 
 
+### UI Design prototype  
 
 
-## Submission Guidelines
-- **Format**: The report should be well-structured and submitted as a PDF.
-- **Length**: Aim to keep the report concise and to the point.
-- **Submission**: Submit your project plan in the designated Dropbox on Oma by **25th August**.
+First drafts of the UI Design prototypes
 
-## Evaluation Criteria
-Your project plan will be evaluated based on:
-- **Clarity and Structure**: How well-organized and clear the report is.
-- **Comprehensive Coverage**: The completeness of each section.
-- **Feasibility and Realism**: How realistic and achievable the plan is.
-- **Risk Awareness**: How well potential risks are identified and managed.
-- **Adherence to Guidelines**: Whether the plan is submitted on time and follows the required format.
 
----
+![Main View](./docs/ui-design/01_main-view.jpg)<br>
 
-**Good luck with your assignment!** If you have any questions, feel free to reach out for clarification.
+*The main view of the client, showing user's devices*
+
+![Device View](./docs/ui-design/02_device-view.jpg)<br>
+
+*Device view showing graph of logged measurements*
+
+![Config View](./docs/ui-design/03_config-view.jpg)<br>
+
+*Config view allowing user to configure thresholds and actions*
+
+![Share View](./docs/ui-design/04_share-view.jpg)<br>
+
+*Share view allowing user to configure sharing of the device*
+
