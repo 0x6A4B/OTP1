@@ -107,6 +107,8 @@ Addresses:
 
 https://otp1-jenkins.0x6a4b.dev/
 https://otp1.0x6a4b.dev/adminer
+https://otp1.0x6a4b.dev/api
+
 
 SSH connection:
 ```
