@@ -108,6 +108,7 @@ Addresses:
 https://otp1-jenkins.0x6a4b.dev/
 https://otp1.0x6a4b.dev/adminer
 https://otp1.0x6a4b.dev/api
+https://127.0.0.1:8001/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy/#/workloads?namespace=default (requires tunneling)
 
 
 SSH connection:
@@ -125,6 +126,12 @@ Minikube via SSH tunnel (127.0.0.1:8001):
 ```
 ssh -L 8001:192.168.1.103:8001 $USER@otp1.0x6a4b.dev -p 22666
 ```
+
+Then to connect to minikube dashboard with web browser:
+```
+https://127.0.0.1:8001/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy/#/workloads?namespace=default
+```
+
 
 With putty:
 - open putty
