@@ -99,9 +99,7 @@ sudo passwd [USERNAME]
 
 
 Ports from outside:
-- jenkins 8080
-- adminer 8081
-- mariadb 3306
+- mariadb 23306
 - ssh 22666
 -
 
