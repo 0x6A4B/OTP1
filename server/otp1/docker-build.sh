@@ -1,0 +1,1 @@
+docker build -t _x6a4b.dev/otp1 .
