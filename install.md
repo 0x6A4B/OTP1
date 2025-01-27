@@ -105,10 +105,10 @@ Ports from outside:
 
 Addresses:
 
-https://otp1-jenkins.0x6a4b.dev/
-https://otp1.0x6a4b.dev/adminer
-https://otp1.0x6a4b.dev/api
-https://127.0.0.1:8001/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy/#/workloads?namespace=default (requires tunneling)
+- https://otp1-jenkins.0x6a4b.dev
+- https://otp1.0x6a4b.dev/adminer
+- https://otp1.0x6a4b.dev/api
+- https://127.0.0.1:8001/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy/#/workloads?namespace=default (requires tunneling)
 
 
 SSH connection:
@@ -182,7 +182,7 @@ Fujitsu Primergy TX1320M2F2
 
 PRAID CP400i
 
-Clear drive configurations
-Create a new virtual drive on VD Mgmt page
-Add 3 of the for disks as there are 3 SAS disks and 1 SATA for extra as a files disk
-Initialize virtual drive
+- Clear drive configurations
+- Create a new virtual drive on VD Mgmt page
+- Add 3 of the for disks as there are 3 SAS disks and 1 SATA for extra as a files disk
+- Initialize virtual drive
