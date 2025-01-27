@@ -9,8 +9,7 @@ OTP1 Software Engineering Project 1
 - productvision _ markdown/github
 - setup trello
 - setup team
-
-
+- presentation link(https://docs.google.com/presentation/d/1MlfKxJ8iGxZMGYpVgSVQCBMqi3PgQaskcB6KySv8td0/edit#slide=id.g3268e255a1e_0_438)
 
 
 ## Aiheet
