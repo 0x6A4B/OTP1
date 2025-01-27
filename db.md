@@ -33,7 +33,7 @@ erDiagram
         string description
         string uuid
         string model
-        string register_date
+        date register_date
     }
 
     LOGENTRY {
