@@ -109,5 +109,11 @@ erDiagram
         string privilege
     }
 
+    SETTING {
+        int id PK,UK
+        String category
+        String key
+        String value
+    }
 
 ```
