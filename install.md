@@ -186,3 +186,31 @@ PRAID CP400i
 - Create a new virtual drive on VD Mgmt page
 - Add 3 of the for disks as there are 3 SAS disks and 1 SATA for extra as a files disk
 - Initialize virtual drive
+
+
+
+### SSH
+
+
+At your computer:
+
+```
+ssh-keygen
+ssh-add .ssh/id_ed25519
+```
+
+- Creates a keypair in user's home in .ssh/ -directory. Most likely named id_ed25519.
+- Second command adds to the ssh keyring, this must be run in the user's home directory where the .ssh -directory is
+- Public key is the one ending with .pub so id_ed25519.
+- Copy this to server home directory .ssh/ as authorized_keys
+
+
+Connect to the server and run this:
+
+```
+nano ~/.ssh/authorized_keys
+```
+
+- This opens a texteditor to edit the authorized_keys file and you can paste in the .pub key
+
+Now ssh should automatically use your ssh key to log in and server accepts as it's authorized
