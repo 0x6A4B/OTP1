@@ -67,6 +67,58 @@
         +getValue() : String
         +getDate() : Date
     }
+
+    class LogManager{
+        -HashMap~Device, LogEntry~ entries
+
+        +getLogEntries(Device device) : List~LogEntry~
+        +update() : boolean
+    }
+
+    class DeviceManager{
+        -List~Device~ devices
+
+        +addDevice(Device device)
+        
+        +getDevices() : List~Device~
+        +populateDevices() : boolean
+    }
+
+    class UserManager{
+        -User user
+        -Person person
+
+        +setUser(User user)
+        +setPerson(Person person)
+        
+        +getUser() : User
+        +getPerson() : Person
+
+        +login() : String
+        +registerUser() : String
+
+
+    }
+
+    class ConnectionManager{
+        -String ApiURL
+
+        +addDevice(Device device) : boolean
+        +registerUser(User user, Person person) : String
+        +login(User user) : String
+
+        +getDevices() : List~Device~
+        +getLogEntries() : List~Device~
+    }
+
+    class Client{
+        +addDevice(Device device) : boolean
+        +registerUser(User user, Person person) : String
+        +login(User user) : String
+
+        +getDevices() : List~Device~
+        +getLogEntries() : List~Device~
+    }
     
 
 ```

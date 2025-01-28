@@ -55,6 +55,7 @@ OTP1 Software Engineering Project 1
 
 ## DB relations:
 
+
 ```mermaid
 
 erDiagram
@@ -62,6 +63,7 @@ erDiagram
     USER 1--0+ DEVICE : has
     DEVICE 1--0+ LOGENTRY : creates
     USER 1--0+ DEVICE_SHARE : can_access
+    DEVICE 1--0+ SETTING : has
 
     USER {
         int id PK,UK
@@ -111,9 +113,11 @@ erDiagram
 
     SETTING {
         int id PK,UK
+        int deviceid FK
+        int userid FK
         String category
         String key
         String value
     }
-
 ```
+
