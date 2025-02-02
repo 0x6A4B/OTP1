@@ -1,11 +1,8 @@
 package dev._x6a4b.otp1.service;
 
 import dev._x6a4b.otp1.entity.User;
-
 import dev._x6a4b.otp1.repository.UserRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,7 +32,7 @@ public class UserService {
     public Optional<User> getUserByName(String username){
         System.out.println("userservice.getuserbyname: " + username);
 
-        return userRepository.findByUserName(username);
+        return userRepository.findByUsername(username);
     }
 
     public List<User> getUsers(){

@@ -1,0 +1,18 @@
+meta {
+  name: login
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://127.0.0.1:8088/api/auth/login
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "username": "asd",
+    "password": "asd"
+  }
+}

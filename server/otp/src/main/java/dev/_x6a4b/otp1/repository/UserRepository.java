@@ -13,7 +13,7 @@ public interface UserRepository extends JpaRepository<User, Long>{
 
 
     @Find
-    Optional<User> findByUserName(String username);
+    Optional<User> findByUsername(String username);
 
 /*
     @Find

@@ -1,23 +1,21 @@
 package dev._x6a4b.otp1;
 
-import dev._x6a4b.otp1.service.UserService;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collections;
 
 @SpringBootApplication //(exclude = {DataSourceAutoConfiguration.class })
-//@EnableJpaRepositories
-@ComponentScan({"dev._x6a4b.otp1.controller", "dev._x6a4b.otp1.service", "dev._x6a4b.otp1.repository"})
-//@RestController
+//@ComponentScan({"dev._x6a4b.otp1.controller", "dev._x6a4b.otp1.service", "dev._x6a4b.otp1.repository"})
+@Controller
 public class Application {
-/*
+
     @RequestMapping("/")
     public String home() {
         return api();
@@ -29,7 +27,7 @@ public class Application {
         return "It works!!!";
     }
 
- */
+
 /*
     @RequestMapping("/api/user")
     public String getUser(){
@@ -51,7 +49,7 @@ public class Application {
                 .singletonMap("server.port", "8088"));
         applicationContext = app.run(args);
 
-        //checkBeansPresence("UserController", "UserService", "UserRepository");
+        checkBeansPresence("UserController", "UserService", "UserRepository");
     }
 
     private static void checkBeansPresence(String... beans) {

@@ -10,7 +10,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column(name = "username", unique = true)
-    private String userName;
+    private String username;
     private String password;
     private String status;
 
@@ -18,23 +18,23 @@ public class User {
     //private Person person;
 
 
-    public User(String userName, String password){
-        this(userName, password, null);
+    public User(String username, String password){
+        this(username, password, null);
     }
-    public User(String userName, String password, String status){
+    public User(String username, String password, String status){
         super();
-        this.userName = userName;
+        this.username = username;
         this.password = password;
         this.status = status;
     }
     public User(){}
 
     public long getId(){ return id; }
-    public String getUserName(){ return userName; }
+    public String getUsername(){ return username; }
     public String getPassword(){ return password; }
 
     public void setId(int id){ this.id = id; }
-    public void setUserName(String userName){ this.userName = userName; }
+    public void setUsername(String username){ this.username = username; }
     public void setPassword(String password){ this.password = password; }
 
 }
