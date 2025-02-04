@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/api/device")
@@ -42,6 +43,18 @@ public class DeviceController {
         System.out.println("user: " + getUsername());
         Device createdDevice = deviceService.saveDevice(device);
         return new ResponseEntity<Device>(device, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Device> deleteDevice(@PathVariable long id){
+        System.out.println("deletedevice: " + id);
+        try {
+            Device device = deviceService.getDeviceById(id).get();
+            deviceService.removeDevice(device);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }catch (NoSuchElementException e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     private String getUsername(){

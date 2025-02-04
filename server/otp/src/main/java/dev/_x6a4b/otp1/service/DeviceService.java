@@ -41,8 +41,9 @@ public class DeviceService {
     }
 
     public void removeDevice(Device device){
-        deviceRepository.delete(device);    // how to know this worked? no return type
+        deviceRepository.delete(device);
     }
+
 
     private String getUsername(){
         return SecurityContextHolder.getContext().getAuthentication().getName();
