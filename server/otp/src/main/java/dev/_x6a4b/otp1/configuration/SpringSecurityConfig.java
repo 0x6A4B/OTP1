@@ -47,6 +47,7 @@ public class SpringSecurityConfig {
                     //authorize.requestMatchers("/api/device").hasRole("USER");   // for devices
                     authorize.requestMatchers("/api/auth/**").permitAll();  // for login and registering
                     authorize.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll();   // ? why this ?
+                    //authorize.requestMatchers("/api/device/**").permitAll();
                     authorize.anyRequest().authenticated(); // for those who are authenticated?
                 }).httpBasic(Customizer.withDefaults());
 

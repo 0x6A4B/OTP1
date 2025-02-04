@@ -36,4 +36,8 @@ public class CustomUserDetailsService implements UserDetailsService {
                 authorities
         );
     }
+//
+//    public boolean usernameAvailable(String username){
+//        return userRepository.findByUsername(username).isEmpty();
+//    }
 }

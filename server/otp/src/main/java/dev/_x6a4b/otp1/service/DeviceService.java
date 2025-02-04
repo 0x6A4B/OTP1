@@ -12,10 +12,12 @@ import java.util.Optional;
 @Service
 public class DeviceService {
     private final DeviceRepository deviceRepository;
+    private final UserService userService;
 
     @Autowired
-    public DeviceService(DeviceRepository deviceRepository){
+    public DeviceService(DeviceRepository deviceRepository, UserService userService){
         this.deviceRepository = deviceRepository;
+        this.userService = userService;
     }
 
 
@@ -28,7 +30,8 @@ public class DeviceService {
         return deviceRepository.saveAndFlush(device);
     }
 
-    public List<Device> getDevices(User user){
+    public List<Device> getDevices(String username){
+        User user = userService.getUserByName(username).get();
         return deviceRepository.findByUserId(user.getId());  // sorting?
     }
 
