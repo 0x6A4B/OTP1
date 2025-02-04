@@ -4,8 +4,10 @@ import dev._x6a4b.otp1.entity.Device;
 import dev._x6a4b.otp1.entity.User;
 import dev._x6a4b.otp1.repository.DeviceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,6 +29,9 @@ public class DeviceService {
     }
 
     public Device saveDevice(Device device){
+        device.setRegistered(new Date());
+        device.setUser(userService.getUserByName(getUsername()).get());
+
         return deviceRepository.saveAndFlush(device);
     }
 
@@ -37,5 +42,9 @@ public class DeviceService {
 
     public void removeDevice(Device device){
         deviceRepository.delete(device);    // how to know this worked? no return type
+    }
+
+    private String getUsername(){
+        return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 }

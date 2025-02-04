@@ -9,7 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -30,18 +31,22 @@ public class DeviceController {
     @GetMapping("")
     public List<Device> getAllDevices(){
         System.out.println("get /api/device");
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        return deviceService.getDevices(username);
-        //return new ArrayList<Device>();
+
+        return deviceService.getDevices(getUsername());
     }
 
     @PostMapping("")
     public ResponseEntity<Device> createDevice(@RequestBody Device device){
         System.out.println("createdevice");
         System.out.println("device: " + device.getName());
+        System.out.println("user: " + getUsername());
+        Device createdDevice = deviceService.saveDevice(device);
         return new ResponseEntity<Device>(device, HttpStatus.CREATED);
     }
 
+    private String getUsername(){
+        return SecurityContextHolder.getContext().getAuthentication().getName();
+    }
 
 
 }
