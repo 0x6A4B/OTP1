@@ -32,8 +32,17 @@ public class DeviceController {
     @GetMapping("")
     public List<Device> getAllDevices(){
         System.out.println("get /api/device");
-
         return deviceService.getDevices(getUsername());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Device> getDevice(@PathVariable long id){
+        System.out.println("get device: " + id);
+        try {
+            return new ResponseEntity<>(deviceService.getDeviceById(id).get(), HttpStatus.OK);
+        }catch (NoSuchElementException e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping("")

@@ -4,6 +4,7 @@ import dev._x6a4b.otp1.auth.JwtTokenProvider;
 import dev._x6a4b.otp1.auth.LoginDto;
 
 import dev._x6a4b.otp1.auth.RegisterDto;
+import dev._x6a4b.otp1.entity.Person;
 import dev._x6a4b.otp1.repository.UserRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -42,7 +43,7 @@ public class AuthServiceImpl implements AuthService{
         return jwtTokenProvider.generateToken(authentication);
     }
 
-    public boolean register(RegisterDto registerDto){
+    public boolean register(RegisterDto registerDto, Person person){
         System.out.println("registering " + registerDto.getUsername() + " : " + registerDto.getPassword());
 //        boolean userExists = registerService.userExists(registerDto);
 //        System.out.println("Username exists: " + userExists);
@@ -50,7 +51,7 @@ public class AuthServiceImpl implements AuthService{
 //        if(userExists)
 //            return null;
 
-        boolean success = registerService.register(registerDto);
+        boolean success = registerService.register(registerDto, person);
 
         return success;
     }

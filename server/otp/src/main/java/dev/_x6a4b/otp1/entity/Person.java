@@ -9,55 +9,58 @@ public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    //@Column(name = "user_id")
-    private Long userId;
-    //@Column(name = "first_name")
-    String firstName;
-    //@Column(name = "last_name")
-    String lastName;
-    String email;
+    //@Column(name = "userid")
+    //@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "userid")
+    //private Long userid;
+    //@OneToOne(mappedBy = "person")
+    //private User user;
+    //@Column(name = "firstname")
+    private String firstname;
+    //@Column(name = "lastname")
+    private String lastname;
+    private String email;
 
-    String street;
-    String city;
-    //@Column(name = "postal_code")
-    String postalCode;
+    private String street;
+    private String city;
+    //@Column(name = "postalcode")
+    private String postalcode;
 
     /*@OneToOne
     @JoinColumn(name = "user_id")
     private User user;*/
 
     public Person(){}
-    public Person(Long userId, String firstName, String lastName, String email){
-        this(userId, firstName, lastName, email, "", "", "");
+    public Person(String firstname, String lastname, String email){
+        this(firstname, lastname, email, "", "", "");
     }
-    public Person(Long userId, String firstName, String lastName, String email, String street, String city, String postalCode){
+    public Person(String firstname, String lastname, String email, String street, String city, String postalcode){
         super();
-        this.userId = userId;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        //this.userid = userid;
+        this.firstname = firstname;
+        this.lastname = lastname;
         this.email = email;
 
         this.street = street;
         this.city = city;
-        this.postalCode = postalCode;
+        this.postalcode = postalcode;
     }
 
     public Long getId(){ return id; }
-    public Long getUserId(){ return userId; }
-    public String getFirstName(){ return firstName; }
-    public String getLastName(){ return lastName; }
+    //public Long getUserId(){ return userid; }
+    public String getFirstName(){ return firstname; }
+    public String getLastName(){ return lastname; }
     public String getEmail(){ return email; }
     public String getStreet(){ return street; }
     public String getCity(){ return city; }
-    public String getPostalCode(){ return postalCode; }
+    public String getPostalCode(){ return postalcode; }
 
     public void setId(Long id){ this.id = id; }
-    public void setUserId(Long userId){ this.userId = userId; }
-    public void setFirstName(String firstName){ this.firstName = firstName; }
-    public void setLastName(String lastName){ this.lastName = lastName; }
+    //public void setUserId(Long userid){ this.userid = userid; }
+    public void setFirstName(String firstname){ this.firstname = firstname; }
+    public void setLastName(String lastName){ this.lastname = lastname; }
     public void setEmail(String email){ this.email = email; }
     public void setStreet(String street){ this.street = street; }
     public void setCity(String city){ this.city = city; }
-    public void setPostalCode(String postalCode){ this.postalCode = postalCode; }
+    public void setPostalCode(String postalcode){ this.postalcode = postalcode; }
 
 }

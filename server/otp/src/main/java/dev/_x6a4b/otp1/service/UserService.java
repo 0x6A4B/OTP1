@@ -22,7 +22,7 @@ public class UserService {
     // for testing
     public User getUser(Long id){
         //return userRepository.find(id);
-        return new User("tset", "test", "test");
+        return new User("tset", "test", "test", null);
     }
     public Optional<User> getUserById(Long id){
         System.out.println("userservice.getuserbyid: " + id);
