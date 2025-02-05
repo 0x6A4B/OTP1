@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.layout.Pane?>
 
-<Pane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
-</Pane>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MyController">
+    <children>
+        <Button text="Switch Login and Singup scene" onAction="#showLogSingUP"/>
+    </children>
+    <children>
+        <Button text="Switch Device List scene" onAction="#showDeviceList"/>
+    </children>
+    <children>
+        <Button text="Switch Device data scene" onAction="#showDevice"/>
+    </children>
+</VBox>
