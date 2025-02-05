@@ -1,0 +1,19 @@
+meta {
+  name: getDevice
+  type: http
+  seq: 7
+}
+
+get {
+  url: http://127.0.0.1:8088/api/device/:id
+  body: none
+  auth: bearer
+}
+
+params:path {
+  id: 3
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ3YXNkaSIsImlhdCI6MTczODc3NDIyNSwiZXhwIjoxNzM5Mzc5MDI1fQ.7maTahWx8eF4pcNTQbwMRGu0_gVkM-YfheILVBuH4N6_CV9GtrPtk8FgCjrvwMIB
+}
