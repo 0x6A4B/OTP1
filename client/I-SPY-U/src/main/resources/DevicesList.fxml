@@ -10,9 +10,50 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="500.0" tabClosingPolicy="UNAVAILABLE" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/22">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="500.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
   <tabs>
-    <Tab text="MyDevices">
+      <Tab text="Shared Devices">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <ScrollPane layoutX="35.0" layoutY="36.0" prefHeight="400.0" prefWidth="200.0">
+                     <content>
+                        <VBox prefHeight="400.0" prefWidth="185.0">
+                           <children>
+                              <Label prefHeight="30.0" prefWidth="185.0" style="-fx-border-color: Black;" text="Device name">
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                           </children>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
+                  <VBox layoutX="264.0" layoutY="36.0" prefHeight="350.0" prefWidth="200.0" style="-fx-border-color: Black;">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="35.0" prefWidth="200.0" text="Device name" textAlignment="CENTER">
+                           <padding>
+                              <Insets top="10.0" />
+                           </padding>
+                        </Label>
+                        <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="200.0" text="Log of last measurements:" textAlignment="CENTER">
+                           <padding>
+                              <Insets bottom="2.0" />
+                           </padding>
+                        </Label>
+                        <ListView prefHeight="267.0" prefWidth="200.0" style="-fx-border-color: Black;" />
+                     </children>
+                  </VBox>
+                  <Button layoutX="366.0" layoutY="389.0" mnemonicParsing="false" text="Open Device">
+                     <padding>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="12.0" />
+                     </padding>
+                  </Button>
+               </children>
+            </AnchorPane>
+         </content>
+      </Tab>
+    <Tab text="My Devices">
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
@@ -50,11 +91,6 @@
                      </padding>
                   </Button>
                </children></AnchorPane>
-      </content>
-    </Tab>
-    <Tab text="Shared devices">
-      <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
       </content>
     </Tab>
   </tabs>
