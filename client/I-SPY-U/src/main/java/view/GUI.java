@@ -17,7 +17,7 @@ public class GUI extends Application {
         scene = new Scene(FXMLLoader.load(getClass().getResource("/MainView.fxml")), 300, 300);
         System.out.println("FXML file loaded successfully.");
 
-        stage.initStyle(StageStyle.UTILITY);
+        stage.initStyle(StageStyle.UNDECORATED);
         stage.setTitle("I-SPY-U");
         stage.setScene(scene);
         stage.show();
