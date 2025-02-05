@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/device")
@@ -30,9 +31,9 @@ public class DeviceController {
      */
 
     @GetMapping("")
-    public List<Device> getAllDevices(){
+    public ResponseEntity<List<Device>> getAllDevices(){
         System.out.println("get /api/device");
-        return deviceService.getDevices(getUsername());
+        return new ResponseEntity<>(deviceService.getDevices(getUsername()).get(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

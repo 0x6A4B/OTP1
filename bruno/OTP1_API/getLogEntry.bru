@@ -1,15 +1,26 @@
 meta {
-  name: getDevices
+  name: getLogEntry
   type: http
-  seq: 4
+  seq: 11
 }
 
 get {
-  url: http://127.0.0.1:8088/api/device
+  url: http://127.0.0.1:8088/api/log/:id
   body: none
   auth: bearer
 }
 
+params:path {
+  id: 2
+}
+
 auth:bearer {
   token: eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ3YXNkaSIsImlhdCI6MTczODc3NDIyNSwiZXhwIjoxNzM5Mzc5MDI1fQ.7maTahWx8eF4pcNTQbwMRGu0_gVkM-YfheILVBuH4N6_CV9GtrPtk8FgCjrvwMIB
+}
+
+body:json {
+  {
+    "logkey": "temperature",
+    "value": "36.5"
+  }
 }

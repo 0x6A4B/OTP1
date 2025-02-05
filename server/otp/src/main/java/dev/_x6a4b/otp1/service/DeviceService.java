@@ -35,7 +35,8 @@ public class DeviceService {
         return deviceRepository.saveAndFlush(device);
     }
 
-    public List<Device> getDevices(String username){
+    public Optional<List<Device>> getDevices(String username){
+        System.out.println("detdevices by username: " + username);
         User user = userService.getUserByName(username).get();
         return deviceRepository.findByUserId(user.getId());  // sorting?
     }

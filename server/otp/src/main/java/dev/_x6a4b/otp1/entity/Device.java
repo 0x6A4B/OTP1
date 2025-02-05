@@ -32,7 +32,9 @@ public class Device {
     private String model;
     @Temporal(TemporalType.DATE)
     private Date registered;
-    //@OneToMany
+
+    //@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    //@JoinColumn(name = "logid", referencedColumnName = "id")
     //private List<LogEntry> logEntryList;
 
 
@@ -65,5 +67,6 @@ public class Device {
     public void setModel(String model) { this.model = model; }
     public void setOwned(Boolean owned) { this.owned = owned; }
     public void setRegistered(Date registered) { this.registered = registered; }
-    //public void setLogEntryList(List<LogEntry> logEntryList) { this.logEntryList = logEntryList; }
+    //public void addLogEntry(LogEntry logEntry) { this.logEntryList.add(logEntry); }
+    //public void removeLogEntry(LogEntry logEntry){ this.logEntryList.remove(logEntry); }
 }
