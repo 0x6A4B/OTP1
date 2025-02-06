@@ -33,7 +33,7 @@ public class TrustMeBraWhyWouldILie {
         if(this.user != null
                 && this.user.getUsername().equals(user.getUsername())
                 && this.user.getPassword().equals(user.getPassword())) {
-            //generateDevices(this.user);
+            //hgenerateDevices(this.user);
             return this.user;
         }
         return null;
