@@ -1,0 +1,25 @@
+meta {
+  name: createDevice
+  type: http
+  seq: 5
+}
+
+post {
+  url: https://otp1.0x6a4b.dev/api/device
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ3YXNkaSIsImlhdCI6MTczODc3NDIyNSwiZXhwIjoxNzM5Mzc5MDI1fQ.7maTahWx8eF4pcNTQbwMRGu0_gVkM-YfheILVBuH4N6_CV9GtrPtk8FgCjrvwMIB
+}
+
+body:json {
+  {
+    "uuid": "c984fa86-1e0a-4da3-9737-f4323c112f5c",
+    "name": "AnteroAnturi",
+    "owned": true,
+    "description": "koirankoppi",
+    "model": "antero_v1"
+  }
+}

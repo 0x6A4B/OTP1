@@ -1,5 +1,17 @@
 # Install
 
+## Infra
+
+0x6a4b.dev server has reverse-proxy and cert manager. Forwards otp1 => our projects opensuse server where we have all services containerized.
+- otp1.0x6a4b.dev/api ==> forwarded to spring boot API container
+- otp1-jenkins.0x6a4b.dev ==> forwarded to jenkins container
+- otp1.0x6a4b.dev/[CENSORED] ==> forwarded to an SQL browser
+- minikube dashboard and mariadb can be accessed via SSH tunneling to your localhost
+
+- firewall port opened for API spring boot
+
+
+
 ## Proxmox
 
 ### Download, verify checksum, create bootable
@@ -105,10 +117,10 @@ Ports from outside:
 
 Addresses:
 
-https://otp1-jenkins.0x6a4b.dev/
-https://otp1.0x6a4b.dev/adminer
-https://otp1.0x6a4b.dev/api
-https://127.0.0.1:8001/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy/#/workloads?namespace=default (requires tunneling)
+- https://otp1-jenkins.0x6a4b.dev
+- https://otp1.0x6a4b.dev/adminer
+- https://otp1.0x6a4b.dev/api
+- https://127.0.0.1:8001/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy/#/workloads?namespace=default (requires tunneling)
 
 
 SSH connection:
@@ -174,3 +186,43 @@ minikube version
 ```
 minikube version: v1.34.0
 
+
+
+### RAID
+
+Fujitsu Primergy TX1320M2F2
+
+PRAID CP400i
+
+- Clear drive configurations
+- Create a new virtual drive on VD Mgmt page
+- Add 3 of the for disks as there are 3 SAS disks and 1 SATA for extra as a files disk
+- Initialize virtual drive
+
+
+
+### SSH
+
+
+At your computer:
+
+```
+ssh-keygen
+ssh-add .ssh/id_ed25519
+```
+
+- Creates a keypair in user's home in .ssh/ -directory. Most likely named id_ed25519.
+- Second command adds to the ssh keyring, this must be run in the user's home directory where the .ssh -directory is
+- Public key is the one ending with .pub so id_ed25519.
+- Copy this to server home directory .ssh/ as authorized_keys
+
+
+Connect to the server and run this:
+
+```
+nano ~/.ssh/authorized_keys
+```
+
+- This opens a texteditor to edit the authorized_keys file and you can paste in the .pub key
+
+Now ssh should automatically use your ssh key to log in and server accepts as it's authorized

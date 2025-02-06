@@ -1,0 +1,18 @@
+meta {
+  name: login
+  type: http
+  seq: 2
+}
+
+post {
+  url: https://otp1.0x6a4b.dev/api/auth/login
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "username": "wasdi",
+    "password": "wasdi"
+  }
+}

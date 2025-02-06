@@ -1,0 +1,26 @@
+meta {
+  name: getLogEntry
+  type: http
+  seq: 11
+}
+
+get {
+  url: https://otp1.0x6a4b.dev/api/log/:id
+  body: none
+  auth: bearer
+}
+
+params:path {
+  id: 2
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ3YXNkaSIsImlhdCI6MTczODc3NDIyNSwiZXhwIjoxNzM5Mzc5MDI1fQ.7maTahWx8eF4pcNTQbwMRGu0_gVkM-YfheILVBuH4N6_CV9GtrPtk8FgCjrvwMIB
+}
+
+body:json {
+  {
+    "logkey": "temperature",
+    "value": "36.5"
+  }
+}
