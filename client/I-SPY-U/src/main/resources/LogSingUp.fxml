@@ -41,7 +41,6 @@
                                 </font>
                             </Label>
                             <TextField layoutX="76.0" layoutY="230.0" fx:id="singUpPassword"/>
-                            <TextField layoutX="75.0" layoutY="168.0" fx:id="singUpUsername"/>
                             <TextField layoutX="76.0" layoutY="103.0" fx:id="singUpEmail"/>
                             <Label layoutX="125.0" layoutY="213.0" text="Password" />
                             <Label layoutX="124.0" layoutY="151.0" text="Username" />

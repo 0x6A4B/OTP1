@@ -12,4 +12,9 @@ public class DeviceController {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
     }
+
+    @FXML
+    private void initialize(){
+        
+    }
 }

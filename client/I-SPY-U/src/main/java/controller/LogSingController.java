@@ -18,7 +18,6 @@ public class LogSingController {
     @FXML private Label logInErrorMsg;
 
     @FXML private TextField singUpEmail;
-    @FXML private TextField singUpUsername;
     @FXML private TextField singUpPassword;
     @FXML private Button singUpButton;
     @FXML private Label singUpErrorMsg;
@@ -29,6 +28,7 @@ public class LogSingController {
         stage.close();
     }
 
+    @FXML
     private void handleLogInButtonAction(ActionEvent event) {
         String email = logInEmail.getText();
         String password = logInPassword.getText();
@@ -36,7 +36,7 @@ public class LogSingController {
         Boolean awnser = true;
         String error = "error happened";
         if (awnser) {
-            //awnser is the response if log in is fine
+            //awnser is the response if login is fine
             try {
                 GUI.setScene("DevicesList", 500, 500);
             } catch (IOException e) {
@@ -46,15 +46,16 @@ public class LogSingController {
             setErrorMsg(error);
         }
     }
+
+    @FXML
     private void handleSingUpButtonAction(ActionEvent event) {
         String email = singUpEmail.getText();
-        String username = singUpUsername.getText();
         String password = singUpPassword.getText();
         //here we send the SingUp to motor and then api
         Boolean awnser = true;
         String error = "error happened";
         if (awnser) {
-            //awnser is the response if log in is fine
+            //awnser is the response if singup is fine
             try {
                 GUI.setScene("DevicesList", 500, 500);
             } catch (IOException e) {
@@ -75,7 +76,7 @@ public class LogSingController {
     @FXML
     private void initialize() {
         logInButton.disableProperty().bind(logInEmail.textProperty().isEmpty().or(logInPassword.textProperty().isEmpty()));
-        singUpButton.disableProperty().bind(singUpEmail.textProperty().isEmpty().or(singUpUsername.textProperty().isEmpty()).or(singUpPassword.textProperty().isEmpty()));
+        singUpButton.disableProperty().bind(singUpEmail.textProperty().isEmpty().or(singUpPassword.textProperty().isEmpty()));
         logInErrorMsg.setVisible(false);
         singUpErrorMsg.setVisible(false);
     }

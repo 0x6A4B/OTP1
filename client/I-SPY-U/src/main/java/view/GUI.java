@@ -28,5 +28,6 @@ public class GUI extends Application {
         Stage stage = (Stage) scene.getWindow();
         stage.setWidth(width);
         stage.setHeight(height);
+        stage.centerOnScreen();
     }
 }
