@@ -56,6 +56,7 @@ public class DeviceListController {
 
     @FXML
     private void openDevice(ActionEvent event){
+        /* TODO: miten täs sais datan jos vaikka on vain devcies id?? ja sit jatkaa eteenpäin */
         System.out.println("Open own device"+currentDevice);
         try {
                 GUI.setScene("Device", 500, 500);
@@ -78,6 +79,7 @@ public class DeviceListController {
         ownDeviceDetalsLabel.setText(((Label) event.getSource()).getText());
         currentDevice = ((Label) event.getSource()).getText();
         ownDeviceDetalsListview.getItems().clear();
+        /* TODO: miten sais ne recent readings (vaikka vikat 10) devicelle joka on valittu */
         for (int i = 0; i < 10; i++) {
             String date = "6.2.2025";
             String time = "14:00";
@@ -101,6 +103,7 @@ public class DeviceListController {
         sharedDeviceDetalsLabel.setText(((Label) event.getSource()).getText());
         currentDevice = ((Label) event.getSource()).getText();
         sharedDeviceDetalsListview.getItems().clear();
+        /* TODO: miten sais ne recent readings (vaikka vikat 10) devicelle joka on valittu */
         for (int i = 0; i < 10; i++) {
             String date = "5.2.2025";
             String time = "20:00";
@@ -113,7 +116,8 @@ public class DeviceListController {
 
     @FXML
     private void initialize(){
-        String response = "device1, device2, device3"; //this is the response from the server of the devices
+        /* TODO: kato miten data tulee ja sen sais noihin labels sisään/kiinni niihin. vai laitetaanko vaa id siihe ja sit hakee aina erikseen */
+        String response = "device1, device2, device3";
         String[] devices = response.split(",");
         for (String device : devices) {
             myDevicesList.getChildren().add(createNewDeviceLabel(device, true));

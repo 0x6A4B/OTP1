@@ -32,11 +32,10 @@ public class LogSingController {
     private void handleLogInButtonAction(ActionEvent event) {
         String email = logInEmail.getText();
         String password = logInPassword.getText();
-        //here we send the logIn to motor and then api
+        /* TODO lähetä request apille ja sit kato onko answer toimii vai ei ja sit jatka sen mukaan */
         Boolean awnser = true;
         String error = "error happened";
         if (awnser) {
-            //awnser is the response if login is fine
             try {
                 GUI.setScene("DevicesList", 500, 500);
             } catch (IOException e) {
@@ -51,11 +50,10 @@ public class LogSingController {
     private void handleSingUpButtonAction(ActionEvent event) {
         String email = singUpEmail.getText();
         String password = singUpPassword.getText();
-        //here we send the SingUp to motor and then api
+        /* TODO lähetä request apille ja sit kato onko answer toimii vai ei ja sit jatka sen mukaan */
         Boolean awnser = true;
         String error = "error happened";
         if (awnser) {
-            //awnser is the response if singup is fine
             try {
                 GUI.setScene("DevicesList", 500, 500);
             } catch (IOException e) {
