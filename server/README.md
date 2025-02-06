@@ -21,7 +21,7 @@ docker build -t otp1 .
 
 Docker run
 ```
-docker run otp1 -p 8088:8088
+docker run -p 8088:8088 otp1
 ```
 
 

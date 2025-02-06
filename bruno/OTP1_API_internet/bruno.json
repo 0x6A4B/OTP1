@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "OTP1_API_internet",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}
