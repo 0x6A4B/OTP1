@@ -12,18 +12,14 @@ OTP1 Software Engineering Project 1
 - presentation link(https://docs.google.com/presentation/d/1MlfKxJ8iGxZMGYpVgSVQCBMqi3PgQaskcB6KySv8td0/edit#slide=id.g3268e255a1e_0_438)
 
 
-## Aiheet
+## Muu dokumentaatio
 
-### #8:
+- [DB ERD](./db.md)
+- [Palvelimen asennuksesta](./install.md)
+- [Luokkakaavio UML](./uml.md)
+- [API deployment](server/README.md)
 
-8. Classroom Resource Sharing Platform
-
-- Description: A platform for teachers and students to share study materials, textbooks, and other educational resources.
-- Features:
-    Upload and download resources (e.g., textbooks, study guides, presentations).
-    Categorize resources by subject or topic.
-    Rating and reviewing system for materials.
-    Technologies: JavaFX, MariaDB (for resources, users, and ratings).
+Bruno API testauksen määrittelyt [bruno/](bruno/) hakemistossa, lokaali ja remote API:lle
 
 
 ### Mikrokontrolleri

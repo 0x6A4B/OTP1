@@ -1,5 +1,17 @@
 # Install
 
+## Infra
+
+0x6a4b.dev server has reverse-proxy and cert manager. Forwards otp1 => our projects opensuse server where we have all services containerized.
+- otp1.0x6a4b.dev/api ==> forwarded to spring boot API container
+- otp1-jenkins.0x6a4b.dev ==> forwarded to jenkins container
+- otp1.0x6a4b.dev/[CENSORED] ==> forwarded to an SQL browser
+- minikube dashboard and mariadb can be accessed via SSH tunneling to your localhost
+
+- firewall port opened for API spring boot
+
+
+
 ## Proxmox
 
 ### Download, verify checksum, create bootable
