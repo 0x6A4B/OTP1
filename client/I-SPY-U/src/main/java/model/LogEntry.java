@@ -14,12 +14,12 @@ public class LogEntry {
 
 
     public LogEntry(){ this.date = new Date(); }
-    /*public LogEntry(Device device, String logkey, String value){
+    public LogEntry(Device device, String logkey, String value){
         this.device = device;
         this.date = new Date();
         this.logkey = logkey;
         this.value = value;
-    }*/
+    }
 
     public Long getId() { return id; }
     public Device getDevice() { return device; }
