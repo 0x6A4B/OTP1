@@ -41,7 +41,7 @@ public class Person {
     public void setId(Long id){ this.id = id; }
     //public void setUserId(Long userid){ this.userid = userid; }
     public void setFirstName(String firstname){ this.firstname = firstname; }
-    public void setLastName(String lastName){ this.lastname = lastname; }
+    public void setLastName(String lastname){ this.lastname = lastname; }
     public void setEmail(String email){ this.email = email; }
     public void setStreet(String street){ this.street = street; }
     public void setCity(String city){ this.city = city; }

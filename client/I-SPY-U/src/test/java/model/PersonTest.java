@@ -18,7 +18,7 @@ class PersonTest {
 
     @Test
     void getId() {
-        assertEquals(0, person.getId());
+        assertEquals(null, person.getId());
     }
 
     @Test
