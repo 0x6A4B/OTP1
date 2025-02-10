@@ -9,21 +9,22 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DeviceListController">
    <children>
       <TabPane prefHeight="500.0" prefWidth="500.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab text="Shared Devices">
+          <Tab text="My Devices">
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                 <children>
                     <ScrollPane layoutX="35.0" layoutY="36.0" prefHeight="400.0" prefWidth="200.0">
                         <content>
-                            <VBox prefHeight="400.0" prefWidth="185.0">
+                            <VBox prefHeight="400.0" prefWidth="185.0" fx:id="myDevicesList" pickOnBounds="false">
                             <children>
-                                <Label prefHeight="30.0" prefWidth="185.0" style="-fx-border-color: Black;" text="Device name">
+                                <Label prefHeight="30.0" prefWidth="185.0" style="-fx-border-color: Black;" text="Device name" onMouseClicked="#ownShowOwnDeviceDetails">
                                     <padding>
                                         <Insets left="10.0" />
                                     </padding>
@@ -32,22 +33,25 @@
                             </VBox>
                         </content>
                     </ScrollPane>
-                    <VBox layoutX="264.0" layoutY="36.0" prefHeight="350.0" prefWidth="200.0" style="-fx-border-color: Black;">
+                    <VBox layoutX="264.0" layoutY="36.0" prefHeight="350.0" prefWidth="200.0" style="-fx-border-color: Black;" fx:id="ownDeviceDetails">
                         <children>
-                            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="35.0" prefWidth="200.0" text="Device name" textAlignment="CENTER">
+                            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="35.0" prefWidth="200.0" text="Device name" textAlignment="CENTER" fx:id="ownDeviceDetalsLabel">
                             <padding>
                                 <Insets top="10.0" />
                             </padding>
+                            <font>
+                                <Font size="16.0" />
+                            </font>
                             </Label>
                             <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="200.0" text="Log of last measurements:" textAlignment="CENTER">
                             <padding>
                                 <Insets bottom="2.0" />
                             </padding>
                             </Label>
-                            <ListView prefHeight="267.0" prefWidth="200.0" style="-fx-border-color: Black;" />
+                            <ListView prefHeight="267.0" prefWidth="200.0" style="-fx-border-color: Black;" fx:id="ownDeviceDetalsListview"/>
                         </children>
                     </VBox>
-                    <Button layoutX="366.0" layoutY="389.0" mnemonicParsing="false" text="Open Device">
+                    <Button layoutX="366.0" layoutY="389.0" mnemonicParsing="false" text="Open Device" fx:id="openDeviceButton" onAction="#openDevice">
                         <padding>
                             <Insets bottom="15.0" left="15.0" right="15.0" top="12.0" />
                         </padding>
@@ -56,15 +60,15 @@
                 </AnchorPane>
             </content>
         </Tab>
-            <Tab text="My Devices">
+            <Tab text="Shared Devices">
                 <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                         <children>
                             <ScrollPane layoutX="35.0" layoutY="36.0" prefHeight="400.0" prefWidth="200.0">
                                 <content>
-                                    <VBox prefHeight="400.0" prefWidth="185.0">
+                                    <VBox prefHeight="400.0" prefWidth="185.0" fx:id="sharedDevicesList">
                                     <children>
-                                        <Label prefHeight="30.0" prefWidth="185.0" style="-fx-border-color: Black;" text="Device name">
+                                        <Label prefHeight="30.0" prefWidth="185.0" style="-fx-border-color: Black;" text="Device name" onMouseClicked="#sharedShowOwnDeviceDetails">
                                             <padding>
                                                 <Insets left="10.0" />
                                             </padding>
@@ -73,22 +77,25 @@
                                     </VBox>
                                 </content>
                             </ScrollPane>
-                            <VBox layoutX="264.0" layoutY="36.0" prefHeight="350.0" prefWidth="200.0" style="-fx-border-color: Black;">
+                            <VBox layoutX="264.0" layoutY="36.0" prefHeight="350.0" prefWidth="200.0" style="-fx-border-color: Black;" fx:id="sharedDeviceDetails">
                                 <children>
-                                    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="35.0" prefWidth="200.0" text="Device name" textAlignment="CENTER">
+                                    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="35.0" prefWidth="200.0" text="Device name" textAlignment="CENTER" fx:id="sharedDeviceDetalsLabel">
                                     <padding>
                                         <Insets top="10.0" />
                                     </padding>
+                                    <font>
+                                        <Font size="16.0" />
+                                    </font>
                                     </Label>
                                     <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="200.0" text="Log of last measurements:" textAlignment="CENTER">
                                     <padding>
                                         <Insets bottom="2.0" />
                                     </padding>
                                     </Label>
-                                    <ListView prefHeight="267.0" prefWidth="200.0" style="-fx-border-color: Black;" />
+                                    <ListView prefHeight="267.0" prefWidth="200.0" style="-fx-border-color: Black;" fx:id="sharedDeviceDetalsListview"/>
                                 </children>
                             </VBox>
-                            <Button layoutX="366.0" layoutY="389.0" mnemonicParsing="false" text="Open Device">
+                            <Button layoutX="366.0" layoutY="389.0" mnemonicParsing="false" text="Open Device" fx:id="openDeviceButton" onAction="#openDevice">
                                 <padding>
                                     <Insets bottom="15.0" left="15.0" right="15.0" top="12.0" />
                                 </padding>
@@ -98,6 +105,11 @@
             </Tab>
         </tabs>
       </TabPane>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutY="2.0" prefWidth="500.0" text="I-SPY-U" textAlignment="JUSTIFY" mouseTransparent="true">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
       <Button layoutX="474.0" layoutY="2.0" maxHeight="23.0" minHeight="23.0" mnemonicParsing="false" style="-fx-background-color: red;" text="X" textFill="WHITE" onAction="#handleCloseButtonAction"/>
    </children>
 </AnchorPane>
