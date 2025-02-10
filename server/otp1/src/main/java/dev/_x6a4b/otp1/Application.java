@@ -21,6 +21,16 @@ public class Application {
         return "It works!!!";
     }
 
+    @RequestMapping("/api/user")
+    public String getUser(){
+        return "user";
+    }
+
+    @RequestMapping("/api/user")
+    public String postUser(){
+        return "user";
+    }
+
     public static void main(String[] args) {
         //SpringApplication.run(Application.class, args);
         SpringApplication app = new SpringApplication(Application.class);

@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class GUI extends Application {
     private static Scene scene;
@@ -16,6 +17,7 @@ public class GUI extends Application {
         scene = new Scene(FXMLLoader.load(getClass().getResource("/MainView.fxml")), 300, 300);
         System.out.println("FXML file loaded successfully.");
 
+        stage.initStyle(StageStyle.UNDECORATED);
         stage.setTitle("I-SPY-U");
         stage.setScene(scene);
         stage.show();
@@ -26,5 +28,6 @@ public class GUI extends Application {
         Stage stage = (Stage) scene.getWindow();
         stage.setWidth(width);
         stage.setHeight(height);
+        stage.centerOnScreen();
     }
 }

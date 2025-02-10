@@ -1,0 +1,25 @@
+meta {
+  name: register
+  type: http
+  seq: 3
+}
+
+post {
+  url: https://otp1.0x6a4b.dev/api/auth/register
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "username": "wasdi",
+    "password": "wasdi",
+    "status": "active",
+    "firstname": "wasdi",
+    "lastname": "wasdinen",
+    "email": "wasdi@wasd.asd",
+    "city": "wasdiville",
+    "postalcode": "AB789",
+    "street": "5th wasd avenue 666"
+  }
+}
