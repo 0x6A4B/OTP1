@@ -15,6 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.collections.FXCollections?>
 <?import java.lang.String?>
+<?import javafx.geometry.Insets?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DeviceController">
    <children>
@@ -30,7 +31,7 @@
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="465.0" prefWidth="485.0">
                                  <children>
                                     <Label alignment="CENTER" contentDisplay="CENTER" layoutY="55.0" prefWidth="485.0" text="Daily temperatures" textAlignment="CENTER" />
-                                    <LineChart layoutX="43.0" layoutY="72.0" prefHeight="200.0" prefWidth="400.0">
+                                    <LineChart layoutX="40.0" layoutY="72.0" prefHeight="200.0" prefWidth="400.0">
                                        <xAxis>
                                           <CategoryAxis side="BOTTOM" />
                                        </xAxis>
@@ -64,14 +65,19 @@
                                     </Label>
                                     <TextField layoutX="68.0" layoutY="60.0" />
                                     <TextField layoutX="68.0" layoutY="96.0" />
-                                    <Label layoutX="34.0" layoutY="64.0" text="Min:" />
-                                    <Label layoutX="34.0" layoutY="100.0" text="Max:" />
-                                    <Label layoutX="23.0" layoutY="183.0" text="Set Action">
+                                    <Label layoutX="30.0" layoutY="64.0" text="Min:" />
+                                    <Label layoutX="30.0" layoutY="100.0" text="Max:" />
+                                    <Button layoutX="30.0" layoutY="132.0" mnemonicParsing="false" text="Set">
+                                       <padding>
+                                          <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
+                                       </padding>
+                                    </Button>
+                                    <Label layoutX="25.0" layoutY="183.0" text="Set Action">
                                        <font>
                                           <Font size="20.0" />
                                        </font>
                                     </Label>
-                                    <ChoiceBox layoutX="26.0" layoutY="227.0" prefWidth="150.0" fx:id="actionChoice">
+                                    <ChoiceBox layoutX="30.0" layoutY="227.0" prefWidth="150.0" fx:id="actionChoice">
                                        <items>
                                           <FXCollections fx:factory="observableArrayList">
                                              <String fx:value="Send an email" />
@@ -79,8 +85,13 @@
                                           </FXCollections>
                                        </items>
                                     </ChoiceBox>
-                                    <Label layoutX="35.0" layoutY="283.0" text="Email for action:" />
-                                    <TextField layoutX="35.0" layoutY="300.0" promptText="GIVE ME INPUT" />
+                                    <Label layoutX="30.0" layoutY="283.0" text="Email for action:" />
+                                    <TextField layoutX="30.0" layoutY="300.0" promptText="GIVE ME INPUT" />
+                                    <Button layoutX="30.0" layoutY="340.0" mnemonicParsing="false" text="Set">
+                                       <padding>
+                                          <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
+                                       </padding>
+                                    </Button>
                                  </children>
                               </AnchorPane>
                            </content>
@@ -102,14 +113,19 @@
                                           <Font size="20.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="28.0" layoutY="78.0" text="Email:" />
+                                    <Label layoutX="25.0" layoutY="78.0" text="Email:" />
                                     <TextField layoutX="62.0" layoutY="74.0" />
-                                    <Label layoutX="28.0" layoutY="187.0" text="What shared people can do">
+                                    <Button layoutX="25.0" layoutY="120.0" mnemonicParsing="false" text="Share">
+                                       <padding>
+                                          <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
+                                       </padding>
+                                    </Button>
+                                    <Label layoutX="20.0" layoutY="187.0" text="What shared people can do">
                                        <font>
                                           <Font size="16.0" />
                                        </font>
                                     </Label>
-                                    <ChoiceBox layoutX="28.0" layoutY="233.0" prefWidth="150.0" fx:id="shareChoice">
+                                    <ChoiceBox layoutX="25.0" layoutY="233.0" prefWidth="150.0" fx:id="shareChoice">
                                        <items>
                                           <FXCollections fx:factory="observableArrayList">
                                              <String fx:value="Editor" />
@@ -117,6 +133,11 @@
                                           </FXCollections>
                                        </items>
                                     </ChoiceBox>
+                                    <Button layoutX="25.0" layoutY="282.0" mnemonicParsing="false" text="Set">
+                                       <padding>
+                                          <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
+                                       </padding>
+                                    </Button>
                                  </children>
                               </AnchorPane>
                            </content>
