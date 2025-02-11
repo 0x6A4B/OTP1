@@ -15,13 +15,36 @@ public class TrustMeBraWhyWouldILie {
     private final int DEVICES = 5;
     private final int DEVICELOGS = 20;
 
+    private static TrustMeBraWhyWouldILie instance = new TrustMeBraWhyWouldILie();
+
+    public static TrustMeBraWhyWouldILie getInstance(){ return instance; }
 
     public TrustMeBraWhyWouldILie(){};
 
-    public List<Device> getDevices(User user){
 
+
+    public List<Device> getDevices(User user){
         return devices;
     }
+
+    public Device createDevice(Device device){
+        devices.add(device);
+        return device;
+    }
+
+    public boolean removeDevice(Device device){
+        return devices.remove(device);
+    }
+
+    public LogEntry createLogEntry(LogEntry logEntry){
+        logEntries.add(logEntry);
+        return logEntry;
+    }
+
+    public boolean removeLogEntry(LogEntry logEntry){
+        return logEntries.remove(logEntry);
+    }
+
     public List<LogEntry> getLogEntries(Device device){
         //if(logEntries == null)
         //    return null;
