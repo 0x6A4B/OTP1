@@ -7,11 +7,11 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public abstract class HttpQuery {
+    private String apiUrl;
 
+    public HttpQuery(String apiUrl) { this.apiUrl = apiUrl; }
 
-    public HttpQuery() {
-
-    }
+    //public void setApiUrl(String apiUrl){ this.apiUrl = apiUrl; }
 
 
 }
