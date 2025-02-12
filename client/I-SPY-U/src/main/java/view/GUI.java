@@ -10,6 +10,7 @@ import javafx.stage.StageStyle;
 
 public class GUI extends Application {
     private static Scene scene;
+    private static Stage popupStage = new Stage();
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -29,5 +30,15 @@ public class GUI extends Application {
         stage.setWidth(width);
         stage.setHeight(height);
         stage.centerOnScreen();
+    }
+
+    public static void openPopup(String fxml, int width, int height) throws IOException {
+        popupStage.initStyle(StageStyle.UNDECORATED);
+        popupStage.setScene(new Scene(FXMLLoader.load(GUI.class.getResource("/" + fxml + ".fxml")), width, height));
+        popupStage.show();
+    }
+
+    public static void closePopup() throws IOException {
+        popupStage.close();
     }
 }
