@@ -111,7 +111,6 @@ public class DeviceListController {
     }
 
     private void addNewDevice(MouseEvent event){
-        /* TODO here we want to open the add new device window */
         try {
             GUI.openPopup("AddDeviceWindow", 300, 350);
         } catch (IOException e) {
@@ -130,7 +129,10 @@ public class DeviceListController {
         return newdeviceLabel;
     }
 
-    private void getDevices(VBox boksi, String response/* response vaa täyttää tässä, tähän että hakee omat tai shared */){
+    private void getDevices(VBox boksi, String response/* response vaa täyttää tässä */){
+        /* TODO: tässä pitäis hakee ne devicet ja laittaa ne tohon boksiin
+        pitää kattoo jos siihen saa jotenki dictionary tyylisesti
+        jotta voidaan saada ehkä id siihen mukaan ja sit se device ikkunalle eteenpäin */
         String[] devices = response.split(",");
         for (String device : devices) {
             boksi.getChildren().add(createNewDeviceLabel(device));
@@ -147,7 +149,6 @@ public class DeviceListController {
 
     @FXML
     private void initialize(){
-        /* TODO: kato miten data tulee ja sen sais noihin labels sisään/kiinni niihin. vai laitetaanko vaa id siihe ja sit hakee aina erikseen */
         refreshDevices();
 
         myDevicesList.getChildren().add(addNewDeviceButton());
