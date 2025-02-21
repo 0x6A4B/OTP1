@@ -7,4 +7,5 @@ public interface IManager<T, S> {
     public T create(T t);
     public List<T> readAll(S s);
     public boolean remove(T t);
+    public T update(T t);
 }

@@ -1,5 +1,6 @@
 package service;
 
+import http.LogQuery;
 import model.Device;
 import model.LogEntry;
 import model.TrustMeBraWhyWouldILie;
@@ -9,10 +10,10 @@ import java.util.List;
 
 public class LogManager implements IManager{
     private final TrustMeBraWhyWouldILie service = TrustMeBraWhyWouldILie.getInstance();
-
+    private final LogQuery logQuery = new LogQuery();
     @Override
     public Object read(Object o) {
-        return service.getLogEntries((Device) o);
+        return LogQuery.handle("READ", o);
     }
 
     @Override
@@ -22,12 +23,17 @@ public class LogManager implements IManager{
     }
 
     @Override
+    public Object update(Object o) {
+        return null; // can't update logentries
+    }
+
+    @Override
     public List readAll(Object o) {
-        return service.getLogEntries((Device) o);
+        return LogQuery.handle("READALL", o);
     }
 
     @Override
     public boolean remove(Object o) {
-        return service.removeLogEntry((LogEntry) o);
+        return LogQuery.handle("REMOVE", o);
     }
 }
