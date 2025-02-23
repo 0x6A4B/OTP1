@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+    mosquitto:
+        image: eclipse-mosquitto:2
+        ports:
+            - 1883:1883
+#            - 8883:8883  # tls
+#            - 9001:9001  # websocket
+        volumes:
+            - ./config:/mosquitto/config
+            - ./data:/mosquitto/data
+            - ./log:/mosquitto/log
+        networks:
+            - mosquitto
+networks:
+    mosquitto:
+        name: mosquitto
+        driver: bridge
