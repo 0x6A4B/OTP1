@@ -132,7 +132,12 @@ public class DeviceListController extends IController {
     }
 
     @Override
-    public void start(){myDevicesList.getChildren().add(addNewDeviceButton());
+    public void start(){
+        devices = client.getDevices(gui.getUser());
+        getDevices(myDevicesList);
+        getDevices(sharedDevicesList);
+
+        myDevicesList.getChildren().add(addNewDeviceButton());
         sharedDevicesList.getChildren().add(addNewDeviceButton());
         ownDeviceDetails.setVisible(false);
         sharedDeviceDetails.setVisible(false);
@@ -151,9 +156,5 @@ public class DeviceListController extends IController {
                 switchToSharedDevices();
             }
         });
-
-        devices = client.getDevices(gui.getUser());
-        getDevices(myDevicesList);
-        getDevices(sharedDevicesList);
     }
 }

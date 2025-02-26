@@ -36,7 +36,7 @@ public class DeviceController extends IController {
         List<LogEntry> logs = client.getLogEntries(device);
         for (LogEntry i : logs) {
             calendar.setTime(i.getDate());
-            series.getData().add(new XYChart.Data<>((calendar.get(Calendar.DATE) + "/" + (calendar.get(Calendar.MONTH) + 1) + "/" + calendar.get(Calendar.YEAR)), i.getValue()));
+            series.getData().add(new XYChart.Data<>((calendar.get(Calendar.DATE) + "/" + (calendar.get(Calendar.MONTH) + 1) + "/" + calendar.get(Calendar.YEAR)), i.getValue().substring(0, 6)));
         }
     
         lineChart.getData().add(series);
