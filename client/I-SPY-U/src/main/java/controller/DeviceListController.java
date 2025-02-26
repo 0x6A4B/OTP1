@@ -14,14 +14,10 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import model.Device;
 import model.LogEntry;
-import model.TrustMeBraWhyWouldILie;
-import model.User;
-import view.GUI;
 
-public class DeviceListController {
+public class DeviceListController extends IController {
 
     private VBox DevicesList;
     private VBox DeviceDetails;
@@ -44,16 +40,8 @@ public class DeviceListController {
     @FXML private Label sharedDeviceDetalsLabel;
     @FXML private ListView sharedDeviceDetalsListview;
 
-    private TrustMeBraWhyWouldILie client = GUI.getService();
-    private User user = GUI.getUser();
-    private List<Device> devices = client.getDevices(user);
+    private List<Device> devices;
     private Device currentDevice;
-
-    @FXML
-    private void handleCloseButtonAction(ActionEvent event) {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();
-    }
 
     private Label createNewDeviceLabel(Device dev){
         Label deviceLabel = new Label(dev.getName());
@@ -71,8 +59,8 @@ public class DeviceListController {
         /* TODO: miten täs sais datan jos vaikka on vain devcies id?? ja sit jatkaa eteenpäin */
         System.out.println("Open own device"+currentDevice);
         try {
-                GUI.setCurrentDevice(currentDevice);
-                GUI.setScene("Device", 500, 500);
+                gui.setCurrentDevice(currentDevice);
+                gui.setScene("Device", 500, 500);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -117,7 +105,7 @@ public class DeviceListController {
 
     private void addNewDevice(MouseEvent event){
         try {
-            GUI.openPopup("AddDeviceWindow", 300, 350);
+            gui.openPopup("AddDeviceWindow", 300, 350);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -143,16 +131,8 @@ public class DeviceListController {
         }
     }
 
-    public void refreshDevices(){
-        getDevices(myDevicesList);
-        getDevices(sharedDevicesList);
-    }
-
-    @FXML
-    private void initialize(){
-        refreshDevices();
-
-        myDevicesList.getChildren().add(addNewDeviceButton());
+    @Override
+    public void start(){myDevicesList.getChildren().add(addNewDeviceButton());
         sharedDevicesList.getChildren().add(addNewDeviceButton());
         ownDeviceDetails.setVisible(false);
         sharedDeviceDetails.setVisible(false);
@@ -171,5 +151,9 @@ public class DeviceListController {
                 switchToSharedDevices();
             }
         });
+
+        devices = client.getDevices(gui.getUser());
+        getDevices(myDevicesList);
+        getDevices(sharedDevicesList);
     }
 }

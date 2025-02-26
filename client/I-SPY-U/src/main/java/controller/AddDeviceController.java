@@ -2,27 +2,18 @@ package controller;
 
 import java.io.IOException;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import view.GUI;
 
-public class AddDeviceController {
+public class AddDeviceController extends IController {
 
     @FXML TextField uuid;
     @FXML TextField name;
     @FXML TextField desc;
 
     @FXML Button AddDeviceButton;
-
-    @FXML
-    private void handleCloseButtonAction(ActionEvent event) {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();
-    }
 
     @FXML 
     private void handleAddDeviceButtonAction(){
@@ -40,8 +31,8 @@ public class AddDeviceController {
             }
     }
 
-    @FXML
-    private void initialize(){
+    @Override
+    public void start(){
         AddDeviceButton.disableProperty().bind(uuid.textProperty().isEmpty().or(name.textProperty().isEmpty().or(desc.textProperty().isEmpty())));
     }
 }

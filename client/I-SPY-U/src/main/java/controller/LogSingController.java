@@ -4,17 +4,13 @@ import java.io.IOException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import model.Person;
-import model.TrustMeBraWhyWouldILie;
 import model.User;
-import view.GUI;
 
-public class LogSingController {
+public class LogSingController extends IController {
     @FXML private TextField logInUsername;
     @FXML private TextField logInPassword;
     @FXML private Button logInButton;
@@ -25,14 +21,7 @@ public class LogSingController {
     @FXML private Button singUpButton;
     @FXML private Label singUpErrorMsg;
 
-    private TrustMeBraWhyWouldILie client = GUI.getService();
     private User awnser;
-    
-    @FXML
-    private void handleCloseButtonAction(ActionEvent event) {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();
-    }
 
     @FXML
     private void handleLogInButtonAction(ActionEvent event) {
@@ -42,8 +31,8 @@ public class LogSingController {
         String error = "error happened";
         if (awnser != null) {
             try {
-                GUI.setUser(awnser);
-                GUI.setScene("DevicesList", 500, 500);
+                gui.setUser(awnser);
+                gui.setScene("DevicesList", 500, 500);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -64,8 +53,8 @@ public class LogSingController {
         String error = "error happened";
         if (awnser != null) {
             try {
-                GUI.setUser(awnser);
-                GUI.setScene("DevicesList", 500, 500);
+                gui.setUser(awnser);
+                gui.setScene("DevicesList", 500, 500);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -81,8 +70,8 @@ public class LogSingController {
         singUpErrorMsg.setText(msg);
     }
 
-    @FXML
-    private void initialize() {
+    @Override
+    public void start() {
         logInButton.disableProperty().bind(logInUsername.textProperty().isEmpty().or(logInPassword.textProperty().isEmpty()));
         singUpButton.disableProperty().bind(singUpEmail.textProperty().isEmpty().or(singUpPassword.textProperty().isEmpty()));
         logInErrorMsg.setVisible(false);

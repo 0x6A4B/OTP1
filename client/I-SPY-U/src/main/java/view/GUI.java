@@ -41,8 +41,10 @@ public class GUI extends Application {
             e.printStackTrace();
         }
         IController kontrolleri = loader.getController();
-        kontrolleri.testing();
         System.out.println("kontrolleri: "+loader.getController());
+        kontrolleri.setClient(GUI.service);
+        kontrolleri.setGUI(this);
+        kontrolleri.start();
         return loaded;
     }
 
@@ -68,10 +70,6 @@ public class GUI extends Application {
 
     public static Device getCurrentDevice() {
         return GUI.currentDevice;
-    }
-
-    public static TrustMeBraWhyWouldILie getService() {
-        return GUI.service;
     }
 
     public static void openPopup(String fxml, int width, int height) throws IOException {

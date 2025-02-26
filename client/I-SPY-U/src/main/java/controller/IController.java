@@ -8,8 +8,8 @@ import model.TrustMeBraWhyWouldILie;
 import view.GUI;
 
 public abstract class IController {
-    private GUI gui;
-    private TrustMeBraWhyWouldILie client;
+    public GUI gui;
+    public TrustMeBraWhyWouldILie client;
 
     @FXML
     private void handleCloseButtonAction(ActionEvent event) {
@@ -22,7 +22,7 @@ public abstract class IController {
     public void setClient(TrustMeBraWhyWouldILie client) {
         this.client = client;
     }
-    public void testing() {
-        System.out.println("Testing");
-    }
+    public void start(){
+        System.out.println("Starting");
+    };
 }
