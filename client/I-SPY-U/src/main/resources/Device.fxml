@@ -4,9 +4,9 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
@@ -31,12 +31,12 @@
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="465.0" prefWidth="485.0">
                                  <children>
                                     <Label alignment="CENTER" contentDisplay="CENTER" layoutY="55.0" prefWidth="485.0" text="Daily temperatures" textAlignment="CENTER" />
-                                    <LineChart layoutX="40.0" layoutY="72.0" prefHeight="200.0" prefWidth="400.0">
+                                    <LineChart layoutX="40.0" layoutY="72.0" prefHeight="200.0" prefWidth="400.0" fx:id="lineChart">
                                        <xAxis>
-                                          <CategoryAxis side="BOTTOM" />
+                                          <CategoryAxis label="Date" />
                                        </xAxis>
                                        <yAxis>
-                                          <NumberAxis side="LEFT" />
+                                          <NumberAxis label="Measurement" />
                                        </yAxis>
                                     </LineChart>
                                     <RadioButton layoutX="150.0" layoutY="264.0" mnemonicParsing="false" selected="true" text="Daily" fx:id="radioDaily"/>
