@@ -9,6 +9,10 @@ import view.GUI;
 
 public class MyController {
 
+    public void testing() {
+        System.out.println("Testing");
+    }
+
     public void showLogSingUP() {
         try {
             GUI.setScene("LogSingUp", 300, 400);
