@@ -33,33 +33,38 @@ public class DeviceManager implements IManager {
     }
 
     public void initialDeviceList() {
-        Object alldevices = deviceQuery.handle("getDevices", devices);
+        //ArrayList<Device> devices = deviceQuery.init();
 
-        ArrayList<Device> devices = (ArrayList<Device>) alldevices;
+        // ArrayList<Device> devices = (ArrayList<Device>) alldevices;
     }
 
     @Override
     public Object create(Object device) {
-        Device newDevice = deviceQuery.handle("CREATE", device);
+        Device newDevice = (Device) deviceQuery.handle("CREATE", device);
         devices.add(newDevice);
         return newDevice;
     }
 
     @Override
-    public List readAll(Object user) {
+    public List<Device> readAll(Object o) {
+        System.out.println("devmgr.readall");
+        return deviceQuery.getDevices();
+        /*
         if (devices.isEmpty()) {
             initialDeviceList();
         }
         return devices;
+         */
     }
 
     @Override
     public boolean remove(Object device) {
-        Device deviceToRemove = (Device) device;
-        boolean removed = deviceQuery.handle("REMOVE", deviceToRemove);
-        if (removed) {
-            devices.remove(deviceToRemove);
-        }
-        return removed;
+        //Device deviceToRemove = (Device) device;
+        //boolean removed = deviceQuery.handle("REMOVE", deviceToRemove);
+        //if (removed) {
+        //    devices.remove(deviceToRemove);
+        //}
+        //return removed;
+        return false;
     }
 }

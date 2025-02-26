@@ -1,10 +1,32 @@
 package http;
 
+import config.ConfigSingleton;
 import model.User;
+import org.json.JSONObject;
 
-public class UserParser implements ResponseParser{
+import java.util.List;
+
+public class UserParser implements ResponseParser {
+
+    @Override
+    public List<Object> parseList(String response){
+        return null;
+    }
+
     @Override
     public Object parse(String response) {
-        return new User();
+
+        String token;
+
+        try {
+            JSONObject json = new JSONObject(response);
+            token = json.get("accessToken").toString();
+            System.out.println(token);
+            if (!token.equals("")) {
+                ConfigSingleton.getInstance().setToken(token);
+                return new User();
+            }
+        }catch (Exception e){ e.printStackTrace(); }
+        return null;
     }
 }

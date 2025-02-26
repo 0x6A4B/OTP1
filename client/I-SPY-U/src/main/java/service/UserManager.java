@@ -6,17 +6,28 @@ import model.User;
 
 public class UserManager {
     private final TrustMeBraWhyWouldILie service = TrustMeBraWhyWouldILie.getInstance();
-    private final UserQuery userQuery = new UserQuery();
+    private final UserQuery userQuery;
 
-    public User login(User user){return service.login(user);}
+    public UserManager(String apiUrl){
+         userQuery = new UserQuery();
+    }
 
-    public User register(User user){ return UserQuery.handle("REGISTER", user); }
+    public User login(User user){
+        System.out.println("usermg.login");
+        return userQuery.login(user);
+    }
 
-    public boolean logout(User user){
+    public User register(User user){
+        return userQuery.register(user);
+    }
+
+    //public User register(User user){ return UserQuery.handle("REGISTER", user); }
+
+    public User logout(User user){
         return UserQuery.handle("LOGOUT", user);
     }
 
-    public boolean remove(User user){
+    public User remove(User user){
         return UserQuery.handle("REMOVE", user);
     }
 

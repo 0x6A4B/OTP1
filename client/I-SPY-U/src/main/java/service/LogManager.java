@@ -34,6 +34,6 @@ public class LogManager implements IManager{
 
     @Override
     public boolean remove(Object o) {
-        return LogQuery.handle("REMOVE", o);
+        return LogQuery.handle2("REMOVE", o);
     }
 }
