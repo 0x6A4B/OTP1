@@ -1,7 +1,6 @@
 package controller;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import javafx.fxml.FXML;
@@ -33,14 +32,7 @@ public class DeviceController extends IController {
     private void setUpCharts() {
         XYChart.Series<String, String> series = new XYChart.Series<>();
         Calendar calendar = Calendar.getInstance();
-
-        //how to get day, month and year from Date object
-        Date date = new Date();
-        calendar.setTime(date);
-        System.out.println("Date: " + calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH) + 1) + "/" + calendar.get(Calendar.YEAR));
-
         calendar.set(2025, Calendar.FEBRUARY, 10);
-        /* TODO: switch from dummy data to actual data */
         List<LogEntry> logs = client.getLogEntries(device);
         for (LogEntry i : logs) {
             calendar.setTime(i.getDate());
