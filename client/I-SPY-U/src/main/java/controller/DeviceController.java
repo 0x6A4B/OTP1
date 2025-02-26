@@ -25,13 +25,13 @@ public class DeviceController extends IController {
     @FXML ChoiceBox<String> actionChoice;
     @FXML ChoiceBox<String> shareChoice;
 
-    @FXML LineChart<String, Number> lineChart;
+    @FXML LineChart<String, String> lineChart;
 
     private User user;
     private Device device;
 
     private void setUpCharts() {
-        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        XYChart.Series<String, String> series = new XYChart.Series<>();
         Calendar calendar = Calendar.getInstance();
 
         //how to get day, month and year from Date object
@@ -41,9 +41,10 @@ public class DeviceController extends IController {
 
         calendar.set(2025, Calendar.FEBRUARY, 10);
         /* TODO: switch from dummy data to actual data */
-        for (int i = 0; i < 10; i++) {
-            calendar.add(Calendar.DATE, 1);
-            series.getData().add(new XYChart.Data<>((calendar.get(Calendar.DATE) + "/" + (calendar.get(Calendar.MONTH) + 1) + "/" + calendar.get(Calendar.YEAR)), (Number) i));
+        List<LogEntry> logs = client.getLogEntries(device);
+        for (LogEntry i : logs) {
+            calendar.setTime(i.getDate());
+            series.getData().add(new XYChart.Data<>((calendar.get(Calendar.DATE) + "/" + (calendar.get(Calendar.MONTH) + 1) + "/" + calendar.get(Calendar.YEAR)), i.getValue()));
         }
     
         lineChart.getData().add(series);
@@ -52,7 +53,6 @@ public class DeviceController extends IController {
     @Override
     public void start(){
         device = gui.getCurrentDevice();
-        List<LogEntry> logs = client.getLogEntries(device);
         // Tarviiko user???? user = gui.getUser();
 
         radioDaily.setToggleGroup(toggleGroup);

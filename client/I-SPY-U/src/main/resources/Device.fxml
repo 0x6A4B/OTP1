@@ -5,7 +5,6 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.chart.LineChart?>
-<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
@@ -36,7 +35,7 @@
                                           <CategoryAxis label="Date" />
                                        </xAxis>
                                        <yAxis>
-                                          <NumberAxis label="Measurement" />
+                                          <CategoryAxis label="Measurement" />
                                        </yAxis>
                                     </LineChart>
                                     <RadioButton layoutX="150.0" layoutY="264.0" mnemonicParsing="false" selected="true" text="Daily" fx:id="radioDaily"/>
