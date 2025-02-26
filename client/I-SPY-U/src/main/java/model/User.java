@@ -20,6 +20,14 @@ public class User {
         this.status = status;
         this.person = person;
     }
+
+    public User(String username, String password, Person person){
+        super();
+        this.username = username;
+        this.password = password;
+        this.status = "";
+        this.person = person;
+    }
     public User(){}
 
     public long getId(){ return id; }

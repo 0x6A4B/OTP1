@@ -1,10 +1,11 @@
-import model.Device;
-import model.Person;
-import model.User;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import model.Device;
+import model.Person;
+import model.User;
 
 class ClientTest {
 
@@ -38,7 +39,7 @@ class ClientTest {
 
     @Test
     void login() {
-        assertEquals(client.login(new User("kekkonen", "kekkosen_salasana", "",
+        assertEquals(client.login(new User("kekkonen", "kekkosen_salasana",
                 new Person())).getUsername(),user.getUsername());
     }
 

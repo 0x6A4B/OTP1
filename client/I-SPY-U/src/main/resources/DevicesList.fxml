@@ -24,11 +24,6 @@
                         <content>
                             <VBox prefHeight="400.0" prefWidth="185.0" fx:id="myDevicesList" pickOnBounds="false">
                             <children>
-                                <Label prefHeight="30.0" prefWidth="185.0" style="-fx-border-color: Black;" text="Device name" onMouseClicked="#ShowOwnDeviceDetails">
-                                    <padding>
-                                        <Insets left="10.0" />
-                                    </padding>
-                                </Label>
                             </children>
                             </VBox>
                         </content>
@@ -68,11 +63,6 @@
                                 <content>
                                     <VBox prefHeight="400.0" prefWidth="185.0" fx:id="sharedDevicesList">
                                     <children>
-                                        <Label prefHeight="30.0" prefWidth="185.0" style="-fx-border-color: Black;" text="Device name" onMouseClicked="#ShowOwnDeviceDetails">
-                                            <padding>
-                                                <Insets left="10.0" />
-                                            </padding>
-                                        </Label>
                                     </children>
                                     </VBox>
                                 </content>

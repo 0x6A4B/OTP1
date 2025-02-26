@@ -7,10 +7,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import model.Device;
+import model.TrustMeBraWhyWouldILie;
+import model.User;
 
 public class GUI extends Application {
     private static Scene scene;
     private static Stage popupStage = new Stage();
+    private static TrustMeBraWhyWouldILie service = new TrustMeBraWhyWouldILie();
+    private static User user;
+    private static Device currentDevice;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -30,6 +36,26 @@ public class GUI extends Application {
         stage.setWidth(width);
         stage.setHeight(height);
         stage.centerOnScreen();
+    }
+
+    public static void setUser(User user) {
+        GUI.user = user;
+    }
+
+    public static User getUser() {
+        return GUI.user;
+    }
+
+    public static void setCurrentDevice(Device currentDevice) {
+        GUI.currentDevice = currentDevice;
+    }
+
+    public static Device getCurrentDevice() {
+        return GUI.currentDevice;
+    }
+
+    public static TrustMeBraWhyWouldILie getService() {
+        return GUI.service;
     }
 
     public static void openPopup(String fxml, int width, int height) throws IOException {

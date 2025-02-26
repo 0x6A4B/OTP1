@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,11 +15,13 @@ import javafx.scene.control.Tab;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import model.Device;
+import model.LogEntry;
+import model.TrustMeBraWhyWouldILie;
+import model.User;
 import view.GUI;
 
 public class DeviceListController {
-
-    private String currentDevice;
 
     private VBox DevicesList;
     private VBox DeviceDetails;
@@ -41,20 +44,25 @@ public class DeviceListController {
     @FXML private Label sharedDeviceDetalsLabel;
     @FXML private ListView sharedDeviceDetalsListview;
 
+    private TrustMeBraWhyWouldILie client = GUI.getService();
+    private User user = GUI.getUser();
+    private List<Device> devices = client.getDevices(user);
+    private Device currentDevice;
+
     @FXML
     private void handleCloseButtonAction(ActionEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
     }
 
-    private Label createNewDeviceLabel(String name){
-        Label deviceLabel = new Label(name);
+    private Label createNewDeviceLabel(Device dev){
+        Label deviceLabel = new Label(dev.getName());
         deviceLabel.setAlignment(Pos.CENTER);
         deviceLabel.setContentDisplay(ContentDisplay.CENTER);
         deviceLabel.setPrefHeight(30.0);
         deviceLabel.setPrefWidth(185.0);
         deviceLabel.setStyle("-fx-border-color: Black;");
-        deviceLabel.setOnMouseClicked(this::ShowOwnDeviceDetails);
+        deviceLabel.setOnMouseClicked(event -> ShowDeviceDetails(event, dev));
         return deviceLabel;
     }
 
@@ -63,6 +71,7 @@ public class DeviceListController {
         /* TODO: miten täs sais datan jos vaikka on vain devcies id?? ja sit jatkaa eteenpäin */
         System.out.println("Open own device"+currentDevice);
         try {
+                GUI.setCurrentDevice(currentDevice);
                 GUI.setScene("Device", 500, 500);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -87,7 +96,8 @@ public class DeviceListController {
     }
 
     @FXML
-    private void ShowOwnDeviceDetails(MouseEvent event){
+    private void ShowDeviceDetails(MouseEvent event, Device dev){
+        System.out.println(dev.getName());
         for (Node node : DevicesList.getChildren()) {
             if (node instanceof Label) {
             node.setStyle("-fx-background-color: white; -fx-border-color: Black;");
@@ -97,16 +107,11 @@ public class DeviceListController {
         DeviceDetails.setVisible(true);
         openDeviceButton.setVisible(true);
         DeviceDetailsLabel.setText(((Label) event.getSource()).getText());
-        currentDevice = ((Label) event.getSource()).getText();
         DeviceDetailsListview.getItems().clear();
-        /* TODO: miten sais ne recent readings (vaikka vikat 10) devicelle joka on valittu */
-        for (int i = 0; i < 10; i++) {
-            String date = "6.2.2025";
-            String time = "14:00";
-            char[] timeArray = time.toCharArray();
-            timeArray[4] = (char) (timeArray[4] + i);
-            time = new String(timeArray);
-            DeviceDetailsListview.getItems().add(date+"  "+time+"  Detail " + i);
+        currentDevice = dev;
+        List<LogEntry> entries = client.getLogEntries(dev);
+        for (int i = 0; i < 11; i++) {
+            DeviceDetailsListview.getItems().add(entries.get(i).getDate()+": "+entries.get(i).getValue());
         }
     }
 
@@ -129,22 +134,18 @@ public class DeviceListController {
         return newdeviceLabel;
     }
 
-    private void getDevices(VBox boksi, String response/* response vaa täyttää tässä */){
+    private void getDevices(VBox boksi){
         /* TODO: tässä pitäis hakee ne devicet ja laittaa ne tohon boksiin
         pitää kattoo jos siihen saa jotenki dictionary tyylisesti
         jotta voidaan saada ehkä id siihen mukaan ja sit se device ikkunalle eteenpäin */
-        String[] devices = response.split(",");
-        for (String device : devices) {
+        for (Device device : devices) {
             boksi.getChildren().add(createNewDeviceLabel(device));
         }
     }
 
     public void refreshDevices(){
-        String ownresponse = "own device1, own device2, own device3";
-        String sharedresponse = "shared device1, shared device2, shared device3";
-
-        getDevices(myDevicesList, ownresponse);
-        getDevices(sharedDevicesList, sharedresponse);
+        getDevices(myDevicesList);
+        getDevices(sharedDevicesList);
     }
 
     @FXML

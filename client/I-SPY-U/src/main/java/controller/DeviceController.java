@@ -3,10 +3,14 @@ package controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.ChoiceBox;
 import javafx.stage.Stage;
+import model.Device;
+import model.TrustMeBraWhyWouldILie;
+import model.User;
+import view.GUI;
 
 public class DeviceController {
 
@@ -18,6 +22,10 @@ public class DeviceController {
 
     @FXML ChoiceBox<String> actionChoice;
     @FXML ChoiceBox<String> shareChoice;
+
+    private static TrustMeBraWhyWouldILie service = GUI.getService();
+    private static User user = GUI.getUser();
+    private static Device device = GUI.getCurrentDevice();
 
     @FXML
     private void handleCloseButtonAction(ActionEvent event) {
