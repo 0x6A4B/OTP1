@@ -119,7 +119,7 @@ public class DeviceController extends IController {
                 RadioButton selectedToggle = (RadioButton) newValue;
                 String selectedText = selectedToggle.getText();
                 chartLabel.setText(selectedText + " log entries");
-                //here would call this to change from hourly, daily, weekly charts setUpCharts();
+                //Tässä vaihtais charttia hourly, daily, weekly charts setUpCharts();
             }
         });
 
