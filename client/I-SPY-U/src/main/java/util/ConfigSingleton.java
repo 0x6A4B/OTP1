@@ -10,7 +10,6 @@ public class ConfigSingleton {
     private static ConfigSingleton instance = new ConfigSingleton();
     private String token;
     private String apiUrl;
-    private Trace logger = new Trace();
     private boolean configLoaded = false;
 
 
@@ -26,21 +25,17 @@ public class ConfigSingleton {
     }
 
     public void setToken(String token){
-        System.out.println("TOKEN has been set: " + token);
+        Trace.out(Trace.Level.DEV,"TOKEN has been set: " + token);
         this.token = token; }
     public void setApiUrl(String apiUrl){
-        System.out.println("APIRUL has been set: " + apiUrl);
+        Trace.out(Trace.Level.DEV,"APIRUL has been set: " + apiUrl);
         this.apiUrl = apiUrl; }
 
     public String getToken(){ return token; }
     public String getApiUrl(){
-        System.out.println("API URL has been called: " + apiUrl);
-        //if (apiUrl.isEmpty())
-        //    loadProperties();
+        Trace.out(Trace.Level.DEV,"API URL has been called: " + apiUrl);
         return apiUrl;
     }
-
-    public Trace getLogger(){ return logger; }
 
     private void loadProperties(){
         try(InputStream is = ConnectionManager.class.getClassLoader().getResourceAsStream("app.properties")) {
@@ -55,16 +50,15 @@ public class ConfigSingleton {
                 case "info" -> Trace.setTraceLevel(Trace.Level.INFO);
                 case "warn" -> Trace.setTraceLevel(Trace.Level.WAR);
                 case  "error" -> Trace.setTraceLevel(Trace.Level.ERR);
+                case "dev" -> Trace.setTraceLevel(Trace.Level.DEV);
             }
 
             if (apiUrl.isEmpty()) {
                 // eerror in reading apirul property
                 //throw new Exception("Error in reading property: apiurl");
-                System.out.println("Error in reading prop: apiurl");
+                Trace.out(Trace.Level.ERR,"Error in reading prop: apiurl");
             }
-            System.out.println("Loaded config apiurl: " + apiUrl);
-            //ConfigSingleton.getInstance().setApiUrl(apiUrl);
-
+            Trace.out(Trace.Level.DEV,"Loaded config apiurl: " + apiUrl);
             token = prop.getProperty("token");
             configLoaded = true;
         }catch (IOException e){
@@ -72,7 +66,7 @@ public class ConfigSingleton {
         }
 
         if (apiUrl == "")
-            System.err.println("ERROR, no apiUrl property not found!");
-        System.out.printf("prop: %s\ntoken: %s\n", apiUrl, token);
+            Trace.out(Trace.Level.ERR,"ERROR, no apiUrl property not found!");
+        Trace.out(Trace.Level.DEV,"prop: " + apiUrl + "\ntoken: " + token);
     }
 }

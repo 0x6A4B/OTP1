@@ -1,19 +1,19 @@
 package service;
 
 import http.UserQuery;
-import model.TrustMeBraWhyWouldILie;
 import model.User;
+import util.ConfigSingleton;
+import util.Trace;
 
 public class UserManager {
-    private final TrustMeBraWhyWouldILie service = TrustMeBraWhyWouldILie.getInstance();
     private final UserQuery userQuery;
 
-    public UserManager(String apiUrl){
+    public UserManager(){
          userQuery = new UserQuery();
     }
 
     public User login(User user){
-        System.out.println("usermg.login");
+        Trace.out(Trace.Level.DEV, ("usermg.login"));
         return userQuery.login(user);
     }
 
@@ -21,18 +21,21 @@ public class UserManager {
         return userQuery.register(user);
     }
 
-    //public User register(User user){ return UserQuery.handle("REGISTER", user); }
-
     public User logout(User user){
-        return UserQuery.handle("LOGOUT", user);
+        // Let's reset token
+        ConfigSingleton.getInstance().setToken("");
+        // TODO: Should we also remove from config file?
+        return null;
     }
 
+    // TODO: Should we implement this?
     public User remove(User user){
-        return UserQuery.handle("REMOVE", user);
+        return null;
     }
 
+    // TODO: Implement this in API also
     public User update(User user){
-        return UserQuery.handle("UPDATE", user);
+        return null;
     }
 
 }

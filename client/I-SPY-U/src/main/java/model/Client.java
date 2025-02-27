@@ -1,19 +1,19 @@
 package model;
 
 import service.*;
-
+import util.Trace;
 import java.util.List;
 
 public class Client {
-    //private final TrustMeBraWhyWouldILie service = new TrustMeBraWhyWouldILie();
 
-    private final IManager<Device, User> deviceManager = new DeviceManager();
-    private final IManager<LogEntry, Device> logManager = new LogManager();
-    //private final UserManager userManager = new UserManager();
+    //private final IManager<Device, User> deviceManager = new DeviceManager();
+    //private final IManager<LogEntry, Device> logManager = new LogManager();
     private final ConnectionManager connectionManager = new ConnectionManager();
 
 
-    public Client(){}
+    public Client(){
+        Trace.out(Trace.Level.INFO, "Client instantiated");
+    }
 
     public List<Device> getDevices(User user){
         //return service.getDevices(user);
@@ -22,18 +22,22 @@ public class Client {
     }
 
     public Device addDevice(Device device){
-        return deviceManager.create(device);
+        return connectionManager.createDevice(device);
     }
 
     public boolean removeDevice(Device device){
-        return deviceManager.remove(device);
+        return connectionManager.removeDevice(device);
     }
 
     // LOG
     public List<LogEntry> getLogEntries(Device device){
         //return service.getLogEntries(device);
         //return logManager.readAll(device);
-        return null;
+        return connectionManager.getLogEntries(device);
+    }
+
+    public boolean removeLogEntry(LogEntry logEntry){
+        return false;
     }
 
     // USER
@@ -41,6 +45,7 @@ public class Client {
         System.out.println("client.login");
         return connectionManager.login(user);
     }
+
     public User register(User user){
         return connectionManager.register(user);
     }

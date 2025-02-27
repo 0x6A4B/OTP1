@@ -10,7 +10,7 @@ public class Trace {
 	/**
 	 * Enum representing the trace levels: INFO, WARNING (WAR), ERROR (ERR).
 	 */
-	public enum Level{INFO, WAR, ERR}
+	public enum Level{DEV, INFO, WAR, ERR}
 
 	/**
 	 * The current trace level.
@@ -33,8 +33,20 @@ public class Trace {
 	 * @param txt the message to print
 	 */
 	public static void out(Level lvl, String txt){
+		String color = "";
+		color = switch (lvl){
+			case Level.ERR:
+				yield AnsiColor.RED.getColor();
+			case Level.WAR:
+				yield AnsiColor.BLUE.getColor();
+			case Level.DEV:
+				yield AnsiColor.GREEN.getColor();
+			default:
+				yield "";
+		};
+
 		if (lvl.ordinal() >= traceLevel.ordinal()){
-			System.out.println(txt);
+			System.out.println(color + txt + AnsiColor.RESET);
 		}
 	}
 

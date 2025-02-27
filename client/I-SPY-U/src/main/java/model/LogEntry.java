@@ -28,8 +28,13 @@ public class LogEntry {
     public Date getDate() { return date; }
 
     public void setId(Long id) { this.id = id; }
-    public void setDevice(Device device) { this.device = device; }
+    public LogEntry setDevice(Device device) { this.device = device; return this; }
     public void setDate(Date date) { this.date = date; }
     public void setLogkey(String logkey) { this.logkey = logkey; }
     public void setValue(String value) { this.value = value; }
+
+    @Override
+    public String toString(){
+        return device.getName() + " - " + date + " - " + logkey + " - " + value;
+    }
 }

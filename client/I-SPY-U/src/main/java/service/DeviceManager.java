@@ -1,70 +1,47 @@
 package service;
 
-import http.DeviceParser;
 import http.DeviceQuery;
 import model.Device;
-import model.TrustMeBraWhyWouldILie;
-import model.User;
-
-import java.lang.reflect.Constructor;
-import java.util.ArrayList;
+import util.Trace;
 import java.util.List;
 
 public class DeviceManager implements IManager {
-    private final TrustMeBraWhyWouldILie service = TrustMeBraWhyWouldILie.getInstance();
     private final DeviceQuery deviceQuery = new DeviceQuery();
-    private ArrayList<Device> devices = new ArrayList<>();
 
     @Override
     public Object read(Object device) {
-
-        /*try {
-            Constructor<?> con = c.getConstructor();
-            return con.newInstance();
-        }catch (Exception e){}
-        return new Device();*/
-        // no get for device?
+        // TODO: IS THIS USEFUL? IS IMPLEMENTED IN BACKEND
         return null;
     }
 
     @Override
     public Object update(Object device) {
-        return deviceQuery.handle("UPDATE", device);
+        // TODO: UPDATE NOT IMPLEMENTED
+        return null;
     }
 
-    public void initialDeviceList() {
-        //ArrayList<Device> devices = deviceQuery.init();
-
-        // ArrayList<Device> devices = (ArrayList<Device>) alldevices;
-    }
 
     @Override
-    public Object create(Object device) {
-        Device newDevice = (Device) deviceQuery.handle("CREATE", device);
-        devices.add(newDevice);
-        return newDevice;
+    public Device create(Object device) {
+        return deviceQuery.createDevice((Device) device);
     }
 
     @Override
     public List<Device> readAll(Object o) {
-        System.out.println("devmgr.readall");
+        Trace.out(Trace.Level.DEV, "devmgr.readall");
         return deviceQuery.getDevices();
-        /*
-        if (devices.isEmpty()) {
-            initialDeviceList();
-        }
-        return devices;
-         */
     }
 
     @Override
     public boolean remove(Object device) {
-        //Device deviceToRemove = (Device) device;
-        //boolean removed = deviceQuery.handle("REMOVE", deviceToRemove);
-        //if (removed) {
-        //    devices.remove(deviceToRemove);
-        //}
-        //return removed;
-        return false;
+        return deviceQuery.removeDevice((Device) device);
+    }
+
+    // Why would we need and use this?
+    // Why not iterate a list of devices to be removed and use normal remove device
+    // TODO: API not supporting this
+    @Override
+    public boolean removeAll(Object o){
+        return deviceQuery.removeAllDevices(o);
     }
 }

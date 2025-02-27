@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import model.User;
+import util.Trace;
 import java.net.http.HttpResponse;
 
 public class UserQuery extends HttpQuery {
@@ -24,12 +25,19 @@ public class UserQuery extends HttpQuery {
         try {
             String json = ow.writeValueAsString(user);
             super.setBody(json);
-        }catch (JsonProcessingException e){e.printStackTrace();}
+        }catch (JsonProcessingException e){
+            Trace.out(Trace.Level.ERR, "Error in parsing: " + e.getMessage());
+            e.printStackTrace();
+        }
 
 
-        HttpResponse<String> response = super.post();
-
-        userParser.parse(response.body());
+        try {
+            HttpResponse<String> response = super.post();
+            return userParser.parse(response.body());
+        }catch (Exception e){
+            Trace.out(Trace.Level.ERR, "Error in logging in: "
+                + e.getMessage());
+        }
 
         return null;
     }
@@ -44,16 +52,12 @@ public class UserQuery extends HttpQuery {
             String json = ow.writeValueAsString(user);
             super.setBody(json.toString());
             HttpResponse<String> response = super.post();
-        }catch(JsonProcessingException e){
+        }catch(Exception e){
+            Trace.out(Trace.Level.ERR, "Error in registering user or reading response");
             e.printStackTrace();
         }
 
-        //userParser.parse(response.body());
 
         return null;
-    }
-
-    public static User handle(String s, Object o){
-        return new User();
     }
 }

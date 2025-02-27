@@ -1,6 +1,7 @@
 package http;
 
 import util.ConfigSingleton;
+import util.Trace;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -25,7 +26,7 @@ public abstract class HttpQuery {
         this.endpoint = apiUrl + endpoint; }
     public void setBody(String body){ this.body = body; }
 
-    public HttpResponse<String> post(){
+    public HttpResponse<String> post() throws Exception{
 
         System.out.println("httpquery.post");
         System.out.println("Endpoint: " + endpoint);
@@ -43,9 +44,8 @@ public abstract class HttpQuery {
         try {
             HttpResponse<String> response = futureResponse.get();
             System.out.println("HttpQuery.Post response: " + response.statusCode());
-//            if (response.statusCode() == 400)
-//                System.out.println("RESPONSE: " + );
             System.out.println("httpquery-post: " + response.body());
+            // if not 200 || 201 then fuck
             return response;
         } catch (Exception e) {
             e.printStackTrace();
@@ -56,7 +56,7 @@ public abstract class HttpQuery {
 
     }
 
-    public HttpResponse<String> get(){
+    public HttpResponse<String> get() throws Exception{
         token = ConfigSingleton.getInstance().getToken();
         System.out.println("HttpQuery.Get: endpoint: " + endpoint + "\ttoken: " + token);
 
@@ -72,14 +72,35 @@ public abstract class HttpQuery {
         try {
             HttpResponse<String> response = futureResponse.get();
             System.out.println("HttpQuery.Get response: " + response.statusCode());
+            // if not 200 then fuck my life
             return response;
-            //System.out.println(response.body());
-            /*try {
-                JSONObject json = new JSONObject(response.body());
-                //token = json.get("accessToken").toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-            }catch (Exception e){ e.printStackTrace(); }
-*/
+
+        return null;
+    }
+
+    public HttpResponse<String> delete() throws Exception{
+        token = ConfigSingleton.getInstance().getToken();
+        Trace.out(Trace.Level.INFO, "HttpQuery.Delete: endpoint: " + endpoint + "\ttoken: " + token);
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(endpoint))
+                .DELETE()
+                .header("Authorization", "Bearer " + token)
+                .build();
+
+        CompletableFuture<HttpResponse<String>> futureResponse
+                = httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString());
+
+        try {
+            HttpResponse<String> response = futureResponse.get();
+            Trace.out(Trace.Level.INFO,"HttpQuery.Get response: " + response.statusCode());
+            //if not 204 || 200 then fucked are we
+            // throw new Exception
+            return response;
         } catch (Exception e) {
             e.printStackTrace();
         }
