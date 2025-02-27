@@ -7,7 +7,7 @@ import util.Trace;
 import java.util.List;
 
 public class ConnectionManager {
-    private UserManager userManager;
+    private UserManager userManager = new UserManager();
     private DeviceManager deviceManager = new DeviceManager();
     private LogManager logManager = new LogManager();
 
@@ -15,29 +15,26 @@ public class ConnectionManager {
     public ConnectionManager(){}
 
     public User login(User user){
-        if (userManager == null)
-            userManager = new UserManager();
-        userManager.login(user);
-        return null;
+        return userManager.login(user);
     }
 
     public User register(User user){
-        if (userManager == null){
-            userManager = new UserManager();
-        }
-        userManager.register(user);
-        return null;
+        return userManager.register(user);
     }
 
     public List<Device> getDevices(){
-        System.out.println("conmgr.getdevices");
+        Trace.out(Trace.Level.DEV,"conmgr.getdevices");
         return deviceManager.readAll(new Object());
     }
 
     public List<LogEntry> getLogEntries(Device device){
-        System.out.println("conmgr.getlogentries");
+        Trace.out(Trace.Level.DEV,"conmgr.getlogentries");
         Trace.out(Trace.Level.DEV, "Device: " + device.getName());
         return logManager.readAll(device);
+    }
+
+    public boolean removeLogEntry(LogEntry logEntry){
+        return logManager.remove(logEntry);
     }
 
     public Device createDevice(Device device){

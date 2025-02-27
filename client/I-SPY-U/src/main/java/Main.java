@@ -11,7 +11,8 @@ import view.GUI;
 
 public class Main {
     public static void main(String[] args) {
-
+        Client client = new Client();
+        Trace.out(Trace.Level.DEV, "Starting application");
 
         //GUI.launch(GUI.class);
 
@@ -24,12 +25,11 @@ public class Main {
 
 
 
-        Client client = new Client();
 
-        while(!ConfigSingleton.getInstance().configLoaded())
-            System.out.println("waiting...");
+        // TODO: should this be in client?
+        //while(!ConfigSingleton.getInstance().configLoaded())
+        //    System.out.println("waiting...");
 
-        Trace.out(Trace.Level.DEV, "Starting application");
 
         //client.register(newUser);
         client.login(wasdi);
