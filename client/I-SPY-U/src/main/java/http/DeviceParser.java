@@ -3,13 +3,9 @@ package http;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-import config.ConfigSingleton;
+import util.ConfigSingleton;
 import model.Device;
-import model.User;
-import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class DeviceParser implements ResponseParser{

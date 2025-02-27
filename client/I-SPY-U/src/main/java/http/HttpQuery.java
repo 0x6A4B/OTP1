@@ -1,7 +1,6 @@
 package http;
 
-import config.ConfigSingleton;
-import org.json.JSONObject;
+import util.ConfigSingleton;
 
 import java.net.URI;
 import java.net.http.HttpClient;

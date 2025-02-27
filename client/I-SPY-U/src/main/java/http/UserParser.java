@@ -1,6 +1,6 @@
 package http;
 
-import config.ConfigSingleton;
+import util.ConfigSingleton;
 import model.User;
 import org.json.JSONObject;
 

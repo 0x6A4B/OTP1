@@ -1,17 +1,9 @@
 package service;
 
-import config.ConfigSingleton;
-import http.HttpQuery;
-import http.UserQuery;
 import model.Device;
-import model.Person;
 import model.User;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 public class ConnectionManager {
     private String apiUrl;
