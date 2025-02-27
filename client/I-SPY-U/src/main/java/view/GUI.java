@@ -9,20 +9,29 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import model.Client;
 import model.Device;
-import model.TrustMeBraWhyWouldILie;
 import model.User;
+import util.ConfigSingleton;
 
 public class GUI extends Application {
-    private static Scene scene;
-    private static Stage popupStage = new Stage();
-    private static TrustMeBraWhyWouldILie service = new TrustMeBraWhyWouldILie();
-    private static User user;
-    private static Device currentDevice;
+    private /*static*/ Scene scene;
+    private /*static*/ Stage popupStage;
+    private /*static*/ Client service;
+    private /*static*/ User user;
+    private /*static*/ Device currentDevice;
+    private IController kontrolleri;
 
     @Override
     public void start(Stage stage) throws Exception {
         /* TODO: check here if user is already set and depending on it then launch login or devicelist */
+        // Checking if user token exists
+        // Checks that config singleton has loaded the properties and there is
+        // a token saved, otherwise need to login
+        boolean tokenExists = ConfigSingleton.getInstance().configLoaded()
+                && !ConfigSingleton.getInstance().getToken().isEmpty();
+        // End of check
+
         System.out.println("Loading FXML file...");
         scene = new Scene(getLoader("MainView"), 300, 300);
         System.out.println("FXML file loaded successfully.");
@@ -40,45 +49,69 @@ public class GUI extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        IController kontrolleri = loader.getController();
+        //IController
+        kontrolleri = loader.getController();
         System.out.println("kontrolleri: "+loader.getController());
-        kontrolleri.setClient(GUI.service);
+//        kontrolleri.setClient(GUI.service);
         kontrolleri.setGUI(this);
         kontrolleri.start();
         return loaded;
     }
 
-    public static void setScene(String fxml, int width, int height) throws IOException {
-        scene.setRoot(new GUI().getLoader(fxml));
+    public /*static*/ void setScene(String fxml, int width, int height) throws IOException {
+        scene.setRoot(getLoader(fxml));
         Stage stage = (Stage) scene.getWindow();
         stage.setWidth(width);
         stage.setHeight(height);
         stage.centerOnScreen();
     }
 
-    public static void setUser(User user) {
-        GUI.user = user;
+    public /*static*/ void setUser(User user) {
+        //GUI.
+        this.user = user;
     }
 
-    public static User getUser() {
-        return GUI.user;
+    public /*static*/ User getUser() {
+        return this.user;
     }
 
-    public static void setCurrentDevice(Device currentDevice) {
-        GUI.currentDevice = currentDevice;
+    public /*static*/ void setCurrentDevice(Device currentDevice) {
+        this.currentDevice = currentDevice;
     }
 
-    public static Device getCurrentDevice() {
-        return GUI.currentDevice;
+    public /*static*/ Device getCurrentDevice() {
+        return currentDevice;
     }
 
-    public static void openPopup(String fxml, int width, int height) throws IOException {
+    // TODO: FIX THIS HACK
+    private IController popupCtrl;
+
+    public /*static*/ void openPopup(String fxml, int width, int height, IController popupCtrl) throws IOException {
+        popupStage = new Stage();   // we need to create new if popup is called again
         popupStage.initStyle(StageStyle.UNDECORATED);
-        popupStage.setScene(new Scene(FXMLLoader.load(GUI.class.getResource("/" + fxml + ".fxml")), width, height));
+
+        FXMLLoader loader = new FXMLLoader(GUI.class.getResource("/" + fxml + ".fxml"));
+        Parent parent = loader.load();
+        IController controller = loader.getController();
+        controller.setGUI(this);
+
+        // TODO: FIX UGLY HACK
+        this.popupCtrl = popupCtrl;
+
+
+        popupStage.setScene(new Scene(parent, width, height));
         popupStage.show();
     }
 
-    public static void closePopup() throws IOException {
+    public /*static*/ void closePopup() throws IOException {
         popupStage.close();
+        popupCtrl.hook();
+        popupCtrl = null;
     }
+
+    public void popupHook(){
+
+    }
+
+
 }

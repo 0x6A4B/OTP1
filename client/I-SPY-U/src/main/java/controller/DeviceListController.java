@@ -16,6 +16,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import model.Device;
 import model.LogEntry;
+import util.Trace;
 
 public class DeviceListController extends IController {
 
@@ -85,7 +86,7 @@ public class DeviceListController extends IController {
 
     @FXML
     private void ShowDeviceDetails(MouseEvent event, Device dev){
-        System.out.println(dev.getName());
+        Trace.out(Trace.Level.DEV, "ShowDevice: " + dev.getName());
         for (Node node : DevicesList.getChildren()) {
             if (node instanceof Label) {
             node.setStyle("-fx-background-color: white; -fx-border-color: Black;");
@@ -98,17 +99,30 @@ public class DeviceListController extends IController {
         DeviceDetailsListview.getItems().clear();
         currentDevice = dev;
         List<LogEntry> entries = client.getLogEntries(dev);
-        for (int i = 0; i < 11; i++) {
+        for (int i = 0; i < entries.size(); i++) {
             DeviceDetailsListview.getItems().add(entries.get(i).getDate()+": "+entries.get(i).getValue());
         }
     }
 
     private void addNewDevice(MouseEvent event){
         try {
-            gui.openPopup("AddDeviceWindow", 300, 350);
+            gui.openPopup("AddDeviceWindow", 300, 350, this);
+            // TODO: Refresh the device window
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    // TODO: FIX UGLY HACK
+    @Override
+    public void hook(){
+        System.out.println("HOOK");
+        DevicesList.getChildren().clear();
+        DeviceDetails.getChildren().clear();
+        DeviceDetailsListview.getItems().clear();
+        start();
+        //devices = client.getDevices(gui.getUser());
+        //getDevices(myDevicesList);
     }
 
     private Label addNewDeviceButton(){

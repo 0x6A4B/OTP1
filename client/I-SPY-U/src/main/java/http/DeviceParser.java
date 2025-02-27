@@ -11,17 +11,9 @@ import java.util.List;
 
 public class DeviceParser implements ResponseParser{
     private final String token = ConfigSingleton.getInstance().getToken();
-/*
-    public ArrayList<Device> parseDevices(Object deviceJSON) {
 
-        // Return a list of devices created from the JSON object(s)
 
-        return new ArrayList<>();
-    }
-*/
     public Device parse(String response) {
-
-
         try {
             Device device = new ObjectMapper().readValue(response, new TypeReference<Device>() {});
             return device;

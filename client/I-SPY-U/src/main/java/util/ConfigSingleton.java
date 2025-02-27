@@ -1,5 +1,6 @@
 package util;
 
+import model.User;
 import service.ConnectionManager;
 
 import java.io.IOException;
@@ -12,6 +13,13 @@ public class ConfigSingleton {
     private String apiUrl;
     private boolean configLoaded = false;
 
+    // TODO: GET a better solution for UI to track user
+    private User user;
+
+    public void setUser(User user){ this.user = user; }
+    public User getUser(){ return user; }
+
+    // END
 
     private ConfigSingleton(){
         Trace.setTraceLevel(Trace.Level.INFO);
@@ -43,7 +51,7 @@ public class ConfigSingleton {
             prop.load(is);
 
             // Loading apiUrl
-            apiUrl = prop.getProperty("apiUrl").replaceAll("\"", "");
+            apiUrl = prop.getProperty("apiUrl");
 
             // Loading logger level config
             switch(prop.getProperty("loglevel").toLowerCase()){

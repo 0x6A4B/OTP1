@@ -57,6 +57,7 @@ public class LogSingController extends IController {
         String username = singUpUSername.getText();
         String city = singUpCity.getText();
         String postalCode = singUpPostalCode.getText();
+        // TODO: get user's name and address => faking it for now
         User user = new User(username, password, "active",
                 new Person("Urho Kaleva", "Kekkonen", email,
                         "Suomen maa kunta", city, postalCode));
@@ -68,6 +69,7 @@ public class LogSingController extends IController {
         if (awnser != null) {
             try {
                 gui.setUser(awnser);
+                client.login(user); // logging in with new user
                 gui.setScene("DevicesList", 500, 500);
             } catch (IOException e) {
                 e.printStackTrace();
