@@ -16,7 +16,7 @@
    <children>
       <TabPane prefHeight="500.0" prefWidth="500.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab text="My Devices">
+          <Tab text="My Devices" fx:id="ownDevicesTab">
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                 <children>
@@ -24,11 +24,6 @@
                         <content>
                             <VBox prefHeight="400.0" prefWidth="185.0" fx:id="myDevicesList" pickOnBounds="false">
                             <children>
-                                <Label prefHeight="30.0" prefWidth="185.0" style="-fx-border-color: Black;" text="Device name" onMouseClicked="#ownShowOwnDeviceDetails">
-                                    <padding>
-                                        <Insets left="10.0" />
-                                    </padding>
-                                </Label>
                             </children>
                             </VBox>
                         </content>
@@ -68,11 +63,6 @@
                                 <content>
                                     <VBox prefHeight="400.0" prefWidth="185.0" fx:id="sharedDevicesList">
                                     <children>
-                                        <Label prefHeight="30.0" prefWidth="185.0" style="-fx-border-color: Black;" text="Device name" onMouseClicked="#sharedShowOwnDeviceDetails">
-                                            <padding>
-                                                <Insets left="10.0" />
-                                            </padding>
-                                        </Label>
                                     </children>
                                     </VBox>
                                 </content>

@@ -10,15 +10,19 @@ public class User {
     private Person person;
 
 
-//    public User(String username, String password){
-//        this(username, password, null, null);
-//    }
+    public User(String username, String password){
+        this(username, password, "", null);
+    }
     public User(String username, String password, String status, Person person){
         super();
         this.username = username;
         this.password = password;
         this.status = status;
         this.person = person;
+    }
+
+    public User(String username, String password, Person person){
+        this(username, password, "", person);
     }
     public User(){}
 
