@@ -25,7 +25,7 @@ public class DeviceController extends IController {
 
     @FXML RadioButton radioDaily;
     @FXML RadioButton radioWeekly;
-    @FXML RadioButton radioMontly;
+    @FXML RadioButton radioHourly;
 
     @FXML private TextField limitMin;
     @FXML private TextField limitMax;
@@ -43,6 +43,7 @@ public class DeviceController extends IController {
     @FXML ChoiceBox<String> shareChoice;
     @FXML private Button setShareButton;
 
+    @FXML Label chartLabel;
     @FXML LineChart<String, String> lineChart;
 
     private SingleSelectionModel<Tab> selectionModel;
@@ -74,7 +75,6 @@ public class DeviceController extends IController {
 
     @FXML
     private void handleActionChoice() {
-        System.out.println(actionChoice.getValue());
         String actionString = actionChoice.getValue();
         actionItemLabel.setText(actionString.substring(7, actionString.length())+" for action");
         System.out.println("set Action choice");
@@ -109,10 +109,19 @@ public class DeviceController extends IController {
     public void start(){
         device = gui.getCurrentDevice();
         // Tarviiko user???? user = gui.getUser();
-
         radioDaily.setToggleGroup(toggleGroup);
+        radioDaily.setSelected(true);
         radioWeekly.setToggleGroup(toggleGroup);
-        radioMontly.setToggleGroup(toggleGroup);
+        radioHourly.setToggleGroup(toggleGroup);
+
+        toggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                RadioButton selectedToggle = (RadioButton) newValue;
+                String selectedText = selectedToggle.getText();
+                chartLabel.setText(selectedText + " log entries");
+                //here would call this to change from hourly, daily, weekly charts setUpCharts();
+            }
+        });
 
         setLimitsButton.disableProperty().bind(limitMin.textProperty().isEmpty().or(limitMax.textProperty().isEmpty()));
         shareButton.disableProperty().bind(sharingEmail.textProperty().isEmpty());

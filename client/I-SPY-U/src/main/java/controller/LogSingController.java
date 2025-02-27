@@ -90,5 +90,12 @@ public class LogSingController extends IController {
         singUpButton.disableProperty().bind(singUpEmail.textProperty().isEmpty().or(singUpPassword.textProperty().isEmpty().or(singUpUSername.textProperty().isEmpty().or(singUpCity.textProperty().isEmpty().or(singUpPostalCode.textProperty().isEmpty())))));
         logInErrorMsg.setVisible(false);
         singUpErrorMsg.setVisible(false);
+
+        /* fill fields for easier testing so no need to fill them out */
+        singUpEmail.setText("emaili");
+        singUpPassword.setText("passwordi");
+        singUpUSername.setText("usernami");
+        singUpCity.setText("cityni");
+        singUpPostalCode.setText("postalcodeni");
     }
 }
