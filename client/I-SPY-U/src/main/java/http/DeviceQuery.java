@@ -34,13 +34,15 @@ public class DeviceQuery extends HttpQuery {
         super.setEndpoint(endpoint);
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
         try {
-            String body = ow.writeValueAsString(device);
-            super.setBody(body);
-        } catch (JsonProcessingException e){
+            //String body = ow.writeValueAsString(device);
+            Trace.out(Trace.Level.DEV, "POST body: " + device.toString());
+            super.setBody(device.toString());
+        } catch (Exception e){
             Trace.out(Trace.Level.ERR, "Failed to process json");
         }
         try{
             HttpResponse<String> response = super.post();
+            // TODO: response exception
             return deviceParser.parse(response.body());
         } catch (Exception e){
             Trace.out(Trace.Level.ERR, "Failed to create device");

@@ -11,7 +11,7 @@ import java.util.concurrent.CompletableFuture;
 
 public abstract class HttpQuery {
     protected static String apiUrl = ConfigSingleton.getInstance().getApiUrl();
-    protected static String token = "";
+    protected static String token;
     protected static HttpClient httpClient = HttpClient.newHttpClient();
 
     protected  String endpoint;
@@ -28,15 +28,17 @@ public abstract class HttpQuery {
 
     public HttpResponse<String> post() throws Exception{
 
-        System.out.println("httpquery.post");
-        System.out.println("Endpoint: " + endpoint);
+        Trace.out(Trace.Level.DEV, "httpquery.post");
+        Trace.out(Trace.Level.DEV, "Endpoint: " + endpoint + "\ttoken: " + token);
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(endpoint))
                 .POST(HttpRequest.BodyPublishers.ofString(body))
-                .header("Authorization", "Bearer " + token != null ? token : "")
+                .header("Authorization", token == null ? "" : "Bearer " + token)
                 .setHeader("Content-Type", "application/json")
                 .build();
+
+        Trace.out(Trace.Level.DEV, "Sending POST: " + request.headers());
 
         CompletableFuture<HttpResponse<String>> futureResponse
                 = httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString());

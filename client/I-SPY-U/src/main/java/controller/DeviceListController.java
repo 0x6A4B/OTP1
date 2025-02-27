@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,17 +11,24 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
+import javafx.scene.control.Tab;
 import javafx.scene.input.MouseEvent;
-import view.GUI;
+import javafx.scene.layout.VBox;
+import model.Device;
+import model.LogEntry;
+import util.Trace;
 
-public class DeviceListController {
+public class DeviceListController extends IController {
 
-    private String currentDevice;
+    private VBox DevicesList;
+    private VBox DeviceDetails;
+    private Label DeviceDetailsLabel;
+    private ListView DeviceDetailsListview;
 
     @FXML private VBox myDevicesList;
     @FXML private VBox sharedDevicesList;
+
+    @FXML private Tab ownDevicesTab;
 
     @FXML private VBox sharedDeviceDetails;
     @FXML private VBox ownDeviceDetails;
@@ -32,25 +40,18 @@ public class DeviceListController {
 
     @FXML private Label sharedDeviceDetalsLabel;
     @FXML private ListView sharedDeviceDetalsListview;
-    
-    @FXML
-    private void handleCloseButtonAction(ActionEvent event) {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();
-    }
 
-    private Label createNewDeviceLabel(String name, Boolean own){
-        Label deviceLabel = new Label(name);
+    private List<Device> devices;
+    private Device currentDevice;
+
+    private Label createNewDeviceLabel(Device dev){
+        Label deviceLabel = new Label(dev.getName());
         deviceLabel.setAlignment(Pos.CENTER);
         deviceLabel.setContentDisplay(ContentDisplay.CENTER);
         deviceLabel.setPrefHeight(30.0);
         deviceLabel.setPrefWidth(185.0);
         deviceLabel.setStyle("-fx-border-color: Black;");
-        if (own){
-            deviceLabel.setOnMouseClicked(this::ownShowOwnDeviceDetails);
-        } else {
-            deviceLabel.setOnMouseClicked(this::sharedShowOwnDeviceDetails);
-        }
+        deviceLabel.setOnMouseClicked(event -> ShowDeviceDetails(event, dev));
         return deviceLabel;
     }
 
@@ -59,7 +60,8 @@ public class DeviceListController {
         /* TODO: miten täs sais datan jos vaikka on vain devcies id?? ja sit jatkaa eteenpäin */
         System.out.println("Open own device"+currentDevice);
         try {
-                GUI.setScene("Device", 500, 500);
+                gui.setCurrentDevice(currentDevice);
+                gui.setScene("Device", 500, 500);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -67,64 +69,106 @@ public class DeviceListController {
     }
 
     @FXML
-    private void ownShowOwnDeviceDetails(MouseEvent event){
-        for (Node node : myDevicesList.getChildren()) {
+    private void switchToSharedDevices(){
+        this.DevicesList = sharedDevicesList;
+        this.DeviceDetails = sharedDeviceDetails;
+        this.DeviceDetailsLabel = sharedDeviceDetalsLabel;
+        this.DeviceDetailsListview = sharedDeviceDetalsListview;
+    }
+
+    @FXML
+    private void switchToOwnDevices(){
+        this.DevicesList = myDevicesList;
+        this.DeviceDetails = ownDeviceDetails;
+        this.DeviceDetailsLabel = ownDeviceDetalsLabel;
+        this.DeviceDetailsListview = ownDeviceDetalsListview;
+    }
+
+    @FXML
+    private void ShowDeviceDetails(MouseEvent event, Device dev){
+        Trace.out(Trace.Level.DEV, "ShowDevice: " + dev.getName());
+        for (Node node : DevicesList.getChildren()) {
             if (node instanceof Label) {
             node.setStyle("-fx-background-color: white; -fx-border-color: Black;");
             }
         }
         ((Label) event.getSource()).setStyle("-fx-background-color: grey; -fx-border-color: Black;");
-        ownDeviceDetails.setVisible(true);
+        DeviceDetails.setVisible(true);
         openDeviceButton.setVisible(true);
-        ownDeviceDetalsLabel.setText(((Label) event.getSource()).getText());
-        currentDevice = ((Label) event.getSource()).getText();
-        ownDeviceDetalsListview.getItems().clear();
-        /* TODO: miten sais ne recent readings (vaikka vikat 10) devicelle joka on valittu */
-        for (int i = 0; i < 10; i++) {
-            String date = "6.2.2025";
-            String time = "14:00";
-            char[] timeArray = time.toCharArray();
-            timeArray[4] = (char) (timeArray[4] + i);
-            time = new String(timeArray);
-            ownDeviceDetalsListview.getItems().add(date+"  "+time+"  Detail " + i);
+        DeviceDetailsLabel.setText(((Label) event.getSource()).getText());
+        DeviceDetailsListview.getItems().clear();
+        currentDevice = dev;
+        List<LogEntry> entries = client.getLogEntries(dev);
+        for (int i = 0; i < entries.size(); i++) {
+            DeviceDetailsListview.getItems().add(entries.get(i).getDate()+": "+entries.get(i).getValue());
         }
     }
 
-    @FXML
-    private void sharedShowOwnDeviceDetails(MouseEvent event){
-        for (Node node : sharedDevicesList.getChildren()) {
-            if (node instanceof Label) {
-            node.setStyle("-fx-background-color: white; -fx-border-color: Black;");
-            }
-        }
-        ((Label) event.getSource()).setStyle("-fx-background-color: grey; -fx-border-color: Black;");
-        sharedDeviceDetails.setVisible(true);
-        openDeviceButton.setVisible(true);
-        sharedDeviceDetalsLabel.setText(((Label) event.getSource()).getText());
-        currentDevice = ((Label) event.getSource()).getText();
-        sharedDeviceDetalsListview.getItems().clear();
-        /* TODO: miten sais ne recent readings (vaikka vikat 10) devicelle joka on valittu */
-        for (int i = 0; i < 10; i++) {
-            String date = "5.2.2025";
-            String time = "20:00";
-            char[] timeArray = time.toCharArray();
-            timeArray[4] = (char) (timeArray[4] + i);
-            time = new String(timeArray);
-            sharedDeviceDetalsListview.getItems().add(date+"  "+time+"  Detail " + i);
+    private void addNewDevice(MouseEvent event){
+        try {
+            gui.openPopup("AddDeviceWindow", 300, 350, this);
+            // TODO: Refresh the device window
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-    @FXML
-    private void initialize(){
-        /* TODO: kato miten data tulee ja sen sais noihin labels sisään/kiinni niihin. vai laitetaanko vaa id siihe ja sit hakee aina erikseen */
-        String response = "device1, device2, device3";
-        String[] devices = response.split(",");
-        for (String device : devices) {
-            myDevicesList.getChildren().add(createNewDeviceLabel(device, true));
-            sharedDevicesList.getChildren().add(createNewDeviceLabel(device, false));
+    // TODO: FIX UGLY HACK
+    @Override
+    public void hook(){
+        System.out.println("HOOK");
+        DevicesList.getChildren().clear();
+        DeviceDetails.getChildren().clear();
+        DeviceDetailsListview.getItems().clear();
+        start();
+        //devices = client.getDevices(gui.getUser());
+        //getDevices(myDevicesList);
+    }
+
+    private Label addNewDeviceButton(){
+        Label newdeviceLabel = new Label("+ Add new device");
+        newdeviceLabel.setAlignment(Pos.CENTER);
+        newdeviceLabel.setContentDisplay(ContentDisplay.CENTER);
+        newdeviceLabel.setPrefHeight(30.0);
+        newdeviceLabel.setPrefWidth(185.0);
+        newdeviceLabel.setStyle("-fx-border-color: grey;");
+        newdeviceLabel.setOnMouseClicked(this::addNewDevice);
+        return newdeviceLabel;
+    }
+
+    private void getDevices(VBox boksi){
+        /* TODO: tässä pitäis hakee ne devicet ja laittaa ne tohon boksiin
+        pitää kattoo jos siihen saa jotenki dictionary tyylisesti
+        jotta voidaan saada ehkä id siihen mukaan ja sit se device ikkunalle eteenpäin */
+        for (Device device : devices) {
+            boksi.getChildren().add(createNewDeviceLabel(device));
         }
+    }
+
+    @Override
+    public void start(){
+        devices = client.getDevices(gui.getUser());
+        getDevices(myDevicesList);
+        getDevices(sharedDevicesList);
+
+        myDevicesList.getChildren().add(addNewDeviceButton());
+        sharedDevicesList.getChildren().add(addNewDeviceButton());
         ownDeviceDetails.setVisible(false);
         sharedDeviceDetails.setVisible(false);
         openDeviceButton.setVisible(false);
+
+        this.DevicesList = myDevicesList;
+        this.DeviceDetails = ownDeviceDetails;
+        this.DeviceDetailsLabel = ownDeviceDetalsLabel;
+        this.DeviceDetailsListview = ownDeviceDetalsListview;
+
+        ownDevicesTab.setOnSelectionChanged(e -> {
+            System.err.println("Tab changed own devices tab is: "+ownDevicesTab.isSelected());
+            if (ownDevicesTab.isSelected()) {
+                switchToOwnDevices();
+            } else {
+                switchToSharedDevices();
+            }
+        });
     }
 }

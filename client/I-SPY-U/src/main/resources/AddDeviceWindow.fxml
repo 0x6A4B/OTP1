@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="300.0" style="-fx-border-color: black;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddDeviceController">
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="2.0" layoutY="2.0" prefWidth="296.0" style="-fx-background-color: lightgrey;" text="I-SPY-U" textAlignment="CENTER">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Button layoutX="274.0" layoutY="3.0" maxHeight="23.0" minHeight="23.0" mnemonicParsing="false" style="-fx-background-color: red;" text="X" textFill="WHITE" onAction="#handleCloseButtonAction"/>
+      <Button layoutX="210.0" layoutY="304.0" mnemonicParsing="false" text="Add Device" fx:id="AddDeviceButton" onAction="#handleAddDeviceButtonAction">
+         <padding>
+            <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+         </padding>
+      </Button>
+      <Label layoutX="20.0" layoutY="45.0" text="Add a new device">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="35.0" layoutY="100.0" text="UUID" />
+      <TextField layoutX="35.0" layoutY="117.0" promptText="Input device uuid" fx:id="uuid"/>
+      <Label layoutX="35.0" layoutY="160.0" text="Name" />
+      <TextField layoutX="35.0" layoutY="177.0" promptText="Input device name" fx:id="name"/>
+      <Label layoutX="35.0" layoutY="220.0" text="Description" />
+      <TextField layoutX="35.0" layoutY="237.0" promptText="Input device description" fx:id="desc"/>
+   </children>
+</AnchorPane>
