@@ -33,7 +33,8 @@ public class GUI extends Application {
         // End of check
 
         System.out.println("Loading FXML file...");
-        scene = new Scene(getLoader("MainView"), 300, 300);
+        //scene = new Scene(getLoader("MainView"), 300, 300);
+        scene = new Scene(getLoader("LogSingUp"), 300, 400);
         System.out.println("FXML file loaded successfully.");
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setTitle("I-SPY-U");
