@@ -46,4 +46,9 @@ public class Device {
     public void setRegistered(Date registered) { this.registered = registered; }
     //public void addLogEntry(LogEntry logEntry) { this.logEntryList.add(logEntry); }
     //public void removeLogEntry(LogEntry logEntry){ this.logEntryList.remove(logEntry); }
+
+    @Override
+    public String toString(){
+        return id + " - " + name + " - " + description;
+    }
 }

@@ -1,37 +1,49 @@
 package service;
 
-import http.HttpQuery;
+import model.Device;
 import model.User;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
+import model.LogEntry;
+import util.Trace;
+import java.util.List;
 
 public class ConnectionManager {
-    private String apiUrl;
-    private String token;
+    private UserManager userManager = new UserManager();
+    private DeviceManager deviceManager = new DeviceManager();
+    private LogManager logManager = new LogManager();
 
-    public ConnectionManager(){
-        loadProperties();
+
+    public ConnectionManager(){}
+
+    public User login(User user){
+        return userManager.login(user);
     }
 
-    private void loadProperties(){
-        try(InputStream is = HttpQuery.class.getClassLoader().getResourceAsStream("app.properties")) {
-            Properties prop = new Properties();
-            prop.load(is);
-            apiUrl = prop.getProperty("apiUrl");
-            token = prop.getProperty("token");
-        }catch (IOException e){
-            System.err.println(e.getMessage());
-        }
-
-        if (apiUrl == "")
-            System.err.println("ERROR, no apiUrl property not found!");
-        System.out.printf("prop: %s\ntoken: %s\n", apiUrl, token);
+    public User register(User user){
+        return userManager.register(user);
     }
 
-    public User login(){
-        return null;
+    public List<Device> getDevices(){
+        Trace.out(Trace.Level.DEV,"conmgr.getdevices");
+        return deviceManager.readAll(new Object());
     }
+
+    public List<LogEntry> getLogEntries(Device device){
+        Trace.out(Trace.Level.DEV,"conmgr.getlogentries");
+        Trace.out(Trace.Level.DEV, "Device: " + device.getName());
+        return logManager.readAll(device);
+    }
+
+    public boolean removeLogEntry(LogEntry logEntry){
+        return logManager.remove(logEntry);
+    }
+
+    public Device createDevice(Device device){
+        return deviceManager.create(device);
+    }
+
+    public boolean removeDevice(Device device){
+        return deviceManager.remove(device);
+    }
+
 
 }

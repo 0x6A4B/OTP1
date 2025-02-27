@@ -33,4 +33,8 @@ public class User {
     public Person getPerson(){ return this.person; }
     public void setPerson(Person person){ this.person = person; }
 
+    @Override
+    public String toString(){
+        return id + " - " + username;
+    }
 }

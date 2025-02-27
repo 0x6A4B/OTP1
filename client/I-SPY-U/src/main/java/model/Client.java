@@ -1,46 +1,50 @@
 package model;
 
-import service.DeviceManager;
-import service.IManager;
-import service.LogManager;
-import service.UserManager;
-
+import service.*;
+import util.ConfigSingleton;
+import util.Trace;
 import java.util.List;
 
 public class Client {
-    //private final TrustMeBraWhyWouldILie service = new TrustMeBraWhyWouldILie();
-
-    private final IManager<Device, User> deviceManager = new DeviceManager();
-    private final IManager<LogEntry, Device> logManager = new LogManager();
-    private final UserManager userManager = new UserManager();
+    private final ConnectionManager connectionManager = new ConnectionManager();
 
 
-    public Client(){}
+    public Client(){
+        while(!ConfigSingleton.getInstance().configLoaded())
+            Trace.out(Trace.Level.DEV, "Loading properties...");
+
+        Trace.out(Trace.Level.INFO, "Client instantiated");
+    }
+
 
     public List<Device> getDevices(User user){
-        //return service.getDevices(user);
-        return deviceManager.readAll(user);
+        return connectionManager.getDevices();
     }
 
     public Device addDevice(Device device){
-        return deviceManager.create(device);
+        return connectionManager.createDevice(device);
     }
 
     public boolean removeDevice(Device device){
-        return deviceManager.remove(device);
+        return connectionManager.removeDevice(device);
     }
 
     // LOG
     public List<LogEntry> getLogEntries(Device device){
-        //return service.getLogEntries(device);
-        return logManager.readAll(device);
+        return connectionManager.getLogEntries(device);
+    }
+
+    public boolean removeLogEntry(LogEntry logEntry){
+        return connectionManager.removeLogEntry(logEntry);
     }
 
     // USER
     public User login(User user){
-        return userManager.login(user);
+        Trace.out(Trace.Level.DEV, "client.login");
+        return connectionManager.login(user);
     }
+
     public User register(User user){
-        return userManager.register(user);
+        return connectionManager.register(user);
     }
 }

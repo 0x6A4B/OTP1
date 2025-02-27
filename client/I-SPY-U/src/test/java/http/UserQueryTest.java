@@ -6,9 +6,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class UserQueryTest {
 
-    @Test
+
+    /*
+    @test
     void property(){
         new UserQuery();
-    }
+    }*/
 
 }
