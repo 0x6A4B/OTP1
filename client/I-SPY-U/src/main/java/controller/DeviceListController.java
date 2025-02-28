@@ -131,12 +131,9 @@ public class DeviceListController extends IController {
     @Override
     public void hook(){
         System.out.println("HOOK");
-        DevicesList.getChildren().clear();
-        DeviceDetails.getChildren().clear();
-        DeviceDetailsListview.getItems().clear();
-        start();
-        //devices = client.getDevices(gui.getUser());
-        //getDevices(myDevicesList);
+        devices = client.getDevices(gui.getUser());
+        getDevices(myDevicesList);
+        getDevices(sharedDevicesList);
     }
 
     private Label addNewDeviceButton(){
@@ -151,12 +148,14 @@ public class DeviceListController extends IController {
     }
 
     private void getDevices(VBox boksi){
+        boksi.getChildren().clear();
         /* TODO: tässä pitäis hakee ne devicet ja laittaa ne tohon boksiin
         pitää kattoo jos siihen saa jotenki dictionary tyylisesti
         jotta voidaan saada ehkä id siihen mukaan ja sit se device ikkunalle eteenpäin */
         for (Device device : devices) {
             boksi.getChildren().add(createNewDeviceLabel(device));
         }
+        boksi.getChildren().add(addNewDeviceButton());
     }
 
     @Override
@@ -165,8 +164,6 @@ public class DeviceListController extends IController {
         getDevices(myDevicesList);
         getDevices(sharedDevicesList);
 
-        myDevicesList.getChildren().add(addNewDeviceButton());
-        sharedDevicesList.getChildren().add(addNewDeviceButton());
         ownDeviceDetails.setVisible(false);
         sharedDeviceDetails.setVisible(false);
         sharedOpenDeviceButton.setVisible(false);
