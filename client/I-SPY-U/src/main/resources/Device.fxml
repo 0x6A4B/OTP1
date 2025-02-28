@@ -16,6 +16,7 @@
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 
+<?import javafx.scene.chart.NumberAxis?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DeviceController">
    <children>
       <TabPane prefHeight="500.0" prefWidth="500.0" tabClosingPolicy="UNAVAILABLE" fx:id="tabPane">
@@ -35,7 +36,7 @@
                                           <CategoryAxis label="Date" />
                                        </xAxis>
                                        <yAxis>
-                                          <CategoryAxis label="Measurement" />
+                                          <NumberAxis label="Measurement" />
                                        </yAxis>
                                     </LineChart>
                                     <RadioButton layoutX="150.0" layoutY="264.0" mnemonicParsing="false" selected="true" text="Hourly" fx:id="radioHourly"/>

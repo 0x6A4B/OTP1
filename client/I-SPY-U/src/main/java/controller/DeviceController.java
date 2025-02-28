@@ -45,7 +45,7 @@ public class DeviceController extends IController {
     @FXML private Button setShareButton;
 
     @FXML Label chartLabel;
-    @FXML LineChart<String, String> lineChart;
+    @FXML LineChart<String, Double> lineChart;
 
     private SingleSelectionModel<Tab> selectionModel;
     @FXML TabPane tabPane;
@@ -55,7 +55,7 @@ public class DeviceController extends IController {
 
     private void setUpCharts() {
         System.out.println("YY: ");
-        XYChart.Series<String, String> series = new XYChart.Series<>();
+        XYChart.Series<String, Double> series = new XYChart.Series<>();
         Calendar calendar = Calendar.getInstance();
         List<LogEntry> logs = client.getLogEntries(device);
         System.out.println("ZZ: " + logs.size());
@@ -69,11 +69,12 @@ public class DeviceController extends IController {
             series.getData().add(new XYChart.Data<>(
                     (calendar.get(Calendar.HOUR)+":"
                             + calendar.get(Calendar.MINUTE) + ":"
-                            + calendar.get(Calendar.SECOND) + " - "
-                            + calendar.get(Calendar.DATE) + "/"
-                            + (calendar.get(Calendar.MONTH) + 1) + "/"
-                            + calendar.get(Calendar.YEAR)),
-                    i.getValue()/*.substring(0, 6)*/));
+                            + calendar.get(Calendar.SECOND) //+ " - "
+                    //        + calendar.get(Calendar.DATE) + "/"
+                    //        + (calendar.get(Calendar.MONTH) + 1) + "/"
+                    //        + calendar.get(Calendar.YEAR)
+                    ),
+                    Double.parseDouble(i.getValue())/*.substring(0, 6)*/));
         }
     
         lineChart.getData().add(series);
