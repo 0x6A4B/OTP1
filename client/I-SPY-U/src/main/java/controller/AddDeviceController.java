@@ -5,17 +5,19 @@ import java.util.UUID;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import model.Device;
 import util.ConfigSingleton;
 import util.Trace;
-import view.GUI;
 
 public class AddDeviceController extends IController {
 
     @FXML TextField uuid;
     @FXML TextField name;
     @FXML TextField desc;
+
+    @FXML Label errorMsg;
 
     @FXML Button AddDeviceButton;
 
@@ -32,6 +34,7 @@ public class AddDeviceController extends IController {
             /* TODO tässä lisätään sitten uusi device userille */
             client.addDevice(new Device(ConfigSingleton.getInstance().getUser(), realUuid, name.getText(), true, desc.getText(), "model"));
         } catch (Exception e) {
+            errorMsg.setText("Failed to create UUID, was it valid?!");
             Trace.out(Trace.Level.ERR, "Failed to create UUID, was it valid?!");
         }
 
@@ -45,6 +48,7 @@ public class AddDeviceController extends IController {
 
     @Override
     public void start(){
+        errorMsg.setText("");
         AddDeviceButton.disableProperty().bind(uuid.textProperty().isEmpty().or(name.textProperty().isEmpty().or(desc.textProperty().isEmpty())));
     }
 }
