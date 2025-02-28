@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class DeviceService {
@@ -26,6 +27,11 @@ public class DeviceService {
     public Optional<Device> getDeviceById(Long id){
         System.out.println("deviceservice.getdevicebyid: " + id);
         return deviceRepository.findById(id);
+    }
+
+    public Optional<Device> getDeviceByUuid(UUID uuid){
+        System.out.println("Get device by UUID: " + uuid.toString());
+        return deviceRepository.findByUuid(uuid);
     }
 
     public Device saveDevice(Device device){

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 
 // https://www.bezkoder.com/jpa-one-to-many/    excellent source
@@ -15,6 +16,8 @@ import java.util.Optional;
 public interface DeviceRepository extends JpaRepository<Device, Long> {
 
     Optional<List<Device>> findByUserId(Long userId);
+
+    Optional<Device> findByUuid(UUID uuid);
 
     @Transactional
     void deleteByUserId(Long userId);   // for deleting all devices if user is deleted?
