@@ -96,10 +96,7 @@ public class GUI extends Application {
         popupStage = new Stage();   // we need to create new if popup is called again
         popupStage.initStyle(StageStyle.UNDECORATED);
 
-        FXMLLoader loader = new FXMLLoader(GUI.class.getResource("/" + fxml + ".fxml"));
-        Parent parent = loader.load();
-        IController controller = loader.getController();
-        controller.setGUI(this);
+        Parent parent = getLoader(fxml);
 
         // TODO: FIX UGLY HACK
         this.popupCtrl = popupCtrl;
