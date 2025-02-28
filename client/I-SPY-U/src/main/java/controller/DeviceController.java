@@ -80,6 +80,15 @@ public class DeviceController extends IController {
     }
 
     @FXML
+    private void handleBackButton(){
+        try {
+            gui.setScene("DevicesList", 500, 500);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     private void handleSetLimits() {
         System.out.println(limitMin.getText());
         System.out.println(limitMax.getText());
