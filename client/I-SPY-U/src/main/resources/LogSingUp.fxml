@@ -37,7 +37,7 @@
                 <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                         <children>
-                            <Label layoutX="114.0" layoutY="14.0" text="Sing Up">
+                            <Label layoutX="114.0" layoutY="14.0" text="Sign Up">
                                 <font>
                                     <Font size="26.0" />
                                 </font>

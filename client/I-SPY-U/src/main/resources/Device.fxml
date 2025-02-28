@@ -31,7 +31,7 @@
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="465.0" prefWidth="485.0">
                                  <children>
                                     <Label alignment="CENTER" contentDisplay="CENTER" layoutY="55.0" prefWidth="485.0" text="Hourly temperatures" textAlignment="CENTER" fx:id="chartLabel"/>
-                                    <LineChart layoutX="20.0" layoutY="72.0" prefHeight="200.0" prefWidth="440.0" fx:id="lineChart">
+                                    <LineChart layoutX="20.0" layoutY="72.0" prefHeight="300.0" prefWidth="440.0" fx:id="lineChart">
                                        <xAxis>
                                           <CategoryAxis label="Date" />
                                        </xAxis>
@@ -39,9 +39,9 @@
                                           <NumberAxis label="Measurement" />
                                        </yAxis>
                                     </LineChart>
-                                    <RadioButton layoutX="150.0" layoutY="264.0" mnemonicParsing="false" selected="true" text="Hourly" fx:id="radioHourly"/>
-                                    <RadioButton layoutX="213.0" layoutY="264.0" mnemonicParsing="false" text="Daily" fx:id="radioDaily"/>
-                                    <RadioButton layoutX="285.0" layoutY="264.0" mnemonicParsing="false" text="Weekly" fx:id="radioWeekly"/>
+                                    <RadioButton layoutX="150.0" layoutY="364.0" mnemonicParsing="false" selected="true" text="Hourly" fx:id="radioHourly"/>
+                                    <RadioButton layoutX="213.0" layoutY="364.0" mnemonicParsing="false" text="Daily" fx:id="radioDaily"/>
+                                    <RadioButton layoutX="285.0" layoutY="364.0" mnemonicParsing="false" text="Weekly" fx:id="radioWeekly"/>
                                  </children>
                               </AnchorPane>
                            </content>

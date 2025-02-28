@@ -24,6 +24,7 @@ public class DeviceListController extends IController {
     private VBox DeviceDetails;
     private Label DeviceDetailsLabel;
     private ListView DeviceDetailsListview;
+    private Button openDeviceButton;
 
     @FXML private VBox myDevicesList;
     @FXML private VBox sharedDevicesList;
@@ -33,7 +34,8 @@ public class DeviceListController extends IController {
     @FXML private VBox sharedDeviceDetails;
     @FXML private VBox ownDeviceDetails;
 
-    @FXML private Button openDeviceButton;
+    @FXML private Button sharedOpenDeviceButton;
+    @FXML private Button ownOpenDeviceButton;
 
     @FXML private Label ownDeviceDetalsLabel;
     @FXML private ListView ownDeviceDetalsListview;
@@ -70,6 +72,7 @@ public class DeviceListController extends IController {
 
     @FXML
     private void switchToSharedDevices(){
+        this.openDeviceButton = sharedOpenDeviceButton;
         this.DevicesList = sharedDevicesList;
         this.DeviceDetails = sharedDeviceDetails;
         this.DeviceDetailsLabel = sharedDeviceDetalsLabel;
@@ -78,6 +81,7 @@ public class DeviceListController extends IController {
 
     @FXML
     private void switchToOwnDevices(){
+        this.openDeviceButton = ownOpenDeviceButton;
         this.DevicesList = myDevicesList;
         this.DeviceDetails = ownDeviceDetails;
         this.DeviceDetailsLabel = ownDeviceDetalsLabel;
@@ -155,12 +159,10 @@ public class DeviceListController extends IController {
         sharedDevicesList.getChildren().add(addNewDeviceButton());
         ownDeviceDetails.setVisible(false);
         sharedDeviceDetails.setVisible(false);
-        openDeviceButton.setVisible(false);
+        sharedOpenDeviceButton.setVisible(false);
+        ownOpenDeviceButton.setVisible(false);
 
-        this.DevicesList = myDevicesList;
-        this.DeviceDetails = ownDeviceDetails;
-        this.DeviceDetailsLabel = ownDeviceDetalsLabel;
-        this.DeviceDetailsListview = ownDeviceDetalsListview;
+        switchToOwnDevices();
 
         ownDevicesTab.setOnSelectionChanged(e -> {
             System.err.println("Tab changed own devices tab is: "+ownDevicesTab.isSelected());
