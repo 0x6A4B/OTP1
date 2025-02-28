@@ -67,15 +67,17 @@ public class DeviceController extends IController {
             calendar.setTime(i.getDate());
             // TODO: Why does this chart the same temperature/i.getvalue
             //  instead of correct one?
-            series.getData().add(new XYChart.Data<>(
-                    (calendar.get(Calendar.HOUR_OF_DAY) +":"
-                            + calendar.get(Calendar.MINUTE) + ":"
-                            + calendar.get(Calendar.SECOND) + " - "
-                            + calendar.get(Calendar.DATE) + "/"
-                            + (calendar.get(Calendar.MONTH) + 1) + "/"
-                            + calendar.get(Calendar.YEAR)
-                    ),
-                    Double.parseDouble(i.getValue())/*.substring(0, 6)*/));
+            final XYChart.Data<String, Double> data = new XYChart.Data<>(
+                (calendar.get(Calendar.HOUR_OF_DAY) +":"
+                        + calendar.get(Calendar.MINUTE) + ":"
+                        + calendar.get(Calendar.SECOND) + " - "
+                        + calendar.get(Calendar.DATE) + "/"
+                        + (calendar.get(Calendar.MONTH) + 1) + "/"
+                        + calendar.get(Calendar.YEAR)
+                ),
+                Double.parseDouble(i.getValue())/*.substring(0, 6)*/);
+                data.setNode(new HoveredThresholdNodea("temperature", i.getValue()));
+            series.getData().add(data);
         }
     
         lineChart.getData().add(series);
