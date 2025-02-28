@@ -54,19 +54,14 @@ public class DeviceController extends IController {
     private Device device;
 
     private void setUpCharts() {
-        System.out.println("YY: ");
         XYChart.Series<String, Double> series = new XYChart.Series<>();
-        series.setName("Sensor");
+        series.setName(device.getName());
         Calendar calendar = Calendar.getInstance();
         List<LogEntry> logs = client.getLogEntries(device);
-        System.out.println("ZZ: " + logs.size());
         Trace.out(Trace.Level.DEV, "Loading logentries:");
         for (LogEntry i : logs) {
-            System.out.println("ZZ: " + i.getValue());
             Trace.out(Trace.Level.DEV, "\tLogEntry: " + i);
             calendar.setTime(i.getDate());
-            // TODO: Why does this chart the same temperature/i.getvalue
-            //  instead of correct one?
             final XYChart.Data<String, Double> data = new XYChart.Data<>(
                 (calendar.get(Calendar.HOUR_OF_DAY) +":"
                         + calendar.get(Calendar.MINUTE) + ":"

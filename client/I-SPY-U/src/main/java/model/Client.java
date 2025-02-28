@@ -47,4 +47,7 @@ public class Client {
     public User register(User user){
         return connectionManager.register(user);
     }
+    public void logout(){
+        Trace.out(Trace.Level.INFO, "User logged out");
+    }
 }
