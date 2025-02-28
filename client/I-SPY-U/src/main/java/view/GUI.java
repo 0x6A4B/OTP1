@@ -29,6 +29,7 @@ public class GUI extends Application {
         // Checks that config singleton has loaded the properties and there is
         // a token saved, otherwise need to login
         boolean tokenExists = ConfigSingleton.getInstance().configLoaded()
+                && ConfigSingleton.getInstance().getToken() != null
                 && !ConfigSingleton.getInstance().getToken().isEmpty();
         // End of check
 

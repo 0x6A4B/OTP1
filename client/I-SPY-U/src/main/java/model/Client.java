@@ -42,7 +42,7 @@ public class Client {
     // USER
     public User login(User user){
         Trace.out(Trace.Level.DEV, "client.login");
-        if (!ConfigSingleton.getInstance().getToken().isEmpty())
+        if (ConfigSingleton.getInstance().getToken() != null && !ConfigSingleton.getInstance().getToken().isEmpty())
             rememberUser = true;
         User loggedUser = connectionManager.login(user);
         if (rememberUser)
