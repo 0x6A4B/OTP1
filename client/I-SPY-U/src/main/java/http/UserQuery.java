@@ -18,7 +18,7 @@ public class UserQuery extends HttpQuery {
     }
 
     public User login(User user){
-        System.out.println("userquery.login");
+        Trace.out(Trace.Level.DEV,("userquery.login"));
         super.setEndpoint("/auth/login");
 
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
@@ -48,7 +48,7 @@ public class UserQuery extends HttpQuery {
     }
 
     public User register(User user){
-        System.out.println("userquery.register");
+        Trace.out(Trace.Level.DEV,("userquery.register"));
         super.setEndpoint("/auth/register");
 
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
