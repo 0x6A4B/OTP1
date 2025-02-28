@@ -56,6 +56,7 @@ public class DeviceController extends IController {
     private void setUpCharts() {
         System.out.println("YY: ");
         XYChart.Series<String, Double> series = new XYChart.Series<>();
+        series.setName("Sensor");
         Calendar calendar = Calendar.getInstance();
         List<LogEntry> logs = client.getLogEntries(device);
         System.out.println("ZZ: " + logs.size());
