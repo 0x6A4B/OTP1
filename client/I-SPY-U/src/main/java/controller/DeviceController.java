@@ -67,12 +67,12 @@ public class DeviceController extends IController {
             // TODO: Why does this chart the same temperature/i.getvalue
             //  instead of correct one?
             series.getData().add(new XYChart.Data<>(
-                    (calendar.get(Calendar.HOUR)+":"
+                    (calendar.get(Calendar.HOUR_OF_DAY) +":"
                             + calendar.get(Calendar.MINUTE) + ":"
-                            + calendar.get(Calendar.SECOND) //+ " - "
-                    //        + calendar.get(Calendar.DATE) + "/"
-                    //        + (calendar.get(Calendar.MONTH) + 1) + "/"
-                    //        + calendar.get(Calendar.YEAR)
+                            + calendar.get(Calendar.SECOND) + " - "
+                            + calendar.get(Calendar.DATE) + "/"
+                            + (calendar.get(Calendar.MONTH) + 1) + "/"
+                            + calendar.get(Calendar.YEAR)
                     ),
                     Double.parseDouble(i.getValue())/*.substring(0, 6)*/));
         }
