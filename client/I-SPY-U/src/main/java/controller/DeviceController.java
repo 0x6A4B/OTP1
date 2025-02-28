@@ -65,8 +65,7 @@ public class DeviceController extends IController {
             System.out.println("ZZ: " + i.getValue());
             Trace.out(Trace.Level.DEV, "\tLogEntry: " + i);
             calendar.setTime(i.getDate());
-            // TODO: Why does this chart the same temperature/i.getvalue
-            //  instead of correct one?
+
             series.getData().add(new XYChart.Data<>(
                     (calendar.get(Calendar.HOUR_OF_DAY) +":"
                             + calendar.get(Calendar.MINUTE) + ":"
