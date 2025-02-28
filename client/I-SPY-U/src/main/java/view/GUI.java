@@ -34,7 +34,12 @@ public class GUI extends Application {
 
         System.out.println("Loading FXML file...");
         //scene = new Scene(getLoader("MainView"), 300, 300);
-        scene = new Scene(getLoader("LogSingUp"), 300, 400);
+
+        if (!tokenExists)
+            scene = new Scene(getLoader("LogSingUp"), 300, 400);
+        else
+            scene = new Scene(getLoader("DevicesList"), 500, 500);
+
         System.out.println("FXML file loaded successfully.");
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setTitle("I-SPY-U");

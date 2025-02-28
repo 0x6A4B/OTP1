@@ -94,8 +94,8 @@ public class LogSingController extends IController {
         singUpErrorMsg.setVisible(false);
 
         /* fill fields for easier testing so no need to fill them out */
-        logInUsername.setText("wasdi");
-        logInPassword.setText("wasdi");
+        //logInUsername.setText("wasdi");
+        //logInPassword.setText("wasdi");
 
         singUpEmail.setText("emaili");
         singUpPassword.setText("passwordi");
