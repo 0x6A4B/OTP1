@@ -24,6 +24,7 @@ public class DeviceListController extends IController {
     private VBox DeviceDetails;
     private Label DeviceDetailsLabel;
     private ListView DeviceDetailsListview;
+    private Button openDeviceButton;
 
     @FXML private VBox myDevicesList;
     @FXML private VBox sharedDevicesList;
@@ -33,7 +34,8 @@ public class DeviceListController extends IController {
     @FXML private VBox sharedDeviceDetails;
     @FXML private VBox ownDeviceDetails;
 
-    @FXML private Button openDeviceButton;
+    @FXML private Button sharedOpenDeviceButton;
+    @FXML private Button ownOpenDeviceButton;
 
     @FXML private Label ownDeviceDetalsLabel;
     @FXML private ListView ownDeviceDetalsListview;
@@ -70,6 +72,7 @@ public class DeviceListController extends IController {
 
     @FXML
     private void switchToSharedDevices(){
+        this.openDeviceButton = sharedOpenDeviceButton;
         this.DevicesList = sharedDevicesList;
         this.DeviceDetails = sharedDeviceDetails;
         this.DeviceDetailsLabel = sharedDeviceDetalsLabel;
@@ -78,6 +81,7 @@ public class DeviceListController extends IController {
 
     @FXML
     private void switchToOwnDevices(){
+        this.openDeviceButton = ownOpenDeviceButton;
         this.DevicesList = myDevicesList;
         this.DeviceDetails = ownDeviceDetails;
         this.DeviceDetailsLabel = ownDeviceDetalsLabel;
@@ -113,16 +117,24 @@ public class DeviceListController extends IController {
         }
     }
 
+    @FXML
+    private void handleLogOut(){
+        /* TODO here we need to clear token client.logout();?????*/
+        client.logout();
+        try {
+            gui.setScene("LogSingUp", 300, 400);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     // TODO: FIX UGLY HACK
     @Override
     public void hook(){
         System.out.println("HOOK");
-        DevicesList.getChildren().clear();
-        DeviceDetails.getChildren().clear();
-        DeviceDetailsListview.getItems().clear();
-        start();
-        //devices = client.getDevices(gui.getUser());
-        //getDevices(myDevicesList);
+        devices = client.getDevices(gui.getUser());
+        getDevices(myDevicesList);
+        getDevices(sharedDevicesList);
     }
 
     private Label addNewDeviceButton(){
@@ -137,12 +149,14 @@ public class DeviceListController extends IController {
     }
 
     private void getDevices(VBox boksi){
+        boksi.getChildren().clear();
         /* TODO: tässä pitäis hakee ne devicet ja laittaa ne tohon boksiin
         pitää kattoo jos siihen saa jotenki dictionary tyylisesti
         jotta voidaan saada ehkä id siihen mukaan ja sit se device ikkunalle eteenpäin */
         for (Device device : devices) {
             boksi.getChildren().add(createNewDeviceLabel(device));
         }
+        boksi.getChildren().add(addNewDeviceButton());
     }
 
     @Override
@@ -151,16 +165,12 @@ public class DeviceListController extends IController {
         getDevices(myDevicesList);
         getDevices(sharedDevicesList);
 
-        myDevicesList.getChildren().add(addNewDeviceButton());
-        sharedDevicesList.getChildren().add(addNewDeviceButton());
         ownDeviceDetails.setVisible(false);
         sharedDeviceDetails.setVisible(false);
-        openDeviceButton.setVisible(false);
+        sharedOpenDeviceButton.setVisible(false);
+        ownOpenDeviceButton.setVisible(false);
 
-        this.DevicesList = myDevicesList;
-        this.DeviceDetails = ownDeviceDetails;
-        this.DeviceDetailsLabel = ownDeviceDetalsLabel;
-        this.DeviceDetailsListview = ownDeviceDetalsListview;
+        switchToOwnDevices();
 
         ownDevicesTab.setOnSelectionChanged(e -> {
             System.err.println("Tab changed own devices tab is: "+ownDevicesTab.isSelected());

@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import model.Person;
 import model.User;
+import util.Trace;
 
 public class LogSingController extends IController {
     @FXML private TextField logInUsername;
@@ -33,11 +34,13 @@ public class LogSingController extends IController {
     private void handleLogInButtonAction(ActionEvent event) {
         String username = logInUsername.getText();
         String password = logInPassword.getText();
-        awnser = client.login(new User(username, password, new Person()));
         String error = "error happened";
         if (logInRememberMe.isSelected()){
             /* TODO tässä sit laitetaan jos haluu muistaa loginin */
+            Trace.out(Trace.Level.DEV, "Remember user");
+            client.setRememberUser(true);
         }
+        awnser = client.login(new User(username, password, new Person()));
         if (awnser != null) {
             try {
                 gui.setUser(awnser);
@@ -64,6 +67,7 @@ public class LogSingController extends IController {
         awnser = client.register(user);
         String error = "error happened";
         if (singUpRememberMe.isSelected()){
+            client.setRememberUser(true);
             /* TODO tässä sit laitetaan jos haluu muistaa loginin */
         }
         if (awnser != null) {

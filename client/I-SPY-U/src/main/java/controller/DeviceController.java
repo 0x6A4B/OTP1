@@ -45,7 +45,7 @@ public class DeviceController extends IController {
     @FXML private Button setShareButton;
 
     @FXML Label chartLabel;
-    @FXML LineChart<String, String> lineChart;
+    @FXML LineChart<String, Double> lineChart;
 
     private SingleSelectionModel<Tab> selectionModel;
     @FXML TabPane tabPane;
@@ -54,26 +54,25 @@ public class DeviceController extends IController {
     private Device device;
 
     private void setUpCharts() {
-        System.out.println("YY: ");
-        XYChart.Series<String, String> series = new XYChart.Series<>();
+        XYChart.Series<String, Double> series = new XYChart.Series<>();
+        series.setName(device.getName());
         Calendar calendar = Calendar.getInstance();
         List<LogEntry> logs = client.getLogEntries(device);
-        System.out.println("ZZ: " + logs.size());
         Trace.out(Trace.Level.DEV, "Loading logentries:");
         for (LogEntry i : logs) {
-            System.out.println("ZZ: " + i.getValue());
             Trace.out(Trace.Level.DEV, "\tLogEntry: " + i);
             calendar.setTime(i.getDate());
-            // TODO: Why does this chart the same temperature/i.getvalue
-            //  instead of correct one?
-            series.getData().add(new XYChart.Data<>(
-                    (calendar.get(Calendar.HOUR)+":"
-                            + calendar.get(Calendar.MINUTE) + ":"
-                            + calendar.get(Calendar.SECOND) + " - "
-                            + calendar.get(Calendar.DATE) + "/"
-                            + (calendar.get(Calendar.MONTH) + 1) + "/"
-                            + calendar.get(Calendar.YEAR)),
-                    i.getValue()/*.substring(0, 6)*/));
+            final XYChart.Data<String, Double> data = new XYChart.Data<>(
+                (calendar.get(Calendar.HOUR_OF_DAY) +":"
+                        + calendar.get(Calendar.MINUTE) + ":"
+                        + calendar.get(Calendar.SECOND) + " - "
+                        + calendar.get(Calendar.DATE) + "/"
+                        + (calendar.get(Calendar.MONTH) + 1) + "/"
+                        + calendar.get(Calendar.YEAR)
+                ),
+                Double.parseDouble(i.getValue())/*.substring(0, 6)*/);
+                data.setNode(new HoveredThresholdNodea("temperature", i.getValue()));
+            series.getData().add(data);
         }
     
         lineChart.getData().add(series);

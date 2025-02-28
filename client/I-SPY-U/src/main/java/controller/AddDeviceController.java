@@ -33,22 +33,21 @@ public class AddDeviceController extends IController {
             UUID realUuid = UUID.fromString(uuid.getText());
             /* TODO tässä lisätään sitten uusi device userille */
             client.addDevice(new Device(ConfigSingleton.getInstance().getUser(), realUuid, name.getText(), true, desc.getText(), "model"));
-        } catch (Exception e) {
-            errorMsg.setText("Failed to create UUID, was it valid?!");
-            Trace.out(Trace.Level.ERR, "Failed to create UUID, was it valid?!");
-        }
-
-        try {
-                // TODO: Must refresh devicelist and window
+            try {
                 gui.closePopup();
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        } catch (Exception e) {
+            errorMsg.setVisible(true);
+            errorMsg.setText("Failed to create UUID, was it valid?!");
+            Trace.out(Trace.Level.ERR, "Failed to create UUID, was it valid?!");
+        }
     }
 
     @Override
     public void start(){
-        errorMsg.setText("");
+        errorMsg.setVisible(false);
         AddDeviceButton.disableProperty().bind(uuid.textProperty().isEmpty().or(name.textProperty().isEmpty().or(desc.textProperty().isEmpty())));
     }
 }
