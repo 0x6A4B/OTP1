@@ -7,6 +7,7 @@ import java.util.List;
 
 public class Client {
     private final ConnectionManager connectionManager = new ConnectionManager();
+    private boolean rememberUser;
 
 
     public Client(){
@@ -41,7 +42,15 @@ public class Client {
     // USER
     public User login(User user){
         Trace.out(Trace.Level.DEV, "client.login");
-        return connectionManager.login(user);
+        if (!ConfigSingleton.getInstance().getToken().isEmpty())
+            rememberUser = true;
+        User loggedUser = connectionManager.login(user);
+        if (rememberUser)
+            ConfigSingleton.getInstance().saveToken();
+        return loggedUser;
+    }
+    public void setRememberUser(boolean rememberUser){
+        this.rememberUser = rememberUser;
     }
 
     public User register(User user){
@@ -49,5 +58,7 @@ public class Client {
     }
     public void logout(){
         Trace.out(Trace.Level.INFO, "User logged out");
+        ConfigSingleton.getInstance().setToken("");
+        ConfigSingleton.getInstance().saveToken();
     }
 }

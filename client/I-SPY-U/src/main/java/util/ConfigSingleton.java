@@ -3,8 +3,10 @@ package util;
 import model.User;
 import service.ConnectionManager;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Properties;
 
 public class ConfigSingleton {
@@ -12,6 +14,7 @@ public class ConfigSingleton {
     private String token;
     private String apiUrl;
     private boolean configLoaded = false;
+    private final String configFile = "app.properties";
 
     // TODO: GET a better solution for UI to track user
     private User user;
@@ -46,7 +49,7 @@ public class ConfigSingleton {
     }
 
     private void loadProperties(){
-        try(InputStream is = ConnectionManager.class.getClassLoader().getResourceAsStream("app.properties")) {
+        try(InputStream is = ConnectionManager.class.getClassLoader().getResourceAsStream(configFile)) {
             Properties prop = new Properties();
             prop.load(is);
 
@@ -70,11 +73,27 @@ public class ConfigSingleton {
             token = prop.getProperty("token");
             configLoaded = true;
         }catch (IOException e){
-            System.err.println(e.getMessage());
+            Trace.out(Trace.Level.ERR, "Error in loading configuration" + e.getMessage());
         }
 
         if (apiUrl == "")
             Trace.out(Trace.Level.ERR,"ERROR, no apiUrl property not found!");
         Trace.out(Trace.Level.DEV,"prop: " + apiUrl + "\ntoken: " + token);
+    }
+
+    // Remember logged in user
+    public void saveToken(){
+        try{//InputStream is = ConnectionManager.class.getClassLoader().getResourceAsStream("app.properties")) {
+            Properties prop = new Properties();
+            prop.setProperty("token", token);
+            prop.store(new FileOutputStream(configFile), null);
+
+        }catch (Exception e){
+            Trace.out(Trace.Level.ERR, "Error in saving configuration: " + e.getMessage());
+        }
+    }
+
+    private void saveProperties(){
+
     }
 }
