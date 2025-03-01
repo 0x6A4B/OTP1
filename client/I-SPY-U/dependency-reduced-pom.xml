@@ -5,7 +5,28 @@
   <artifactId>I-SPY-U</artifactId>
   <version>1.0-SNAPSHOT</version>
   <build>
+    <finalName>I-SPY-U</finalName>
     <plugins>
+      <plugin>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.6.0</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <finalName>I-SPY-U</finalName>
+              <transformers>
+                <transformer>
+                  <mainClass>Main</mainClass>
+                </transformer>
+              </transformers>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
@@ -22,25 +43,6 @@
             <goals>
               <goal>report</goal>
             </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <artifactId>maven-shade-plugin</artifactId>
-        <version>3.6.0</version>
-        <executions>
-          <execution>
-            <phase>package</phase>
-            <goals>
-              <goal>shade</goal>
-            </goals>
-            <configuration>
-              <transformers>
-                <transformer>
-                  <mainClass>org.example.Main</mainClass>
-                </transformer>
-              </transformers>
-            </configuration>
           </execution>
         </executions>
       </plugin>

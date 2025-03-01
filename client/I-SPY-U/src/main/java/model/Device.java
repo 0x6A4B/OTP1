@@ -16,6 +16,23 @@ public class Device {
 
 
     public Device(){}
+    public Device(UUID uuid, String name, Boolean owned, String description, String model) {
+        this.uuid = uuid;
+        this.name = name;
+        this.owned = owned;
+        this.description = description;
+        this.model = model;
+    }
+
+    public Device(User user, UUID uuid, String name, Boolean owned, String description, String model){
+        this.user = user;
+        this.uuid = uuid;
+        this.name = name;
+        this.owned = owned;
+        this.description = description;
+        this.model = model;
+    }
+
     public Device(User user, UUID uuid, String name, Boolean owned, String description, String model, Date registered){
         this.user = user;
         this.uuid = uuid;
@@ -46,4 +63,17 @@ public class Device {
     public void setRegistered(Date registered) { this.registered = registered; }
     //public void addLogEntry(LogEntry logEntry) { this.logEntryList.add(logEntry); }
     //public void removeLogEntry(LogEntry logEntry){ this.logEntryList.remove(logEntry); }
+
+    @Override
+    public String toString(){
+        //return id + " - " + name + " - " + description;
+        // Return JSON
+        return "{"
+                + "\"uuid\":\"" + uuid.toString() + "\","
+                + "\"name\":\"" + name + "\","
+                + "\"owned\":" + owned + ","
+                + "\"description\":\"" + description + "\","
+                + "\"model\":\"" + model + "\""
+                + "}";
+    }
 }

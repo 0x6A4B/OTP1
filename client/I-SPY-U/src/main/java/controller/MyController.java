@@ -2,16 +2,11 @@ package controller;
 
 import java.io.IOException;
 
-import javafx.event.ActionEvent;
-import javafx.scene.Node;
-import javafx.stage.Stage;
-import view.GUI;
-
-public class MyController {
+public class MyController extends IController {
 
     public void showLogSingUP() {
         try {
-            GUI.setScene("LogSingUp", 300, 400);
+            gui.setScene("LogSingUp", 300, 400);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -19,7 +14,7 @@ public class MyController {
 
     public void showDeviceList() {
         try {
-            GUI.setScene("DevicesList", 500, 500);
+            gui.setScene("DevicesList", 500, 500);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -27,7 +22,7 @@ public class MyController {
 
     public void showDevice() {
         try {
-            GUI.setScene("Device", 500, 500);
+            gui.setScene("Device", 500, 500);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -35,17 +30,8 @@ public class MyController {
 
     public void showTest() {
         try {
-            GUI.setScene("Test", 500, 500);
+            gui.setScene("Test", 500, 500);
         } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void handleCloseButtonAction(ActionEvent event) {
-        try {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.close();
-        } catch (Exception e) {
             e.printStackTrace();
         }
     }

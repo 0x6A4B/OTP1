@@ -4,40 +4,47 @@ import java.io.IOException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
-import view.GUI;
+import model.Person;
+import model.User;
+import util.Trace;
 
-public class LogSingController {
-    @FXML private TextField logInEmail;
+public class LogSingController extends IController {
+    @FXML private TextField logInUsername;
     @FXML private TextField logInPassword;
     @FXML private Button logInButton;
     @FXML private Label logInErrorMsg;
+    @FXML private CheckBox logInRememberMe;
 
     @FXML private TextField singUpEmail;
     @FXML private TextField singUpPassword;
+    @FXML private TextField singUpUSername;
+    @FXML private TextField singUpCity;
+    @FXML private TextField singUpPostalCode;
     @FXML private Button singUpButton;
     @FXML private Label singUpErrorMsg;
-    
-    @FXML
-    private void handleCloseButtonAction(ActionEvent event) {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();
-    }
+    @FXML private CheckBox singUpRememberMe;
+
+    private User awnser;
 
     @FXML
     private void handleLogInButtonAction(ActionEvent event) {
-        String email = logInEmail.getText();
+        String username = logInUsername.getText();
         String password = logInPassword.getText();
-        /* TODO lähetä request apille ja sit kato onko answer toimii vai ei ja sit jatka sen mukaan */
-        Boolean awnser = true;
         String error = "error happened";
-        if (awnser) {
+        if (logInRememberMe.isSelected()){
+            /* TODO tässä sit laitetaan jos haluu muistaa loginin */
+            Trace.out(Trace.Level.DEV, "Remember user");
+            client.setRememberUser(true);
+        }
+        awnser = client.login(new User(username, password, new Person()));
+        if (awnser != null) {
             try {
-                GUI.setScene("DevicesList", 500, 500);
+                gui.setUser(awnser);
+                gui.setScene("DevicesList", 500, 500);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -50,12 +57,24 @@ public class LogSingController {
     private void handleSingUpButtonAction(ActionEvent event) {
         String email = singUpEmail.getText();
         String password = singUpPassword.getText();
-        /* TODO lähetä request apille ja sit kato onko answer toimii vai ei ja sit jatka sen mukaan */
-        Boolean awnser = true;
+        String username = singUpUSername.getText();
+        String city = singUpCity.getText();
+        String postalCode = singUpPostalCode.getText();
+        // TODO: get user's name and address => faking it for now
+        User user = new User(username, password, "active",
+                new Person("Urho Kaleva", "Kekkonen", email,
+                        "Suomen maa kunta", city, postalCode));
+        awnser = client.register(user);
         String error = "error happened";
-        if (awnser) {
+        if (singUpRememberMe.isSelected()){
+            client.setRememberUser(true);
+            /* TODO tässä sit laitetaan jos haluu muistaa loginin */
+        }
+        if (awnser != null) {
             try {
-                GUI.setScene("DevicesList", 500, 500);
+                gui.setUser(awnser);
+                client.login(user); // logging in with new user
+                gui.setScene("DevicesList", 500, 500);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -71,11 +90,21 @@ public class LogSingController {
         singUpErrorMsg.setText(msg);
     }
 
-    @FXML
-    private void initialize() {
-        logInButton.disableProperty().bind(logInEmail.textProperty().isEmpty().or(logInPassword.textProperty().isEmpty()));
-        singUpButton.disableProperty().bind(singUpEmail.textProperty().isEmpty().or(singUpPassword.textProperty().isEmpty()));
+    @Override
+    public void start() {
+        logInButton.disableProperty().bind(logInUsername.textProperty().isEmpty().or(logInPassword.textProperty().isEmpty()));
+        singUpButton.disableProperty().bind(singUpEmail.textProperty().isEmpty().or(singUpPassword.textProperty().isEmpty().or(singUpUSername.textProperty().isEmpty().or(singUpCity.textProperty().isEmpty().or(singUpPostalCode.textProperty().isEmpty())))));
         logInErrorMsg.setVisible(false);
         singUpErrorMsg.setVisible(false);
+
+        /* fill fields for easier testing so no need to fill them out */
+        //logInUsername.setText("wasdi");
+        //logInPassword.setText("wasdi");
+
+        singUpEmail.setText("emaili");
+        singUpPassword.setText("passwordi");
+        singUpUSername.setText("usernami");
+        singUpCity.setText("cityni");
+        singUpPostalCode.setText("postalcodeni");
     }
 }

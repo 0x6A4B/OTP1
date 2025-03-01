@@ -116,4 +116,10 @@ class DeviceTest {
         device.setRegistered(newDate);
         assertEquals(newDate, device.getRegistered());
     }
+
+    @Test
+    void toStringJson(){
+        // TODO: test for valid json
+        System.out.println(device.toString());
+    }
 }

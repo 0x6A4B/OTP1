@@ -1,6 +1,7 @@
 package dev._x6a4b.otp1;
 
 
+import dev._x6a4b.otp1.mqtt.Mqtt;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
@@ -48,6 +49,11 @@ public class Application {
         app.setDefaultProperties(Collections
                 .singletonMap("server.port", "8088"));
         applicationContext = app.run(args);
+
+
+        // MQTT
+        //Mqtt mqtt = new Mqtt();
+
 
         checkBeansPresence("UserController", "UserService", "UserRepository");
     }

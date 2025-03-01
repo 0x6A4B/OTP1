@@ -1,3 +1,6 @@
+
+## Model
+
 ```mermaid
 
     classDiagram
@@ -67,6 +70,14 @@
         +getValue() : String
         +getDate() : Date
     }
+```
+
+## Manager
+
+
+```mermaid
+
+    classDiagram
 
     class LogManager{
         -HashMap~Device, LogEntry~ entries
@@ -99,6 +110,13 @@
 
 
     }
+```
+
+
+
+```mermaid
+
+    classDiagram
 
     class ConnectionManager{
         -String ApiURL
