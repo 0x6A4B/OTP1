@@ -7,33 +7,20 @@ import org.eclipse.paho.mqttv5.common.MqttMessage;
 import org.eclipse.paho.mqttv5.common.packet.MqttProperties;
 
 
-
 public class Mqtt {
-
-    private String mqttBrokerUri;
-
-    private String brokerPort;
-
-
-    private String broker;
-    private final String clientId = "API-Client2";
-
     private MqttClient client;
+    private Hook hook;
 
 
-    public Mqtt(){
-
-        //  public void start(){
-        //broker = mqttBrokerUri + ":" + brokerPort;
-        broker = "tcp://otp1.0x6a4b.dev:1883";
-        //broker = env.getProperty("mqtt.broker-uri");
+    public Mqtt(Hook hook, String broker, String clientId, String topic, String username, String password){
+        this.hook = hook;
         System.out.println("Broker: " + broker);
 
         try {
             client = new MqttClient(broker, clientId);
             MqttConnectionOptions options = new MqttConnectionOptions();
-            options.setUserName("test_user");
-            options.setPassword("test1234".getBytes());
+            options.setUserName(username);
+            options.setPassword(password.getBytes());
             client.connect(options);
 
             client.setCallback(new MqttCallback() {
@@ -72,9 +59,7 @@ public class Mqtt {
                 }
             });
 
-            String topic = "sensor/data/#";
             int qos = 1;
-
             client.subscribe(topic, qos);
 
             //client.disconnect();
@@ -92,28 +77,20 @@ public class Mqtt {
                 + "\nQOS: " + message.getQos()
                 + "\nContent: " + new String(message.getPayload()));
 
-        System.out.println(new String(message.getPayload()));
-
-        String uuid = topic.substring(topic.lastIndexOf("/") + 1, topic.length()-1);
-        String payload = new String(message.getPayload());
-        System.out.println("UUID: " + uuid);
+        // Callback to calling classes handler
+        hook.handle(topic, message);
     }
 
     private void handleDisconnected(MqttDisconnectResponse mqttDisconnectResponse){
         System.err.println("MQTT disconnected: " + mqttDisconnectResponse.getReasonString());
     }
 
-    public void sendMessage(String messageText, String topic){
-        //String topic = "topic/test";
+    public void sendMessage(String messageText, String topic) throws MqttException{
         int qos = 1;
-        //String msg = "Hello MQTT";
         MqttMessage message = new MqttMessage(messageText.getBytes());
         message.setQos(qos);
-        try {
-            client.publish(topic, message);
-        } catch (MqttException e) {
-            System.err.println("Error in MQTT msg send: " + e.getMessage());
-        }
+        client.publish(topic, message);
+
     }
 
     private void closeConnection(){
