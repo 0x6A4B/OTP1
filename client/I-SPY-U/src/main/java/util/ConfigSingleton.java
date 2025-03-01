@@ -1,8 +1,6 @@
 package util;
 
 import model.User;
-import service.ConnectionManager;
-
 import java.io.*;
 import java.util.Properties;
 
@@ -12,7 +10,24 @@ public class ConfigSingleton {
     private String apiUrl;
     private boolean configLoaded = false;
     private final String configFile = "app.properties";
-    private final String userConfigFile = ConfigSingleton.class.getResource("..").getPath() + "app.cfg";
+
+    /*
+        How am I supposed to work with config files when program is packaged as JAR?
+        All solutions seem bad and hacky. Don't want to save to the directory where .JAR
+        is called from. Or should I just expect to use the working directory?
+        Maybe...
+        The solutions that work perfectly with unpackaged files break with JAR
+     */
+
+    // Saving config file to directory .JAR is run from aka working directory
+    //private final String userConfigFile = "app.cfg";
+
+    // Saving to the directory where .JAR file is located... Maybe bad idea? Would end up in /bin/ if .JAR is there
+    private final String userConfigFileName = "app.cfg";
+    private final String jarDirectory = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath()
+            .substring(0, this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath().lastIndexOf("/"));
+    private final String userConfigFile = jarDirectory + "/" + userConfigFileName;
+    //private final String userConfigFile = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath().substring() + "app.cfg";
 
     // TODO: GET a better solution for UI to track user
     private User user;
@@ -47,7 +62,7 @@ public class ConfigSingleton {
     }
 
     private void loadProperties(){
-        try(InputStream is = ConnectionManager.class.getClassLoader().getResourceAsStream(configFile)) {
+        try(InputStream is = ConfigSingleton.class.getClassLoader().getResourceAsStream(configFile)) {
             Properties prop = new Properties();
             prop.load(is);
 

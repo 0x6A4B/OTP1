@@ -1,5 +1,3 @@
-import model.Client;
-import util.Trace;
 import view.GUI;
 
 public class Main {

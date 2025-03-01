@@ -38,7 +38,9 @@ public class UserQuery extends HttpQuery {
             HttpResponse<String> response = super.post();
             // TODO: FIX THIS QUICK fix to have user available in view
             ConfigSingleton.getInstance().setUser(user);    // the UNGOOD, BAD and UGLY
-            return userParser.parse(response.body());
+            //return userParser.parse(response.body());
+            if (userParser.parse(response.body()) != null)
+                return user;
         }catch (Exception e){
             Trace.out(Trace.Level.ERR, "Error in logging in: "
                 + e.getMessage());
