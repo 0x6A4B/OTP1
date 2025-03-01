@@ -62,3 +62,20 @@ Subscribe
 ```
 mosquitto_sub -h [HOSTNAME] -t test/#
 ```
+
+
+## Running the faker container
+
+With the current dir being the volume dir for sensors.list
+
+```
+podman run -p 1883 -v ./:/app/data faker:latest -d
+```
+
+## Adding devices to the faker
+
+UUID must be valid and in quotes
+
+```
+mosquitto_pub -h otp1.0x6a4b.dev -m "VALID_UUID" -t sensor/data/add_device -i client_name -u test_user -P test1234 -d
+```

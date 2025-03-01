@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Sensors {
     private List<String> uuids = new ArrayList<>();
-    private final String filename = "sensors.list";
+    private final String filename = "data/sensors.list";
 
     public Sensors(){
         loadSensors();
