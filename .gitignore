@@ -1,3 +1,6 @@
+# Extras
+.lck # mqtt lockfiles
+
 #
 .idea/
 
