@@ -80,6 +80,44 @@ Now you can just connect the VNC client to localhost:5900 as it is forwarded to 
 
 ### Running JavaFX applications on the VNC server
 
+You can test your .JAR file by copying it into this docker container, logging in with VNC and running it there
+
+After running the container to get the name of the container
+```
+docker ps
+```
+
+Output:
+```
+CONTAINER ID  IMAGE                            COMMAND               CREATED       STATUS        PORTS                   NAMES
+71c59f9cf6b7  docker.io/0x6a4b/vnc-gui:latest  x11vnc -create -f...  1 second ago  Up 2 seconds  0.0.0.0:5900->5900/tcp  distracted_banach
+```
+
+We can recognize the correct container from the port 5900 the VNC server is sharing.
+
+Now copy our app.jar file to the container:
+```
+docker cp app.jar distracted_banach:/
+```
+
+Connect to it with VNC client and run in the xterm:
+```
+java -jar app.jar
+```
+If the app.jar isn't found we can diagnose the situation a bit with
+```
+pwd
+ls ./*.jar
+```
+First command prints current working directory and the second one lists all .jar files in the current directory.
+If the ls command doesn't list our .jar then we are either in the wrong directory or it wasn't copied in here for some reason.
+
+
+Did you copy it to the right container and in to the root, and are we in the root now?
+
+
+### Building our JavaFX container
+
 Dockerfile
 ```
 FROM 0x6a4b/vnc-gui
