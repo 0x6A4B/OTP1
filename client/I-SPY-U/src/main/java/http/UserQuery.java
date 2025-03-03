@@ -30,7 +30,6 @@ public class UserQuery extends HttpQuery {
             super.setBody(json);
         }catch (JsonProcessingException e){
             Trace.out(Trace.Level.ERR, "Error in parsing: " + e.getMessage());
-            e.printStackTrace();
         }
 
 

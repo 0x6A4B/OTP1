@@ -49,7 +49,7 @@ public abstract class HttpQuery {
             // if not 200 || 201 then fuck
             return response;
         } catch (Exception e) {
-            Trace.out(Trace.Level.ERR, "POST requset failed" + e.getMessage());
+            Trace.out(Trace.Level.ERR, "POST request failed" + e.getMessage());
         }
 
         return null;
