@@ -32,6 +32,9 @@ public class DeviceController extends IController {
     @FXML private TextField limitMax;
     @FXML private Button setLimitsButton;
 
+    @FXML private Tab configTab;
+    @FXML private Tab shareTab;
+
     @FXML private TextField sharingEmail;
     @FXML private Button shareButton;
 
@@ -54,6 +57,7 @@ public class DeviceController extends IController {
     private Device device;
 
     private void setUpCharts() {
+        lineChart.getData().clear();
         XYChart.Series<String, Double> series = new XYChart.Series<>();
         series.setName(device.getName());
         Calendar calendar = Calendar.getInstance();
@@ -154,5 +158,7 @@ public class DeviceController extends IController {
 
         selectionModel = tabPane.getSelectionModel();
         setUpCharts();
+        configTab.setDisable(true);
+        shareTab.setDisable(true);
     }
 }
