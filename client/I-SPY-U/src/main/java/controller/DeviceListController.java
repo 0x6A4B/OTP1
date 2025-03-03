@@ -30,6 +30,7 @@ public class DeviceListController extends IController {
     @FXML private VBox sharedDevicesList;
 
     @FXML private Tab ownDevicesTab;
+    @FXML private Tab sharedDevicesTab;
 
     @FXML private VBox sharedDeviceDetails;
     @FXML private VBox ownDeviceDetails;
@@ -180,5 +181,6 @@ public class DeviceListController extends IController {
                 switchToSharedDevices();
             }
         });
+        sharedDevicesTab.setDisable(true);
     }
 }

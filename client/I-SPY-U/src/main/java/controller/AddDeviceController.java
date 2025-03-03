@@ -40,7 +40,7 @@ public class AddDeviceController extends IController {
             }
         } catch (Exception e) {
             errorMsg.setVisible(true);
-            errorMsg.setText("Failed to create UUID, was it valid?!");
+            errorMsg.setText("Failed to create UUID, was it valid?");
             Trace.out(Trace.Level.ERR, "Failed to create UUID, was it valid?!");
         }
     }
