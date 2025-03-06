@@ -29,7 +29,11 @@ sequenceDiagram
 
 sequenceDiagram
     Sensor ->> MQTT_Broker: PUBLISH(Topic=UUID, measurement)
+    MQTT_Broker ->> Sensor: ACK
     MQTT_Broker ->> REST_API: Sensor UUID X reported this measurement
+    REST_API ->> MQTT_Broker: ACK
+    REST_API ->> DB: <<Find Device>>
+    DB ->> REST_API: <<Device>>
     REST_API ->> DB: <<Create LogEntry(Device, key, value)>>
     DB ->> REST_API: <<Ok>>
 ```
