@@ -31,8 +31,14 @@ public class Client {
     }
 
     // LOG
+    // TODO: Deprecating this...??
     public List<LogEntry> getLogEntries(Device device){
-        return connectionManager.getLogEntries(device);
+        //return connectionManager.getLogEntries(device);
+        return getLogEntries(device, -1);
+    }
+
+    public List<LogEntry> getLogEntries(Device device, int limit){
+        return connectionManager.getLogEntries(device, limit);
     }
 
     public boolean removeLogEntry(LogEntry logEntry){

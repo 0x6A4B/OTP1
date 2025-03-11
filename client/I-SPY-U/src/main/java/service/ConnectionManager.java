@@ -28,9 +28,13 @@ public class ConnectionManager {
     }
 
     public List<LogEntry> getLogEntries(Device device){
+        return getLogEntries(device, -1);
+    }
+
+    public List<LogEntry> getLogEntries(Device device, int limit){
         Trace.out(Trace.Level.DEV,"conmgr.getlogentries");
         Trace.out(Trace.Level.DEV, "Device: " + device.getName());
-        return logManager.readAll(device);
+        return logManager.readAll(device, limit);
     }
 
     public boolean removeLogEntry(LogEntry logEntry){

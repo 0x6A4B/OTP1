@@ -4,6 +4,7 @@ import dev._x6a4b.otp1.entity.Device;
 import dev._x6a4b.otp1.entity.User;
 import dev._x6a4b.otp1.repository.DeviceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Limit;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -46,6 +47,14 @@ public class DeviceService {
         User user = userService.getUserByName(username).get();
         return deviceRepository.findByUserId(user.getId());  // sorting?
     }
+    //findByOrderByRegisteredDesc
+
+    public Optional<List<Device>> getDevicesWithLimit(String username, int limit){
+        System.out.println("detdevices by username with limit: " + username + " and limit: " + limit);
+        User user = userService.getUserByName(username).get();
+        return deviceRepository.findByUserIdOrderByRegisteredDesc(user.getId(), Limit.of(limit));
+    }
+
 
     public void removeDevice(Device device){
         deviceRepository.delete(device);
