@@ -11,4 +11,6 @@ public interface IManager<T, S> {
     public T update(T t);
     public boolean removeAll(T t);
     //public boolean deleteAll(); // for removing all devices using token
+
+    public List<T> readAll(S s, int limit);
 }

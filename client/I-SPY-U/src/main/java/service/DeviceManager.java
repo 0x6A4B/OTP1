@@ -44,4 +44,11 @@ public class DeviceManager implements IManager {
     public boolean removeAll(Object o){
         return deviceQuery.removeAllDevices(o);
     }
+
+
+    // TODO: implement
+    @Override
+    public List readAll(Object o, int limit) {
+        return List.of();
+    }
 }

@@ -16,9 +16,13 @@ public class LogQuery extends HttpQuery {
     }
 
     public List<LogEntry> getLogsByDevice(Device device) {
+        return getLogsByDevice(device, -1);
+    }
+
+    public List<LogEntry> getLogsByDevice(Device device, int limit) {
         Trace.out(Trace.Level.DEV, "logq.getlogsbydevice: " + device.getId());
 
-        super.setEndpoint(endpoint + "/bydevice/" + device.getId());
+        super.setEndpoint(endpoint + "/bydevice/" + device.getId() + (limit > 0 ? "?limit=" + limit : ""));
 
         try {
             HttpResponse<String> response = super.get();

@@ -28,8 +28,13 @@ public class LogManager implements IManager{
 
     @Override
     public List<LogEntry> readAll(Object o) {
+        return readAll(o, -1);
+    }
+
+    @Override
+    public List<LogEntry> readAll(Object o, int limit) {
         Trace.out(Trace.Level.DEV, ("logmgr.readall"));
-        return logQuery.getLogsByDevice((Device) o);
+        return logQuery.getLogsByDevice((Device) o, limit);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package dev._x6a4b.otp1.repository;
 
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Limit;
 import org.springframework.data.jpa.repository.JpaRepository;
 import dev._x6a4b.otp1.entity.Device;
 import org.springframework.stereotype.Repository;
@@ -18,6 +19,9 @@ public interface DeviceRepository extends JpaRepository<Device, Long> {
     Optional<List<Device>> findByUserId(Long userId);
 
     Optional<Device> findByUuid(UUID uuid);
+
+    //@Query("SELECT d FROM Device d ORDER BY d.registered DESC LIMIT ")
+    Optional<List<Device>> findByUserIdOrderByRegisteredDesc(Long userId, Limit limits);
 
     @Transactional
     void deleteByUserId(Long userId);   // for deleting all devices if user is deleted?
