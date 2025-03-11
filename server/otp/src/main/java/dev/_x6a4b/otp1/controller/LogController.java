@@ -25,8 +25,10 @@ public class LogController {
     private DeviceService deviceService;
 
     @GetMapping("/bydevice/{id}")
-    public ResponseEntity<List<LogEntry>> getAllEntriesByDeviceId(@PathVariable long id){
+    public ResponseEntity<List<LogEntry>> getAllEntriesByDeviceId(@PathVariable long id, @RequestParam(required = false) Integer limit){
         System.out.println("get /api/log/bydevice/" + id);
+        if (limit != null)
+            return new ResponseEntity<>(deviceLogService.getLogEntriesWithLimits(id, limit).get(), HttpStatus.OK);
         return new ResponseEntity<>(deviceLogService.getLogEntries(id).get(), HttpStatus.OK);
     }
 

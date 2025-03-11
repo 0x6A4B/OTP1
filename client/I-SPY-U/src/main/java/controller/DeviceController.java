@@ -61,7 +61,8 @@ public class DeviceController extends IController {
         XYChart.Series<String, Double> series = new XYChart.Series<>();
         series.setName(device.getName());
         Calendar calendar = Calendar.getInstance();
-        List<LogEntry> logs = client.getLogEntries(device);
+        // TODO: set limits with GUI
+        List<LogEntry> logs = client.getLogEntries(device, 30);
         Trace.out(Trace.Level.DEV, "Loading logentries:");
         for (LogEntry i : logs) {
             Trace.out(Trace.Level.DEV, "\tLogEntry: " + i);
