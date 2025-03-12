@@ -1,12 +1,16 @@
 package service;
 
 import http.DeviceQuery;
+import http.DeviceShareQuery;
 import model.Device;
+import model.DeviceShare;
+import model.User;
 import util.Trace;
+
 import java.util.List;
 
-public class DeviceManager implements IManager {
-    private final DeviceQuery deviceQuery = new DeviceQuery();
+public class DeviceShareManager implements IManager {
+    private final DeviceShareQuery deviceShareQuery = new DeviceShareQuery();
 
     @Override
     public Object read(Object device) {
@@ -15,32 +19,32 @@ public class DeviceManager implements IManager {
     }
 
     @Override
-    public Object update(Object device) {
+    public DeviceShare update(Object deviceShare) {
         // TODO: UPDATE NOT IMPLEMENTED
-        return null;
+        return deviceShareQuery.updateSharedDevice((DeviceShare) deviceShare);
     }
 
     @Override
-    public Device create(Object device) {
-        return deviceQuery.createDevice((Device) device);
+    public DeviceShare create(Object deviceShare) {
+        return deviceShareQuery.shareDevice((DeviceShare) deviceShare);
     }
 
     @Override
-    public List<Device> readAll(Object o) {
+    public List<DeviceShare> readAll(Object o) {
         Trace.out(Trace.Level.DEV, "devmgr.readall");
-        return deviceQuery.getDevices();
+        return deviceShareQuery.getSharedDevices();
     }
 
     @Override
     public boolean remove(Object device) {
-        return deviceQuery.removeDevice((Device) device);
+        return deviceShareQuery.removeSharedDevice((Device) device);
     }
     // Why would we need and use this?
     // Why not iterate a list of devices to be removed and use normal remove device
     // TODO: API not supporting this
     @Override
     public boolean removeAll(Object o){
-        return deviceQuery.removeAllDevices(o);
+        return deviceShareQuery.removeAllSharedDevices(o);
     }
 
     // TODO: implement
@@ -48,6 +52,5 @@ public class DeviceManager implements IManager {
     public List readAll(Object o, int limit) {
         return List.of();
     }
-
 
 }

@@ -1,49 +1,49 @@
 package http;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import model.Device;
+import model.DeviceShare;
 import util.Trace;
 
 import java.net.http.HttpResponse;
 import java.util.List;
 
-public class DeviceQuery extends HttpQuery {
-    private DeviceParser deviceParser;
-    private final String endpoint = "/device";
+public class DeviceShareQuery extends HttpQuery {
+    private DeviceShareParser deviceShareParser;
+    private final String endpoint = "/deviceshare";
 
-    public DeviceQuery() {
+    public DeviceShareQuery() {
         super();
-        this.deviceParser = new DeviceParser();
+        this.deviceShareParser = new DeviceShareParser();
     }
 
-    public List<Device> getDevices() {
+    public List<DeviceShare> getSharedDevices() {
         System.out.println("devq.getdevices");
         super.setEndpoint(endpoint);
         try{
             HttpResponse<String> response = super.get();
-            return deviceParser.parseList(response.body());
+            return deviceShareParser.parseList(response.body());
         } catch (Exception e) {
             Trace.out(Trace.Level.ERR, "Failed to fetch devices");
         }
         return null;
     }
 
-    public Device createDevice(Device device){
+    public DeviceShare shareDevice(DeviceShare deviceShare) {
         super.setEndpoint(endpoint);
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
         try {
             //String body = ow.writeValueAsString(device);
-            Trace.out(Trace.Level.DEV, "POST body: " + device.toString());
-            super.setBody(device.toString());
+            Trace.out(Trace.Level.DEV, "POST body: " + deviceShare.toString());
+            super.setBody(deviceShare.toString());
         } catch (Exception e){
             Trace.out(Trace.Level.ERR, "Failed to process json");
         }
         try{
             HttpResponse<String> response = super.post();
             // TODO: response exception
-            return deviceParser.parse(response.body());
+            return deviceShareParser.parse(response.body());
         } catch (Exception e){
             Trace.out(Trace.Level.ERR, "Failed to create device");
         }
@@ -51,8 +51,28 @@ public class DeviceQuery extends HttpQuery {
 
     }
 
+    public DeviceShare updateSharedDevice(DeviceShare deviceShare) {
+        super.setEndpoint(endpoint);
+        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+        try {
+            //String body = ow.writeValueAsString(device);
+            Trace.out(Trace.Level.DEV, "POST body: " + deviceShare.toString());
+            super.setBody(deviceShare.toString());
+        } catch (Exception e){
+            Trace.out(Trace.Level.ERR, "Failed to process json");
+        }
+        try{
+            HttpResponse<String> response = super.patch();
+            // TODO: response exception
+            return deviceShareParser.parse(response.body());
+        } catch (Exception e){
+            Trace.out(Trace.Level.ERR, "Failed to create device");
+        }
+        return null;
 
-    public boolean removeDevice(Device device){
+    }
+
+    public boolean removeSharedDevice(Device device){
         Trace.out(Trace.Level.INFO, "Removing device: " + device);
         super.setEndpoint(endpoint + "/" + device.getId());
         try {
@@ -66,7 +86,7 @@ public class DeviceQuery extends HttpQuery {
     }
 
     // TODO: IMPLEMENT IN THE API
-    public boolean removeAllDevices(Object o){
+    public boolean removeAllSharedDevices(Object o){
         super.setEndpoint(endpoint + "/deleteall");
         try {
             super.delete();
