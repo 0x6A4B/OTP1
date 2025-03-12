@@ -2,6 +2,7 @@ package dev._x6a4b.otp1.service;
 
 import dev._x6a4b.otp1.entity.Device;
 import dev._x6a4b.otp1.entity.DeviceShare;
+import dev._x6a4b.otp1.entity.DeviceShareDTO;
 import dev._x6a4b.otp1.entity.User;
 import dev._x6a4b.otp1.repository.DeviceShareRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,13 +30,28 @@ public class DeviceShareService {
         return deviceShareRepository.findByUserId(id);
     }
 
-    public DeviceShare saveDeviceShare(DeviceShare deviceShare){
+    public DeviceShare saveDeviceShare(DeviceShareDTO deviceShareDTO){
         System.out.println("deviceshareservice.createdeviceshare");
-        deviceShare.setSharedDate(new Date());
-        //deviceShare.setUser(userService.getUser());
+        System.out.println("DEBUG:");
+        System.out.println(deviceShareDTO.getDevice().getId());
+        System.out.println(deviceShareDTO.getUser().getId());
+
+        User user = userService.getUserById(deviceShareDTO.getUser().getId()).get();
+        System.out.println("user: " + user.getUsername());
+
+        Device device = deviceService.getDeviceById(deviceShareDTO.getDevice().getId()).get();
+        System.out.println("device: " + device.getName());
+
+
+        DeviceShare deviceShare = new DeviceShare(
+                device,
+                user,
+                new Date(),
+                deviceShareDTO.getPrivilege(),
+                deviceShareDTO.getDescription()
+        );
         System.out.println("deviceshareservice.createdeviceshare" + deviceShare.getUser().getId() + " " + deviceShare.getDevice().getId());
-        //deviceShare.set
-        //return deviceShareRepository.saveAndFlush(deviceShare);
-        return null;
+
+        return deviceShareRepository.saveAndFlush(deviceShare);
     }
 }
