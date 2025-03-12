@@ -15,8 +15,7 @@ public class DeviceParser implements ResponseParser{
 
     public Device parse(String response) {
         try {
-            Device device = new ObjectMapper().readValue(response, new TypeReference<Device>() {});
-            return device;
+            return new ObjectMapper().readValue(response, new TypeReference<Device>() {});
         } catch (Exception e){ e.printStackTrace(); }
             return null;
         }

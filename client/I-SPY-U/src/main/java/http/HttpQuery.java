@@ -14,19 +14,24 @@ public abstract class HttpQuery {
     protected static String token;
     protected static HttpClient httpClient = HttpClient.newHttpClient();
 
-    protected  String endpoint;
-    protected  String body;
+    protected String endpoint;
+    protected String body;
 
     //public HttpQuery(String apiUrl) { this.apiUrl = apiUrl; }
-    public HttpQuery(){}
+    public HttpQuery() {
+    }
 
     //public void setApiUrl(String apiUrl){ this.apiUrl = apiUrl; }
-    public void setEndpoint(String endpoint){
+    public void setEndpoint(String endpoint) {
         System.out.println("XX:" + apiUrl);
-        this.endpoint = apiUrl + endpoint; }
-    public void setBody(String body){ this.body = body; }
+        this.endpoint = apiUrl + endpoint;
+    }
 
-    public HttpResponse<String> post() throws Exception{
+    public void setBody(String body) {
+        this.body = body;
+    }
+
+    public HttpResponse<String> post() throws Exception {
 
         Trace.out(Trace.Level.DEV, "httpquery.post");
         Trace.out(Trace.Level.DEV, "Endpoint: " + endpoint + "\ttoken: " + token);
@@ -52,13 +57,10 @@ public abstract class HttpQuery {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return null;
-
-
     }
 
-    public HttpResponse<String> get() throws Exception{
+    public HttpResponse<String> get() throws Exception {
         token = ConfigSingleton.getInstance().getToken();
         System.out.println("HttpQuery.Get: endpoint: " + endpoint + "\ttoken: " + token);
 
@@ -84,7 +86,7 @@ public abstract class HttpQuery {
         return null;
     }
 
-    public HttpResponse<String> delete() throws Exception{
+    public HttpResponse<String> delete() throws Exception {
         token = ConfigSingleton.getInstance().getToken();
         Trace.out(Trace.Level.INFO, "HttpQuery.Delete: endpoint: " + endpoint + "\ttoken: " + token);
 
@@ -99,7 +101,7 @@ public abstract class HttpQuery {
 
         try {
             HttpResponse<String> response = futureResponse.get();
-            Trace.out(Trace.Level.INFO,"HttpQuery.Get response: " + response.statusCode());
+            Trace.out(Trace.Level.INFO, "HttpQuery.Delete response: " + response.statusCode());
             //if not 204 || 200 then fucked are we
             // throw new Exception
             return response;
@@ -108,6 +110,30 @@ public abstract class HttpQuery {
         }
 
 
+        return null;
+    }
+
+    public HttpResponse<String> patch() throws Exception {
+        token = ConfigSingleton.getInstance().getToken();
+        Trace.out(Trace.Level.INFO, "HttpQuery.Patch: endpoint: " + endpoint + "\ttoken: " + token);
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(endpoint))
+                .method("PATCH", HttpRequest.BodyPublishers.ofString(body))
+                .header("Authorization", "Bearer " + token)
+                .header("Content-Type", "application/json")
+                .build();
+
+        CompletableFuture<HttpResponse<String>> futureResponse
+                = httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString());
+
+        try {
+            HttpResponse<String> response = futureResponse.get();
+            Trace.out(Trace.Level.INFO, "HttpQuery.Patch response: " + response.statusCode());
+            //if not 204 || 200 then fucked are we
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return null;
     }
 }

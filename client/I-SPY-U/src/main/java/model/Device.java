@@ -33,7 +33,7 @@ public class Device {
         this.model = model;
     }
 
-    public Device(User user, UUID uuid, String name, Boolean owned, String description, String model, Date registered){
+    public Device(User user, UUID uuid, String name, Boolean owned, String description, String model, Date registered) {
         this.user = user;
         this.uuid = uuid;
         this.name = name;
