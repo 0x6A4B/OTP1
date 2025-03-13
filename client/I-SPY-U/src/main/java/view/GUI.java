@@ -94,7 +94,7 @@ public class GUI extends Application {
     private IController popupCtrl;
 
     public /*static*/ void openPopup(String fxml, int width, int height, IController popupCtrl) throws IOException {
-        System.out.println("Opening popup "+fxml+"...");
+        System.out.println("Opening popup "+fxml);
         popupStage = new Stage();   // we need to create new if popup is called again
         popupStage.initStyle(StageStyle.UNDECORATED);
 
@@ -113,10 +113,4 @@ public class GUI extends Application {
         popupCtrl.hook();
         popupCtrl = null;
     }
-
-    public void popupHook(){
-
-    }
-
-
 }

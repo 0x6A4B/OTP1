@@ -134,7 +134,8 @@ public class DeviceListController extends IController {
 
     @FXML
     private void handleRemoveDevice(){
-        System.out.println("person clicked remove");
+        /* TODO: Kinda ugly to send device trough gui but is a quick fix. maybe fix later */
+        gui.setCurrentDevice(currentDevice);
         try {
             gui.openPopup("AreYouSurePopup", 300, 190, this);
         } catch (IOException e) {
@@ -149,6 +150,11 @@ public class DeviceListController extends IController {
         devices = client.getDevices(gui.getUser());
         getDevices(myDevicesList);
         getDevices(sharedDevicesList);
+        ownDeviceDetails.setVisible(false);
+        removeDeviceButton.setVisible(false);
+        sharedDeviceDetails.setVisible(false);
+        sharedOpenDeviceButton.setVisible(false);
+        ownOpenDeviceButton.setVisible(false);
     }
 
     private Label addNewDeviceButton(){

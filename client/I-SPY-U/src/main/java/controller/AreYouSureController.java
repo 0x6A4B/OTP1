@@ -11,7 +11,7 @@ public class AreYouSureController extends IController {
     
     @FXML
     private void handleRemoveDevice(){
-        System.out.println("person clicked remove on are you sure");
+        System.out.println("Removing device "+gui.getCurrentDevice().getName());
         client.removeDevice(gui.getCurrentDevice());
         try {
             gui.closePopup();
