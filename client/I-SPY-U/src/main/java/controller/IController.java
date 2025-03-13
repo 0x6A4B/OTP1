@@ -1,11 +1,14 @@
 package controller;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.stage.Stage;
 import model.Client;
 import view.GUI;
+import javafx.stage.Window;
 
 public abstract class IController {
     protected GUI gui;
@@ -13,8 +16,13 @@ public abstract class IController {
 
     @FXML
     private void handleCloseButtonAction(ActionEvent event) {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();
+        List<Stage> stages = Window.getWindows().stream()
+            .filter(Stage.class::isInstance)
+            .map(Stage.class::cast)
+            .collect(Collectors.toList());
+        for (Stage stage : stages) {
+            stage.close();
+        }
     }
     public void setGUI(GUI gui) {
         this.gui = gui;

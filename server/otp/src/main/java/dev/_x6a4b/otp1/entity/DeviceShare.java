@@ -72,4 +72,6 @@ public class DeviceShare {
     public void setUser(User user) {
         this.user = user;
     }
+    public void setDeviceId(Long deviceId) { this.deviceId = deviceId; }
+    public void setUserId(Long userId) { this.userId = userId; }
 }

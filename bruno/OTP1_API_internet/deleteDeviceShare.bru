@@ -1,0 +1,32 @@
+meta {
+  name: deleteDeviceShare
+  type: http
+  seq: 17
+}
+
+delete {
+  url: https://otp1.0x6a4b.dev/api/deviceshare/:id
+  body: none
+  auth: bearer
+}
+
+params:path {
+  id: 7
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ3YXNkaSIsImlhdCI6MTc0MTcxODExNCwiZXhwIjoxNzQyMzIyOTE0fQ.G8pyD56HCX-HkAMTCK9PIKtt0g1PcS6V52PeOIjs6M8AJ8xWi024ihVhZCg6wo9O
+}
+
+body:json {
+  {
+    "user":{
+      "id": 21
+    },
+    "device":{
+      "id": 4
+    },
+    "privilege": "dodo",
+    "description": "my shared device"
+  }
+}

@@ -38,6 +38,8 @@ public class DeviceListController extends IController {
     @FXML private Button sharedOpenDeviceButton;
     @FXML private Button ownOpenDeviceButton;
 
+    @FXML private Button removeDeviceButton;
+
     @FXML private Label ownDeviceDetalsLabel;
     @FXML private ListView ownDeviceDetalsListview;
 
@@ -100,6 +102,7 @@ public class DeviceListController extends IController {
         ((Label) event.getSource()).setStyle("-fx-background-color: grey; -fx-border-color: Black;");
         DeviceDetails.setVisible(true);
         openDeviceButton.setVisible(true);
+        removeDeviceButton.setVisible(true);
         DeviceDetailsLabel.setText(((Label) event.getSource()).getText());
         DeviceDetailsListview.getItems().clear();
         currentDevice = dev;
@@ -129,6 +132,17 @@ public class DeviceListController extends IController {
         }
     }
 
+    @FXML
+    private void handleRemoveDevice(){
+        /* TODO: Kinda ugly to send device trough gui but is a quick fix. maybe fix later */
+        gui.setCurrentDevice(currentDevice);
+        try {
+            gui.openPopup("AreYouSurePopup", 300, 190, this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     // TODO: FIX UGLY HACK
     @Override
     public void hook(){
@@ -136,6 +150,11 @@ public class DeviceListController extends IController {
         devices = client.getDevices(gui.getUser());
         getDevices(myDevicesList);
         getDevices(sharedDevicesList);
+        ownDeviceDetails.setVisible(false);
+        removeDeviceButton.setVisible(false);
+        sharedDeviceDetails.setVisible(false);
+        sharedOpenDeviceButton.setVisible(false);
+        ownOpenDeviceButton.setVisible(false);
     }
 
     private Label addNewDeviceButton(){
@@ -167,6 +186,7 @@ public class DeviceListController extends IController {
         getDevices(sharedDevicesList);
 
         ownDeviceDetails.setVisible(false);
+        removeDeviceButton.setVisible(false);
         sharedDeviceDetails.setVisible(false);
         sharedOpenDeviceButton.setVisible(false);
         ownOpenDeviceButton.setVisible(false);
