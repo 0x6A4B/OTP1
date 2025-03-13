@@ -43,4 +43,9 @@ public class DeviceShare {
     public void setUser(User user) {
         this.user = user;
     }
+
+    @Override
+    public String toString() {
+        return this.user.getUsername() + " " + this.device.getId();
+    };
 }

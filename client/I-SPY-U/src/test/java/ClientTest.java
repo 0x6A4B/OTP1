@@ -1,7 +1,4 @@
-import model.Client;
-import model.Device;
-import model.Person;
-import model.User;
+import model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -60,6 +57,52 @@ class ClientTest {
                                 new Person()
                         )).getUsername()
         );
+    }
+
+    @Test
+    void testSharing(){
+        //login as jarppi
+        User user = client.login(new User("jarppi", "jarppi"));
+
+        // Create device to be shared
+        Device device = client.addDevice(new Device(UUID.randomUUID(), "TESTI", true, "description", "model"));
+
+        // Create a user that device is shared with
+        User user1 = new User();
+        user1.setUsername("wasdi");
+
+        // Create a device share object
+        DeviceShare share = new DeviceShare( device, user1, "", "random desc" );
+
+        assertEquals( share.toString(), client.shareDevice(share).toString() );
+
+
+        //share device with wasdi
+        client.shareDevice(share);
+
+        //getdevices for jarppi => getlast
+        client.getDevices(user);
+
+        //get shares for device
+
+        //login as wasdi
+        User wasdi = client.login(new User("wasdi", "wasdi"));
+
+        //getshares
+        assertEquals( device.getId() , client.getDeviceShares(device).getFirst().getDevice() );
+
+
+        //update description
+
+
+        //delete share
+        client.removeDevice(share);
+        assertNotEquals(null , client.getDevices(user).getLast());
+        // get shares == null
+
+        //login as jarppi
+
+
     }
 
     @Test

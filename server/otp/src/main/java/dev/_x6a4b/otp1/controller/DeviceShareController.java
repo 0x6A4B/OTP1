@@ -51,9 +51,17 @@ public class DeviceShareController {
         System.out.println("createDeviceShare: " + deviceShareDTO.getUser().getId());
         System.out.println("createDeviceShare: " + deviceShareDTO.getDevice().getId());
 
+        //TODO: WHY not returning userid and deviceid
         try {
             Device device = deviceService.getDeviceById(deviceShareDTO.getDevice().getId()).get();
-            // DTO should have filled the User based on ID or username
+
+            // If we get username instead of id => fill user id
+            if (deviceShareDTO.getUser().getId() <= 0 && deviceShareDTO.getUser().getUsername() != null){
+                deviceShareDTO.setUser(userService.getUserByName(deviceShareDTO.getUser().getUsername()).get());
+                System.out.println("dug up user: " + deviceShareDTO.getUser().getId());
+            }
+
+            // DTO should have filled the User based on ID or username ?! this didn't work?
             if (principal.getName().equals(device.getUser().getUsername())) {
                 return new ResponseEntity<>(deviceShareService.saveDeviceShare(deviceShareDTO), HttpStatus.CREATED);
             } else
@@ -107,16 +115,17 @@ public class DeviceShareController {
     public ResponseEntity<DeviceShare> updateDeviceShare(@RequestBody DeviceShareDTO deviceShareDTO, Principal principal){
         System.out.println("updateDeviceShare: " + deviceShareDTO.getId());
         DeviceShare deviceShare = deviceShareService.getDeviceShareById(deviceShareDTO.getId()).get();
+        Device device = deviceService.getDeviceById(deviceShare.getDeviceId()).get();
 
         try{
             // Query from share owner => can only set description
-            if (principal.getName().equals(deviceShareDTO.getUser().getUsername())) {
+            if (principal.getName().equals(deviceShare.getUser().getUsername())) {
                 if (!deviceShare.getDescription().equals(deviceShareDTO.getDescription())) {
                     deviceShare.setDescription(deviceShareDTO.getDescription());
                     deviceShare = deviceShareService.updateDeviceShare(deviceShare);
                 }
             } else  // Query from the device owner
-                if (principal.getName().equals(deviceShareDTO.getDevice().getUser().getUsername())) {
+                if (principal.getName().equals(device.getUser().getUsername())) {
                     deviceShare.setPrivilege(deviceShareDTO.getPrivilege());
                     deviceShare = deviceShareService.updateDeviceShare(deviceShare);
             } else
