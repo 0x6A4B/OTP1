@@ -21,7 +21,7 @@
             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
          </padding>
       </Button>
-      <Button layoutX="194.0" layoutY="115.0" mnemonicParsing="false" text="Cancel" fx:id="cancelButton" onAction="#handleCloseButtonAction">
+      <Button layoutX="194.0" layoutY="115.0" mnemonicParsing="false" text="Cancel" fx:id="cancelButton" onAction="#handleCancelButton">
          <padding>
             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
          </padding>
