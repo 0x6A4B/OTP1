@@ -5,7 +5,6 @@ import java.util.stream.Collectors;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.stage.Stage;
 import model.Client;
 import view.GUI;

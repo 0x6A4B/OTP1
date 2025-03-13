@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import model.Person;
 import model.User;
@@ -14,13 +15,13 @@ import util.Trace;
 
 public class LogSingController extends IController {
     @FXML private TextField logInUsername;
-    @FXML private TextField logInPassword;
+    @FXML private PasswordField logInPassword;
     @FXML private Button logInButton;
     @FXML private Label logInErrorMsg;
     @FXML private CheckBox logInRememberMe;
 
     @FXML private TextField singUpEmail;
-    @FXML private TextField singUpPassword;
+    @FXML private PasswordField singUpPassword;
     @FXML private TextField singUpUSername;
     @FXML private TextField singUpCity;
     @FXML private TextField singUpPostalCode;
