@@ -16,18 +16,20 @@ public class DeviceParser implements ResponseParser{
     public Device parse(String response) {
         try {
             return new ObjectMapper().readValue(response, new TypeReference<Device>() {});
-        } catch (Exception e){ e.printStackTrace(); }
-            return null;
+        } catch (Exception e){
+            Trace.out(Trace.Level.ERR, "Error in parsing device: " + e.getMessage());
         }
+        return null;
+    }
 
     public List<Device> parseList(String response) {
         Trace.out(Trace.Level.DEV, "devparser.parselist");
         try {
             List<Device> devices = new ObjectMapper().readValue(response, new TypeReference<List<Device>>() {});
-            devices.forEach(d -> System.out.println(d.getName()));
+            devices.forEach(d -> Trace.out(Trace.Level.INFO, (d.getName())));
             return devices;
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
+            Trace.out(Trace.Level.ERR, "Error in parsing device list: " + e.getMessage());
         }
         return null;
     }
