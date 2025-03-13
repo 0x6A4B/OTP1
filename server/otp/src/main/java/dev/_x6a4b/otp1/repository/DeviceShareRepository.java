@@ -11,4 +11,8 @@ import java.util.Optional;
 @Repository
 public interface DeviceShareRepository extends JpaRepository<DeviceShare, Long> {
     Optional<List<DeviceShare>> findByUserId(Long userid);
+    Optional<List<DeviceShare>> findByDeviceId(Long deviceid);
+    Optional<DeviceShare> findById(Long userid);
+
+
 }

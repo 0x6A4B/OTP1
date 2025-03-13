@@ -1,13 +1,21 @@
 meta {
-  name: postDeviceShare
+  name: getLogEntriesWithLimits
   type: http
-  seq: 14
+  seq: 12
 }
 
-post {
-  url: http://127.0.0.1:8088/api/deviceshare
-  body: json
+get {
+  url: https://otp1.0x6a4b.dev/api/log/bydevice/:id?limit=5
+  body: none
   auth: bearer
+}
+
+params:query {
+  limit: 5
+}
+
+params:path {
+  id: 3
 }
 
 auth:bearer {
@@ -16,13 +24,7 @@ auth:bearer {
 
 body:json {
   {
-    "user":{
-      "id": 21
-    },
-    "device":{
-      "id": 3
-    },
-    "privilege": "dodo",
-    "description": "my second shared device"
+    "logkey": "temperature",
+    "value": "36.5"
   }
 }

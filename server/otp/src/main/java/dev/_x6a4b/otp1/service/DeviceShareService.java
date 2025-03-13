@@ -8,9 +8,7 @@ import dev._x6a4b.otp1.repository.DeviceShareRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class DeviceShareService {
@@ -25,9 +23,29 @@ public class DeviceShareService {
         this.deviceShareRepository = deviceShareRepository;
     }
 
-    public Optional<List<DeviceShare>> getDeviceByUserId(Long id){
+    public Optional<List<DeviceShare>> getDeviceSharesByUserId(Long id){
         System.out.println("deviceshareservice.getdevicesharebyuserid: " + id);
         return deviceShareRepository.findByUserId(id);
+    }
+
+    public Optional<List<DeviceShare>> getDeviceSharesByDeviceId(Long id){
+        System.out.println("deviceshareservice.getdevicesharebyuserid: " + id);
+        return deviceShareRepository.findByDeviceId(id);
+    }
+
+    public Optional<DeviceShare> getDeviceShareById(Long id){
+        System.out.println("deviceshareservice.getdevicesharebyuserid: " + id);
+        return deviceShareRepository.findById(id);
+    }
+
+    public List<DeviceShare> getDeviceSharesByDeviceOwnerName(String username){
+        System.out.println("deviceshareservice.getdevicesharebyuser: " + username);
+        List<Device> listOfDevices = deviceService.getDevices(username).get();
+        List<DeviceShare> listOfShares = new ArrayList<>();
+        for (Device device : listOfDevices) {
+            listOfShares.addAll(deviceShareRepository.findByDeviceId(device.getId()).get());
+        }
+        return listOfShares;
     }
 
     public DeviceShare saveDeviceShare(DeviceShareDTO deviceShareDTO){
@@ -52,6 +70,16 @@ public class DeviceShareService {
         );
         System.out.println("deviceshareservice.createdeviceshare" + deviceShare.getUser().getId() + " " + deviceShare.getDevice().getId());
 
+        return deviceShareRepository.saveAndFlush(deviceShare);
+    }
+
+    public void deleteDeviceShare(DeviceShare deviceShare){
+        System.out.println("deviceshareservice.deletedeviceshare: " + deviceShare.getId());
+        deviceShareRepository.deleteById(deviceShare.getId());
+    }
+
+    public DeviceShare updateDeviceShare(DeviceShare deviceShare){
+        System.out.println("deviceshareservice.updatedeviceshare: " + deviceShare.getId());
         return deviceShareRepository.saveAndFlush(deviceShare);
     }
 }
