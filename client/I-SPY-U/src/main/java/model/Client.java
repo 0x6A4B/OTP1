@@ -30,6 +30,22 @@ public class Client {
         return connectionManager.removeDevice(device);
     }
 
+    public DeviceShare shareDevice(DeviceShare deviceShare) {
+        return connectionManager.shareDevice(deviceShare);
+    }
+
+    public boolean removeDeviceShare(DeviceShare deviceShare){
+        return connectionManager.removeDeviceShare(deviceShare);
+    }
+
+    public List<DeviceShare> getDeviceShares(Device device){
+        return connectionManager.getDeviceShares(device);
+    }
+
+    public List<DeviceShare> getDeviceShares(){
+        return connectionManager.getDeviceShares();
+    }
+
     // LOG
     // TODO: Deprecating this...??
     public List<LogEntry> getLogEntries(Device device){

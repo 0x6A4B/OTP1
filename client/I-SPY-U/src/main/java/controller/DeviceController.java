@@ -16,6 +16,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import model.Device;
+import model.DeviceShare;
 import model.LogEntry;
 import model.User;
 import util.Trace;
@@ -121,6 +122,15 @@ public class DeviceController extends IController {
     private void handleShare() {
         System.out.println(sharingEmail.getText());
         /* TODO tässä laitetaan sharing eteenpäin */
+
+        DeviceShare deviceShare = new DeviceShare();
+        User user = new User(sharingEmail.getText(), "");
+
+        deviceShare.setUser(user);
+        deviceShare.setDevice(device);
+
+        client.shareDevice(deviceShare);
+
         System.out.println("sharing Happening");
         selectionModel.select(0);
     }

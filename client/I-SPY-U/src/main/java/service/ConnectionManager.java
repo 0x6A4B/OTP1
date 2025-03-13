@@ -1,6 +1,7 @@
 package service;
 
 import model.Device;
+import model.DeviceShare;
 import model.User;
 import model.LogEntry;
 import util.Trace;
@@ -10,6 +11,7 @@ public class ConnectionManager {
     private UserManager userManager = new UserManager();
     private DeviceManager deviceManager = new DeviceManager();
     private LogManager logManager = new LogManager();
+    private DeviceShareManager deviceShareManager = new DeviceShareManager();
 
 
     public ConnectionManager(){}
@@ -22,11 +24,21 @@ public class ConnectionManager {
         return userManager.register(user);
     }
 
+    /* Device methods */
     public List<Device> getDevices(){
         Trace.out(Trace.Level.DEV,"conmgr.getdevices");
         return deviceManager.readAll(new Object());
     }
 
+    public Device createDevice(Device device){
+        return deviceManager.create(device);
+    }
+
+    public boolean removeDevice(Device device){
+        return deviceManager.remove(device);
+    }
+
+    /* LogEntry methods */
     public List<LogEntry> getLogEntries(Device device){
         return getLogEntries(device, -1);
     }
@@ -41,13 +53,29 @@ public class ConnectionManager {
         return logManager.remove(logEntry);
     }
 
-    public Device createDevice(Device device){
-        return deviceManager.create(device);
+    /* DeviceShare methods */
+    public DeviceShare shareDevice(DeviceShare deviceShare){
+        return deviceShareManager.create(deviceShare);
     }
 
-    public boolean removeDevice(Device device){
-        return deviceManager.remove(device);
+    public List<DeviceShare> getDeviceShares(Device device){
+        return deviceShareManager.readAll(device);
     }
 
+    public List<DeviceShare> getDeviceShares(){
+        return deviceShareManager.readAll(null);
+    }
+
+    public boolean removeDeviceShare(DeviceShare deviceShare){
+        return deviceShareManager.remove(deviceShare);
+    }
+
+    public boolean removeAllDeviceShares(Device device){
+        return deviceShareManager.removeAll(device);
+    }
+
+    public DeviceShare UpdateDeviceShare(DeviceShare deviceShare){
+        return deviceShareManager.update(deviceShare);
+    }
 
 }

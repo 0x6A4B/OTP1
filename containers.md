@@ -49,6 +49,53 @@ Tunneling to server if run remotely
 ssh -L 5900:localhost:5900 USER@REMOTESERVER -p PORT
 ```
 
+### Running X Display client container
+
+This seems to differ quite a lot on different distros  
+And with Windows you need to install vcxsrv program to have X Server in windows
+
+X Server is configured to not allow connections from outside and doesn't listen to TCP at all
+
+
+Run container:
+```
+podman run --rm -it --net=host --env DISPLAY=$DISPLAY 0x6a4b/otp:clientX
+```
+
+If container can't find the host's xserver, maybe you need to supply IP?
+```
+podman run --rm -it --net=host --env DISPLAY=127.0.0.1$DISPLAY 0x6a4b/otp:clientX
+```
+
+There might be need to allow x connections:
+```
+xhost +local:docker
+# if not working oyu can try allowing all, not a safe option but helps diagnosing
+xhost +
+# you can reverse it with xhost -
+
+# you might want to check if host is listening to 6000 for display 0, 6001 for diplay 1
+# you can see your display with echo $DISPLAY
+nmap localhost
+# check access rights for .Xauthority file
+ls -l $XAUTHORITY
+# add read rights to all
+chmod 644 $XAUTHORITY
+```
+
+some linux distros like Fedora ,or perhaps it's related to Gnome, need to be told to listen to X TCP
+if nmap shows none
+add to /etc/gdm/custom.conf and restart gdm with sudo service gdm restart
+
+
+```
+[security]
+DisallowTCP=false
+
+[xdmcp]
+ServerArguments=-listen TCP
+```
+
 
 ## Faker
 

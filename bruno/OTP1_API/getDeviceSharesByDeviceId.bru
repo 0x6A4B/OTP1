@@ -1,13 +1,17 @@
 meta {
-  name: getDevices
+  name: getDeviceSharesByDeviceId
   type: http
-  seq: 4
+  seq: 15
 }
 
 get {
-  url: http://127.0.0.1:8088/api/device
+  url: http://127.0.0.1:8088/api/deviceshare/:id
   body: none
   auth: bearer
+}
+
+params:path {
+  id: 3
 }
 
 auth:bearer {

@@ -1,6 +1,5 @@
 package http;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import model.Device;
@@ -19,7 +18,7 @@ public class DeviceQuery extends HttpQuery {
     }
 
     public List<Device> getDevices() {
-        System.out.println("devq.getdevices");
+        Trace.out(Trace.Level.DEV, ("devq.getdevices"));
         super.setEndpoint("/device");
         try{
             HttpResponse<String> response = super.get();
