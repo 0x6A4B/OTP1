@@ -22,8 +22,8 @@ public class LogParser implements ResponseParser{
                             );
 
             return logs;
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
+        } catch (JsonProcessingException e){
+            Trace.out(Trace.Level.ERR, "Parsing error: " + e.getMessage());
             return null;
         }
     }
@@ -32,8 +32,8 @@ public class LogParser implements ResponseParser{
         Trace.out(Trace.Level.DEV,"logparser.parse");
         try {
             return mapper.readValue(response, LogEntry.class);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
+        } catch (JsonProcessingException e){
+            Trace.out(Trace.Level.ERR, "Parsing error: " + e.getMessage());
             return null;
         }
     }

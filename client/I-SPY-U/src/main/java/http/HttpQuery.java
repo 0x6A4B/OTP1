@@ -22,14 +22,10 @@ public abstract class HttpQuery {
     }
 
     //public void setApiUrl(String apiUrl){ this.apiUrl = apiUrl; }
-    public void setEndpoint(String endpoint) {
-        System.out.println("XX:" + apiUrl);
-        this.endpoint = apiUrl + endpoint;
-    }
 
-    public void setBody(String body) {
-        this.body = body;
-    }
+    public void setEndpoint(String endpoint){ this.endpoint = apiUrl + endpoint; }
+    public void setBody(String body){ this.body = body; }
+
 
     public HttpResponse<String> post() throws Exception {
 
@@ -50,19 +46,19 @@ public abstract class HttpQuery {
 
         try {
             HttpResponse<String> response = futureResponse.get();
-            System.out.println("HttpQuery.Post response: " + response.statusCode());
-            System.out.println("httpquery-post: " + response.body());
+            Trace.out(Trace.Level.INFO, "HTTP Response status code: " + response.statusCode());
+            Trace.out(Trace.Level.DEV,  ("res body" + response.body()));
             // if not 200 || 201 then fuck
             return response;
         } catch (Exception e) {
-            e.printStackTrace();
+            Trace.out(Trace.Level.ERR, "POST request failed" + e.getMessage());
         }
         return null;
     }
 
     public HttpResponse<String> get() throws Exception {
         token = ConfigSingleton.getInstance().getToken();
-        System.out.println("HttpQuery.Get: endpoint: " + endpoint + "\ttoken: " + token);
+        Trace.out(Trace.Level.DEV,("HttpQuery.Get: endpoint: " + endpoint + "\ttoken: " + token));
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(endpoint))
@@ -75,11 +71,10 @@ public abstract class HttpQuery {
 
         try {
             HttpResponse<String> response = futureResponse.get();
-            System.out.println("HttpQuery.Get response: " + response.statusCode());
-            // if not 200 then fuck my life
+            Trace.out(Trace.Level.INFO, "HTTP Response status code: " + response.statusCode());            // if not 200 then fuck my life
             return response;
         } catch (Exception e) {
-            e.printStackTrace();
+            Trace.out(Trace.Level.ERR, "GET request failed" + e.getMessage());
         }
 
 
@@ -106,7 +101,7 @@ public abstract class HttpQuery {
             // throw new Exception
             return response;
         } catch (Exception e) {
-            e.printStackTrace();
+            Trace.out(Trace.Level.ERR, "DELETE request failed" + e.getMessage());
         }
 
 
