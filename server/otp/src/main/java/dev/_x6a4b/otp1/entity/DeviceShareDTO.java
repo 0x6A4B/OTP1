@@ -3,6 +3,7 @@ package dev._x6a4b.otp1.entity;
 import java.util.Date;
 
 public class DeviceShareDTO {
+    private Long id;
     private Device device;
     private User user;
     private String description;
@@ -17,7 +18,17 @@ public class DeviceShareDTO {
         this.privilege = privilege;
         this.sharedDate = sharedDate;
     }
+    public DeviceShareDTO(Long id, Device device, User user, String description, String privilege, Date sharedDate) {
+        this.id = id;
+        this.device = device;
+        this.user = user;
+        this.description = description;
+        this.privilege = privilege;
+        this.sharedDate = sharedDate;
+    }
 
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
     public Device getDevice() { return device; }
     public void setDevice(Device device) { this.device = device; }
     public User getUser() { return user; }

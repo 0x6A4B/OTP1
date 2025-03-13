@@ -1,0 +1,19 @@
+meta {
+  name: getDeviceSharesByDeviceId
+  type: http
+  seq: 15
+}
+
+get {
+  url: http://127.0.0.1:8088/api/deviceshare/:id
+  body: none
+  auth: bearer
+}
+
+params:path {
+  id: 3
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ3YXNkaSIsImlhdCI6MTc0MTcxODExNCwiZXhwIjoxNzQyMzIyOTE0fQ.G8pyD56HCX-HkAMTCK9PIKtt0g1PcS6V52PeOIjs6M8AJ8xWi024ihVhZCg6wo9O
+}
