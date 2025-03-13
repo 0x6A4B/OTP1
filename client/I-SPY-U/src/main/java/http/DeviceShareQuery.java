@@ -30,6 +30,18 @@ public class DeviceShareQuery extends HttpQuery {
         return null;
     }
 
+    public List<DeviceShare> getDeviceShares(Device device) {
+        System.out.println("devq.getdevicessahres for device:" + device.getName());
+        super.setEndpoint(endpoint + "/" + device.getId());
+        try{
+            HttpResponse<String> response = super.get();
+            return deviceShareParser.parseList(response.body());
+        } catch (Exception e) {
+            Trace.out(Trace.Level.ERR, "Failed to fetch shares for device:" + device.getName());
+        }
+        return null;
+    }
+
     public DeviceShare shareDevice(DeviceShare deviceShare) {
         super.setEndpoint(endpoint);
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();

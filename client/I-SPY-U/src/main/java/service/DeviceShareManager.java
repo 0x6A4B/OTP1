@@ -32,7 +32,11 @@ public class DeviceShareManager implements IManager {
     @Override
     public List<DeviceShare> readAll(Object o) {
         Trace.out(Trace.Level.DEV, "devmgr.readall");
-        return deviceShareQuery.getSharedDevices();
+        if (o == null)
+            return deviceShareQuery.getSharedDevices();
+        else
+            return deviceShareQuery.getDeviceShares((Device) o);
+
     }
 
     @Override
