@@ -5,6 +5,7 @@ import dev._x6a4b.otp1.entity.LogEntry;
 import dev._x6a4b.otp1.repository.DeviceLogRepository;
 import dev._x6a4b.otp1.repository.DeviceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Limit;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,6 +34,12 @@ public class DeviceLogService {
     public Optional<List<LogEntry>> getLogEntries(Long deviceid){
         System.out.println("devicelogservice getlogs by device, id: " + deviceid);
         return deviceLogRepository.findByDeviceId(deviceid);
+    }
+
+    public Optional<List<LogEntry>> getLogEntriesWithLimits(Long deviceid, int limit){
+        System.out.println("devicelogservice getlogs by device with limits, id: " + deviceid + " limit: " + limit);
+
+        return deviceLogRepository.findByDeviceIdOrderByDateDesc(deviceid, Limit.of(limit));
     }
 
     public void removeLogEntry(LogEntry logEntry){

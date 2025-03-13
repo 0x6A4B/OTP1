@@ -20,7 +20,6 @@ public class DeviceManager implements IManager {
         return null;
     }
 
-
     @Override
     public Device create(Object device) {
         return deviceQuery.createDevice((Device) device);
@@ -36,7 +35,6 @@ public class DeviceManager implements IManager {
     public boolean remove(Object device) {
         return deviceQuery.removeDevice((Device) device);
     }
-
     // Why would we need and use this?
     // Why not iterate a list of devices to be removed and use normal remove device
     // TODO: API not supporting this
@@ -44,4 +42,12 @@ public class DeviceManager implements IManager {
     public boolean removeAll(Object o){
         return deviceQuery.removeAllDevices(o);
     }
+
+    // TODO: implement
+    @Override
+    public List readAll(Object o, int limit) {
+        return List.of();
+    }
+
+
 }

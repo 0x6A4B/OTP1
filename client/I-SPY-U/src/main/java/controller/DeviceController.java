@@ -16,6 +16,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import model.Device;
+import model.DeviceShare;
 import model.LogEntry;
 import model.User;
 import util.Trace;
@@ -31,6 +32,9 @@ public class DeviceController extends IController {
     @FXML private TextField limitMin;
     @FXML private TextField limitMax;
     @FXML private Button setLimitsButton;
+
+    @FXML private Tab configTab;
+    @FXML private Tab shareTab;
 
     @FXML private TextField sharingEmail;
     @FXML private Button shareButton;
@@ -54,10 +58,12 @@ public class DeviceController extends IController {
     private Device device;
 
     private void setUpCharts() {
+        lineChart.getData().clear();
         XYChart.Series<String, Double> series = new XYChart.Series<>();
         series.setName(device.getName());
         Calendar calendar = Calendar.getInstance();
-        List<LogEntry> logs = client.getLogEntries(device);
+        // TODO: set limits with GUI
+        List<LogEntry> logs = client.getLogEntries(device, 30);
         Trace.out(Trace.Level.DEV, "Loading logentries:");
         for (LogEntry i : logs) {
             Trace.out(Trace.Level.DEV, "\tLogEntry: " + i);
@@ -116,6 +122,15 @@ public class DeviceController extends IController {
     private void handleShare() {
         System.out.println(sharingEmail.getText());
         /* TODO tässä laitetaan sharing eteenpäin */
+
+        DeviceShare deviceShare = new DeviceShare();
+        User user = new User(sharingEmail.getText(), "");
+
+        deviceShare.setUser(user);
+        deviceShare.setDevice(device);
+
+        client.shareDevice(deviceShare);
+
         System.out.println("sharing Happening");
         selectionModel.select(0);
     }
@@ -154,5 +169,7 @@ public class DeviceController extends IController {
 
         selectionModel = tabPane.getSelectionModel();
         setUpCharts();
+        configTab.setDisable(true);
+        shareTab.setDisable(true);
     }
 }

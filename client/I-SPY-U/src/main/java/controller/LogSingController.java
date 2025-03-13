@@ -101,10 +101,10 @@ public class LogSingController extends IController {
         //logInUsername.setText("wasdi");
         //logInPassword.setText("wasdi");
 
-        singUpEmail.setText("emaili");
+        /* singUpEmail.setText("emaili");
         singUpPassword.setText("passwordi");
         singUpUSername.setText("usernami");
         singUpCity.setText("cityni");
-        singUpPostalCode.setText("postalcodeni");
+        singUpPostalCode.setText("postalcodeni"); */
     }
 }

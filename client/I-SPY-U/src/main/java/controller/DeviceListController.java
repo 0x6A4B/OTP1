@@ -30,6 +30,7 @@ public class DeviceListController extends IController {
     @FXML private VBox sharedDevicesList;
 
     @FXML private Tab ownDevicesTab;
+    @FXML private Tab sharedDevicesTab;
 
     @FXML private VBox sharedDeviceDetails;
     @FXML private VBox ownDeviceDetails;
@@ -120,6 +121,7 @@ public class DeviceListController extends IController {
     @FXML
     private void handleLogOut(){
         /* TODO here we need to clear token client.logout();?????*/
+        client.logout();
         try {
             gui.setScene("LogSingUp", 300, 400);
         } catch (IOException e) {
@@ -179,5 +181,6 @@ public class DeviceListController extends IController {
                 switchToSharedDevices();
             }
         });
+        sharedDevicesTab.setDisable(true);
     }
 }

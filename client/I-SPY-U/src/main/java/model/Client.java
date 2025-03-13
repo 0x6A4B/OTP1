@@ -30,9 +30,31 @@ public class Client {
         return connectionManager.removeDevice(device);
     }
 
+    public DeviceShare shareDevice(DeviceShare deviceShare) {
+        return connectionManager.shareDevice(deviceShare);
+    }
+
+    public boolean removeDeviceShare(DeviceShare deviceShare){
+        return connectionManager.removeDeviceShare(deviceShare);
+    }
+
+    public List<DeviceShare> getDeviceShares(Device device){
+        return connectionManager.getDeviceShares(device);
+    }
+
+    public List<DeviceShare> getDeviceShares(){
+        return connectionManager.getDeviceShares();
+    }
+
     // LOG
+    // TODO: Deprecating this...??
     public List<LogEntry> getLogEntries(Device device){
-        return connectionManager.getLogEntries(device);
+        //return connectionManager.getLogEntries(device);
+        return getLogEntries(device, -1);
+    }
+
+    public List<LogEntry> getLogEntries(Device device, int limit){
+        return connectionManager.getLogEntries(device, limit);
     }
 
     public boolean removeLogEntry(LogEntry logEntry){
@@ -42,8 +64,8 @@ public class Client {
     // USER
     public User login(User user){
         Trace.out(Trace.Level.DEV, "client.login");
-        if (!ConfigSingleton.getInstance().getToken().isEmpty())
-            rememberUser = true;
+        //if (ConfigSingleton.getInstance().getToken() != null && !ConfigSingleton.getInstance().getToken().isEmpty())
+        //    rememberUser = true;
         User loggedUser = connectionManager.login(user);
         if (rememberUser)
             ConfigSingleton.getInstance().saveToken();

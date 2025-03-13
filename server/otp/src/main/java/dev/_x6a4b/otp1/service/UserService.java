@@ -40,10 +40,6 @@ public class UserService {
         return users;
     }
 
-    public User getUser(String username){
-        //return userRepository.findByUserName(username);
-        return new User();
-    }
 
 
 
