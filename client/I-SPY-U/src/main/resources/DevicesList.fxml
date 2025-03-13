@@ -46,9 +46,14 @@
                             <ListView prefHeight="267.0" prefWidth="200.0" style="-fx-border-color: Black;" fx:id="ownDeviceDetalsListview"/>
                         </children>
                     </VBox>
-                    <Button layoutX="366.0" layoutY="389.0" mnemonicParsing="false" text="Open Device" fx:id="ownOpenDeviceButton" onAction="#openDevice">
+                    <Button layoutX="373.0" layoutY="389.0" mnemonicParsing="false" text="Open Device" fx:id="ownOpenDeviceButton" onAction="#openDevice">
                         <padding>
-                            <Insets bottom="15.0" left="15.0" right="15.0" top="12.0" />
+                            <Insets bottom="10.0" left="12.0" right="12.0" top="10.0" />
+                        </padding>
+                    </Button>
+                    <Button layoutX="264.0" layoutY="389.0" mnemonicParsing="false" style="-fx-background-color: red;" textFill="WHITE" text="Remove Device" fx:id="removeDeviceButton" onAction="#handleRemoveDevice">
+                        <padding>
+                            <Insets bottom="10.0" left="12.0" right="12.0" top="10.0" />
                         </padding>
                     </Button>
                 </children>

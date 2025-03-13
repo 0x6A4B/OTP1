@@ -38,6 +38,8 @@ public class DeviceListController extends IController {
     @FXML private Button sharedOpenDeviceButton;
     @FXML private Button ownOpenDeviceButton;
 
+    @FXML private Button removeDeviceButton;
+
     @FXML private Label ownDeviceDetalsLabel;
     @FXML private ListView ownDeviceDetalsListview;
 
@@ -100,6 +102,7 @@ public class DeviceListController extends IController {
         ((Label) event.getSource()).setStyle("-fx-background-color: grey; -fx-border-color: Black;");
         DeviceDetails.setVisible(true);
         openDeviceButton.setVisible(true);
+        removeDeviceButton.setVisible(true);
         DeviceDetailsLabel.setText(((Label) event.getSource()).getText());
         DeviceDetailsListview.getItems().clear();
         currentDevice = dev;
@@ -124,6 +127,16 @@ public class DeviceListController extends IController {
         client.logout();
         try {
             gui.setScene("LogSingUp", 300, 400);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void handleRemoveDevice(){
+        System.out.println("person clicked remove");
+        try {
+            gui.openPopup("AreYouSurePopup", 300, 190, this);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -167,6 +180,7 @@ public class DeviceListController extends IController {
         getDevices(sharedDevicesList);
 
         ownDeviceDetails.setVisible(false);
+        removeDeviceButton.setVisible(false);
         sharedDeviceDetails.setVisible(false);
         sharedOpenDeviceButton.setVisible(false);
         ownOpenDeviceButton.setVisible(false);
