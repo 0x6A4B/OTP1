@@ -1,5 +1,6 @@
 package dev._x6a4b.otp1.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -11,6 +12,7 @@ public class User {
     private long id;
     @Column(name = "username", unique = true)
     private String username;
+    @JsonIgnore // maybe not share password with the world?
     private String password;
     private String status;
 
