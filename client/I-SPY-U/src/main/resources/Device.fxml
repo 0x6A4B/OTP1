@@ -15,8 +15,9 @@
 <?import javafx.collections.FXCollections?>
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
-
 <?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.layout.VBox?>
+
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DeviceController">
    <children>
       <TabPane prefHeight="500.0" prefWidth="500.0" tabClosingPolicy="UNAVAILABLE" fx:id="tabPane">
@@ -108,24 +109,19 @@
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="465.0" prefWidth="485.0">
                                  <children>
-                                    <Label layoutX="28.0" layoutY="38.0" text="Sharing">
+                                    <Label layoutX="20.0" layoutY="38.0" text="Sharing">
                                        <font>
-                                          <Font size="20.0" />
+                                          <Font size="20.0" style="bold" />
                                        </font>
                                     </Label>
                                     <Label layoutX="25.0" layoutY="78.0" text="Email:" />
                                     <TextField layoutX="62.0" layoutY="74.0" fx:id="sharingEmail"/>
-                                    <Button layoutX="25.0" layoutY="120.0" mnemonicParsing="false" text="Share" fx:id="shareButton" onAction="#handleShare">
-                                       <padding>
-                                          <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
-                                       </padding>
-                                    </Button>
-                                    <Label layoutX="20.0" layoutY="187.0" text="What shared people can do">
+                                    <Label layoutX="20.0" layoutY="156.0" text="What shared people can do">
                                        <font>
-                                          <Font size="16.0" />
+                                          <Font size="16.0" style="bold"/>
                                        </font>
                                     </Label>
-                                    <ChoiceBox layoutX="25.0" layoutY="233.0" prefWidth="150.0" fx:id="shareChoice">
+                                    <ChoiceBox layoutX="25.0" layoutY="194.0" prefWidth="150.0" fx:id="shareChoice">
                                        <items>
                                           <FXCollections fx:factory="observableArrayList">
                                              <String fx:value="Editor" />
@@ -133,11 +129,37 @@
                                           </FXCollections>
                                        </items>
                                     </ChoiceBox>
-                                    <Button layoutX="25.0" layoutY="282.0" mnemonicParsing="false" text="Set" fx:id="setShareButton" onAction="#handleSetShare">
+                                    <Button layoutX="26.0" layoutY="111.0" mnemonicParsing="false" text="Share" fx:id="shareButton" onAction="#handleShare">
                                        <padding>
                                           <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
                                        </padding>
                                     </Button>
+                                    <Button layoutX="26.0" layoutY="232.0" mnemonicParsing="false" text="Set" fx:id="setShareButton" onAction="#handleSetShare">
+                                       <padding>
+                                          <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
+                                       </padding>
+                                    </Button>
+                                    <ScrollPane layoutX="252.0" layoutY="38.0" prefHeight="200.0" prefWidth="200.0" fx:id="sharedUsersListContainer">
+                                       <content>
+                                          <VBox prefHeight="200.0" prefWidth="185.0" fx:id="sharedUsersList"/>
+                                       </content>
+                                    </ScrollPane>
+                                    <Label alignment="TOP_LEFT" layoutX="26.0" layoutY="305.0" prefHeight="50.0" prefWidth="250.0" text="Description goes here" fx:id="descLabel">
+                                       <font>
+                                          <Font size="12.5" />
+                                       </font>
+                                    </Label>
+                                    <TextField layoutX="26.0" layoutY="305.0" prefHeight="50.0" prefWidth="250.0" promptText="Here would fill the description and switch this when editing desc" fx:id="descTextBox"/>
+                                    <Button layoutX="26.0" layoutY="365.0" mnemonicParsing="false" text="Edit Description" fx:id="editDescButton">
+                                       <padding>
+                                          <Insets bottom="11.0" left="11.0" right="11.0" top="11.0" />
+                                       </padding>
+                                    </Button>
+                                    <Label layoutX="20.0" layoutY="270.0" text="Description">
+                                       <font>
+                                         <Font size="16.0" style="bold" />
+                                       </font>
+                                    </Label>
                                  </children>
                               </AnchorPane>
                            </content>

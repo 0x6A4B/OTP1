@@ -49,11 +49,13 @@ public class ConfigSingleton {
     }
 
     public void setToken(String token){
+        this.token = token;
         Trace.out(Trace.Level.DEV,"TOKEN has been set: " + token);
-        this.token = token; }
+    }
     public void setApiUrl(String apiUrl){
+        this.apiUrl = apiUrl;
         Trace.out(Trace.Level.DEV,"APIRUL has been set: " + apiUrl);
-        this.apiUrl = apiUrl; }
+    }
 
     public String getToken(){ return token; }
     public String getApiUrl(){

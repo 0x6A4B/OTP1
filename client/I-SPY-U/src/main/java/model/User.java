@@ -30,7 +30,7 @@ public class User {
     public String getUsername(){ return username; }
     public String getPassword(){ return password; }
 
-    public void setId(int id){ this.id = id; }
+    public void setId(long id){ this.id = id; }
     public void setUsername(String username){ this.username = username; }
     public void setPassword(String password){ this.password = password; }
 
@@ -39,6 +39,17 @@ public class User {
 
     @Override
     public String toString(){
-        return id + " - " + username;
+        return "{"
+                + "\"id\":\"" + id + "\","
+                + "\"username\":\"" + username + "\","
+                + "\"password\":\"" + password + "\","
+                + "\"status\":\"" + status + "\","
+                + "\"person\":\"" + person + "\""
+                + "}";
     }
+
+//    @Override
+//    public String toString(){
+//        return id + " - " + username;
+//    }
 }

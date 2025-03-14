@@ -54,8 +54,7 @@ public class LogQuery extends HttpQuery {
         super.setEndpoint(endpoint + "/" + logEntry.getId());
 
         try {
-            HttpResponse<String> response = super.delete();
-            return true;
+            return super.delete();
         }catch (Exception e){
             Trace.out(Trace.Level.ERR, "Error in reading log entry: " + e.getMessage());
         }

@@ -9,9 +9,9 @@ public class DeviceManager implements IManager {
     private final DeviceQuery deviceQuery = new DeviceQuery();
 
     @Override
-    public Object read(Object device) {
+    public Device read(Object deviceId) {
         // TODO: IS THIS USEFUL? IS IMPLEMENTED IN BACKEND
-        return null;
+        return deviceQuery.getDevice((Long)deviceId);
     }
 
     @Override

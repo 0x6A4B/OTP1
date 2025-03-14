@@ -10,11 +10,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.VBox;
 import model.Device;
 import model.DeviceShare;
 import model.LogEntry;
@@ -25,9 +27,9 @@ public class DeviceController extends IController {
 
     private ToggleGroup toggleGroup = new ToggleGroup();
 
-    @FXML RadioButton radioDaily;
-    @FXML RadioButton radioWeekly;
-    @FXML RadioButton radioHourly;
+    @FXML private RadioButton radioDaily;
+    @FXML private RadioButton radioWeekly;
+    @FXML private RadioButton radioHourly;
 
     @FXML private TextField limitMin;
     @FXML private TextField limitMax;
@@ -43,16 +45,23 @@ public class DeviceController extends IController {
     @FXML private TextField actionInput;
     @FXML private Button setActionButton;
 
-    @FXML ChoiceBox<String> actionChoice;
+    @FXML private ChoiceBox<String> actionChoice;
 
-    @FXML ChoiceBox<String> shareChoice;
+    @FXML private ChoiceBox<String> shareChoice;
     @FXML private Button setShareButton;
 
-    @FXML Label chartLabel;
-    @FXML LineChart<String, Double> lineChart;
+    @FXML private Label chartLabel;
+    @FXML private LineChart<String, Double> lineChart;
+
+    @FXML private VBox sharedUsersList; //TODO to this we add labels for all shared users. Maybe add a cool label with name on the left and the right side will have a button to remove the sharing.
+    @FXML private ScrollPane sharedUsersListContainer;
+
+    @FXML private Label descLabel;
+    @FXML private TextField descTextBox;
+    @FXML private Button editDescButton; //TODO handle for this is: handleEditDesc
 
     private SingleSelectionModel<Tab> selectionModel;
-    @FXML TabPane tabPane;
+    @FXML private TabPane tabPane;
 
     private User user;
     private Device device;
@@ -62,7 +71,6 @@ public class DeviceController extends IController {
         XYChart.Series<String, Double> series = new XYChart.Series<>();
         series.setName(device.getName());
         Calendar calendar = Calendar.getInstance();
-        // TODO: set limits with GUI
         List<LogEntry> logs = client.getLogEntries(device, 30);
         Trace.out(Trace.Level.DEV, "Loading logentries:");
         for (LogEntry i : logs) {
@@ -170,6 +178,22 @@ public class DeviceController extends IController {
         selectionModel = tabPane.getSelectionModel();
         setUpCharts();
         configTab.setDisable(true);
-        shareTab.setDisable(true);
+        //shareTab.setDisable(true); working on this now
+
+        descTextBox.setText(device.getDescription());
+        descTextBox.setVisible(false);
+
+        /* TODO: these we disable when it is own device
+         * descLabel.setDisable(true);
+         * editDescButton.setDisable(true);
+        */
+
+        /* TODO: these we disable when it is shared device
+         * shareChoice.setDisable(true);
+         * setShareButton.setDisable(true);
+         * sharingEmail.setDisable(true);
+         * sharedUsersList.setVisible(false);
+         * sharedUsersListContainer.setVisible(false);
+        */
     }
 }

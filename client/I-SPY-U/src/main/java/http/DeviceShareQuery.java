@@ -47,17 +47,18 @@ public class DeviceShareQuery extends HttpQuery {
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
         try {
             //String body = ow.writeValueAsString(device);
-            Trace.out(Trace.Level.DEV, "POST body: " + deviceShare.toString());
-            super.setBody(deviceShare.toString());
+            Trace.out(Trace.Level.DEV, "POST body: " + ow.writeValueAsString(deviceShare)); //deviceShare.toString());
+            //super.setBody(deviceShare.toString());
+            super.setBody(ow.writeValueAsString(deviceShare));
         } catch (Exception e){
-            Trace.out(Trace.Level.ERR, "Failed to process json");
+            Trace.out(Trace.Level.ERR, "Failed to process json: " + e.getMessage());
         }
         try{
             HttpResponse<String> response = super.post();
             // TODO: response exception
             return deviceShareParser.parse(response.body());
         } catch (Exception e){
-            Trace.out(Trace.Level.ERR, "Failed to create device");
+            Trace.out(Trace.Level.ERR, "Failed to create device: " + e.getMessage());
         }
         return null;
 
@@ -68,31 +69,31 @@ public class DeviceShareQuery extends HttpQuery {
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
         try {
             //String body = ow.writeValueAsString(device);
-            Trace.out(Trace.Level.DEV, "POST body: " + deviceShare.toString());
-            super.setBody(deviceShare.toString());
+            String json = ow.writeValueAsString(deviceShare);
+            Trace.out(Trace.Level.DEV, "POST body: " + json); //deviceShare.toString());
+            super.setBody(json); //deviceShare.toString());
         } catch (Exception e){
-            Trace.out(Trace.Level.ERR, "Failed to process json");
+            Trace.out(Trace.Level.ERR, "Failed to process json: " + e.getMessage());
         }
         try{
             HttpResponse<String> response = super.patch();
             // TODO: response exception
             return deviceShareParser.parse(response.body());
         } catch (Exception e){
-            Trace.out(Trace.Level.ERR, "Failed to create device");
+            Trace.out(Trace.Level.ERR, "Failed to create device share: " + e.getMessage());
         }
         return null;
 
     }
 
-    public boolean removeSharedDevice(Device device){
-        Trace.out(Trace.Level.INFO, "Removing device: " + device);
-        super.setEndpoint(endpoint + "/" + device.getId());
+    public boolean removeSharedDevice(DeviceShare deviceShare){
+        Trace.out(Trace.Level.INFO, "Removing device: " + deviceShare.getId());
+        super.setEndpoint(endpoint + "/" + deviceShare.getId());
         try {
-            super.delete();
-            return true;
+            return super.delete();
         }catch (Exception e) {
             // throw device not found exception
-            Trace.out(Trace.Level.ERR, "Removal of device failed");
+            Trace.out(Trace.Level.ERR, "Removal of device failed: " + e.getMessage());
         }
         return false;
     }

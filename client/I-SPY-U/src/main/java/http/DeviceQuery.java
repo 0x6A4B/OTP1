@@ -55,8 +55,7 @@ public class DeviceQuery extends HttpQuery {
         Trace.out(Trace.Level.INFO, "Removing device: " + device);
         super.setEndpoint(endpoint + "/" + device.getId());
         try {
-            super.delete();
-            return true;
+            return super.delete();
         }catch (Exception e) {
             // throw device not found exception
             Trace.out(Trace.Level.ERR, "Removal of device failed");
@@ -75,6 +74,18 @@ public class DeviceQuery extends HttpQuery {
             Trace.out(Trace.Level.ERR, "Removal of all devices failed: " + e.getMessage());
         }
         return false;
+    }
+
+    public Device getDevice(Long deviceId){
+        super.setEndpoint(endpoint + "/" + deviceId);
+        try{
+            HttpResponse<String> response = super.get();
+            // TODO: response exception
+            return deviceParser.parse(response.body());
+        } catch (Exception e) {
+            Trace.out(Trace.Level.ERR, "GET device: " + deviceId + " failed: " + e.getMessage());
+            return null;
+        }
     }
 
 }

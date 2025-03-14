@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.List;
 
 import javafx.event.ActionEvent;
@@ -49,6 +50,9 @@ public class DeviceListController extends IController {
     private List<Device> devices;
     private Device currentDevice;
 
+    private int logEntriesCount = 0;
+    @FXML private Label logEntriesCountLabel;
+
     private Label createNewDeviceLabel(Device dev){
         Label deviceLabel = new Label(dev.getName());
         deviceLabel.setAlignment(Pos.CENTER);
@@ -62,7 +66,6 @@ public class DeviceListController extends IController {
 
     @FXML
     private void openDevice(ActionEvent event){
-        /* TODO: miten täs sais datan jos vaikka on vain devcies id?? ja sit jatkaa eteenpäin */
         System.out.println("Open own device"+currentDevice);
         try {
                 gui.setCurrentDevice(currentDevice);
@@ -93,6 +96,8 @@ public class DeviceListController extends IController {
 
     @FXML
     private void ShowDeviceDetails(MouseEvent event, Device dev){
+        logEntriesCount=0;
+        Calendar calendar = Calendar.getInstance();
         Trace.out(Trace.Level.DEV, "ShowDevice: " + dev.getName());
         for (Node node : DevicesList.getChildren()) {
             if (node instanceof Label) {
@@ -108,14 +113,22 @@ public class DeviceListController extends IController {
         currentDevice = dev;
         List<LogEntry> entries = client.getLogEntries(dev);
         for (int i = 0; i < entries.size(); i++) {
-            DeviceDetailsListview.getItems().add(entries.get(i).getDate()+": "+entries.get(i).getValue());
+            logEntriesCount++;
+            calendar.setTime(entries.get(i).getDate());
+            DeviceDetailsListview.getItems().add((calendar.get(Calendar.HOUR_OF_DAY) +":"
+            + calendar.get(Calendar.MINUTE) + ":"
+            + calendar.get(Calendar.SECOND) + " - "
+            + calendar.get(Calendar.DATE) + "/"
+            + (calendar.get(Calendar.MONTH) + 1) + "/"
+            + calendar.get(Calendar.YEAR)
+        )+": "+entries.get(i).getValue());
         }
+        logEntriesCountLabel.setText(logEntriesCount+" Log entries");
     }
 
     private void addNewDevice(MouseEvent event){
         try {
             gui.openPopup("AddDeviceWindow", 300, 350, this);
-            // TODO: Refresh the device window
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -123,7 +136,6 @@ public class DeviceListController extends IController {
 
     @FXML
     private void handleLogOut(){
-        /* TODO here we need to clear token client.logout();?????*/
         client.logout();
         try {
             gui.setScene("LogSingUp", 300, 400);
@@ -170,9 +182,6 @@ public class DeviceListController extends IController {
 
     private void getDevices(VBox boksi){
         boksi.getChildren().clear();
-        /* TODO: tässä pitäis hakee ne devicet ja laittaa ne tohon boksiin
-        pitää kattoo jos siihen saa jotenki dictionary tyylisesti
-        jotta voidaan saada ehkä id siihen mukaan ja sit se device ikkunalle eteenpäin */
         for (Device device : devices) {
             boksi.getChildren().add(createNewDeviceLabel(device));
         }

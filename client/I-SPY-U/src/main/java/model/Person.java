@@ -47,4 +47,16 @@ public class Person {
     public void setCity(String city){ this.city = city; }
     public void setPostalCode(String postalcode){ this.postalcode = postalcode; }
 
+    @Override
+    public String toString(){
+        return "{"
+                + "\"id\":\"" + id + "\","
+                + "\"firstname\":\"" + firstname + "\","
+                + "\"lastname\":\"" + lastname + "\","
+                + "\"email\":" + email + ","
+                + "\"street\":\"" + street + "\","
+                + "\"postalcode\":\"" + postalcode + "\","
+                + "\"city\":\"" + city + "\""
+                + "}";
+    }
 }

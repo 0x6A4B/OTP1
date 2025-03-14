@@ -48,6 +48,7 @@ public class DeviceShareController {
     // POST => create new device, only allowed for the owner of the device
     @PostMapping("")
     public ResponseEntity<DeviceShare> createDeviceShare(@RequestBody DeviceShareDTO deviceShareDTO, Principal principal){
+        System.out.println("get /api/deviceshare: " + principal.getName());
         System.out.println("createDeviceShare: " + deviceShareDTO.getUser().getId());
         System.out.println("createDeviceShare: " + deviceShareDTO.getDevice().getId());
 
