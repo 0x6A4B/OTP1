@@ -74,7 +74,7 @@ public class ConnectionManager {
         return deviceShareManager.removeAll(device);
     }
 
-    public DeviceShare UpdateDeviceShare(DeviceShare deviceShare){
+    public DeviceShare updateDeviceShare(DeviceShare deviceShare){
         return deviceShareManager.update(deviceShare);
     }
 

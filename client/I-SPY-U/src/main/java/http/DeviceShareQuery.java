@@ -47,8 +47,9 @@ public class DeviceShareQuery extends HttpQuery {
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
         try {
             //String body = ow.writeValueAsString(device);
-            Trace.out(Trace.Level.DEV, "POST body: " + deviceShare.toString());
-            super.setBody(deviceShare.toString());
+            Trace.out(Trace.Level.DEV, "POST body: " + ow.writeValueAsString(deviceShare)); //deviceShare.toString());
+            //super.setBody(deviceShare.toString());
+            super.setBody(ow.writeValueAsString(deviceShare));
         } catch (Exception e){
             Trace.out(Trace.Level.ERR, "Failed to process json");
         }
@@ -88,8 +89,7 @@ public class DeviceShareQuery extends HttpQuery {
         Trace.out(Trace.Level.INFO, "Removing device: " + device);
         super.setEndpoint(endpoint + "/" + device.getId());
         try {
-            super.delete();
-            return true;
+            return super.delete();
         }catch (Exception e) {
             // throw device not found exception
             Trace.out(Trace.Level.ERR, "Removal of device failed");

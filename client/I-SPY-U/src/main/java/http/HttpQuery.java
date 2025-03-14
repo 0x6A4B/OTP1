@@ -28,6 +28,8 @@ public abstract class HttpQuery {
 
 
     public HttpResponse<String> post() throws Exception {
+        // Why was this missing but the program was still working? 0_o
+        token = ConfigSingleton.getInstance().getToken();
 
         Trace.out(Trace.Level.DEV, "httpquery.post");
         Trace.out(Trace.Level.DEV, "Endpoint: " + endpoint + "\ttoken: " + token);
@@ -81,7 +83,7 @@ public abstract class HttpQuery {
         return null;
     }
 
-    public HttpResponse<String> delete() throws Exception {
+    public /*HttpResponse<String>*/ boolean delete() throws Exception {
         token = ConfigSingleton.getInstance().getToken();
         Trace.out(Trace.Level.INFO, "HttpQuery.Delete: endpoint: " + endpoint + "\ttoken: " + token);
 
@@ -99,13 +101,17 @@ public abstract class HttpQuery {
             Trace.out(Trace.Level.INFO, "HttpQuery.Delete response: " + response.statusCode());
             //if not 204 || 200 then fucked are we
             // throw new Exception
-            return response;
+            switch (response.statusCode()){
+                case 200:
+                case 204:
+                    return true;
+                default:
+                    return false;
+            }
         } catch (Exception e) {
             Trace.out(Trace.Level.ERR, "DELETE request failed" + e.getMessage());
         }
-
-
-        return null;
+        return false;
     }
 
     public HttpResponse<String> patch() throws Exception {
