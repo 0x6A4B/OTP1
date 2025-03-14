@@ -72,6 +72,7 @@ class ClientTest {
                         )).getUsername()
         );
         assertNotEquals(0, user.getId());
+        assertEquals(user.getId(), ConfigSingleton.getInstance().getUser().getId());
     }
 
     /* Integration test for device share */
