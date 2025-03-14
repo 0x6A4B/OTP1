@@ -1,10 +1,10 @@
 meta {
-  name: postDeviceShare
+  name: patchDeviceShare
   type: http
-  seq: 14
+  seq: 17
 }
 
-post {
+patch {
   url: http://127.0.0.1:8088/api/deviceshare
   body: json
   auth: bearer
@@ -16,13 +16,8 @@ auth:bearer {
 
 body:json {
   {
-    "user":{
-      "username": "jarppi"
-    },
-    "device":{
-      "id": 3
-    },
-    "privilege": "dodo",
-    "description": "my second shared device"
+    "id": 6,
+    "privilege": "dödö",
+    "description": "my shared device"
   }
 }

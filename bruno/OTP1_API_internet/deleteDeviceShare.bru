@@ -1,13 +1,17 @@
 meta {
-  name: postDeviceShare
+  name: deleteDeviceShare
   type: http
-  seq: 14
+  seq: 17
 }
 
-post {
-  url: http://127.0.0.1:8088/api/deviceshare
-  body: json
+delete {
+  url: https://otp1.0x6a4b.dev/api/deviceshare/:id
+  body: none
   auth: bearer
+}
+
+params:path {
+  id: 7
 }
 
 auth:bearer {
@@ -17,12 +21,12 @@ auth:bearer {
 body:json {
   {
     "user":{
-      "username": "jarppi"
+      "id": 21
     },
     "device":{
-      "id": 3
+      "id": 4
     },
     "privilege": "dodo",
-    "description": "my second shared device"
+    "description": "my shared device"
   }
 }

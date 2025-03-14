@@ -34,7 +34,7 @@ public class DeviceShareService {
     }
 
     public Optional<DeviceShare> getDeviceShareById(Long id){
-        System.out.println("deviceshareservice.getdevicesharebyuserid: " + id);
+        System.out.println("deviceshareservice.getdevicesharebyid: " + id);
         return deviceShareRepository.findById(id);
     }
 
@@ -70,7 +70,14 @@ public class DeviceShareService {
         );
         System.out.println("deviceshareservice.createdeviceshare" + deviceShare.getUser().getId() + " " + deviceShare.getDevice().getId());
 
-        return deviceShareRepository.saveAndFlush(deviceShare);
+
+        // TODO: Find out why this needs to be manually set?
+        DeviceShare dev = deviceShareRepository.saveAndFlush(deviceShare);
+        dev.setUserId(user.getId());
+        dev.setDeviceId(device.getId());
+        return dev;
+
+        //return deviceShareRepository.saveAndFlush(deviceShare);
     }
 
     public void deleteDeviceShare(DeviceShare deviceShare){

@@ -39,6 +39,17 @@ public class User {
 
     @Override
     public String toString(){
-        return id + " - " + username;
+        return "{"
+                + "\"id\":\"" + id + "\","
+                + "\"username\":\"" + username + "\","
+                + "\"password\":\"" + password + "\","
+                + "\"status\":\"" + status + "\","
+                + "\"person\":\"" + person + "\""
+                + "}";
     }
+
+//    @Override
+//    public String toString(){
+//        return id + " - " + username;
+//    }
 }
