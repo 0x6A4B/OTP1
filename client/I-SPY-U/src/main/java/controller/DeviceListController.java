@@ -136,7 +136,6 @@ public class DeviceListController extends IController {
 
     @FXML
     private void handleLogOut(){
-        /* TODO here we need to clear token client.logout();?????*/
         client.logout();
         try {
             gui.setScene("LogSingUp", 300, 400);
