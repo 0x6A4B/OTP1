@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.List;
 
 import javafx.event.ActionEvent;
@@ -93,6 +94,7 @@ public class DeviceListController extends IController {
 
     @FXML
     private void ShowDeviceDetails(MouseEvent event, Device dev){
+        Calendar calendar = Calendar.getInstance();
         Trace.out(Trace.Level.DEV, "ShowDevice: " + dev.getName());
         for (Node node : DevicesList.getChildren()) {
             if (node instanceof Label) {
@@ -108,7 +110,14 @@ public class DeviceListController extends IController {
         currentDevice = dev;
         List<LogEntry> entries = client.getLogEntries(dev);
         for (int i = 0; i < entries.size(); i++) {
-            DeviceDetailsListview.getItems().add(entries.get(i).getDate()+": "+entries.get(i).getValue());
+            calendar.setTime(entries.get(i).getDate());
+            DeviceDetailsListview.getItems().add((calendar.get(Calendar.HOUR_OF_DAY) +":"
+            + calendar.get(Calendar.MINUTE) + ":"
+            + calendar.get(Calendar.SECOND) + " - "
+            + calendar.get(Calendar.DATE) + "/"
+            + (calendar.get(Calendar.MONTH) + 1) + "/"
+            + calendar.get(Calendar.YEAR)
+        )+": "+entries.get(i).getValue());
         }
     }
 
