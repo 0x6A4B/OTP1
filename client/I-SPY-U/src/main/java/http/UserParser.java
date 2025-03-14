@@ -28,7 +28,9 @@ public class UserParser implements ResponseParser {
                 Trace.out(Trace.Level.DEV, "Got token: " + token);
                 if (!token.equals("")) {
                     ConfigSingleton.getInstance().setToken(token);
-                    return new User();  // TODO: This API doesn't return user but just the token
+                    User user = new User();
+                    user.setId(json.getLong("id"));
+                    return user;  // TODO: This API doesn't return user but just the token
                 }
             }catch (Exception e){
                 Trace.out(Trace.Level.ERR, "Parsing error: "

@@ -36,10 +36,15 @@ public class UserQuery extends HttpQuery {
         try {
             HttpResponse<String> response = super.post();
             // TODO: FIX THIS QUICK fix to have user available in view
-            ConfigSingleton.getInstance().setUser(user);    // the UNGOOD, BAD and UGLY
             //return userParser.parse(response.body());
-            if (userParser.parse(response.body()) != null)
+
+            // TODO: Oh dear lord fix this
+            User temp = userParser.parse(response.body());
+            if (temp != null) {
+                ConfigSingleton.getInstance().setUser(user);    // the UNGOOD, BAD and UGLY
+                user.setId(temp.getId());
                 return user;
+            }
         }catch (Exception e){
             Trace.out(Trace.Level.ERR, "Error in logging in: "
                 + e.getMessage());

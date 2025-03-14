@@ -71,6 +71,7 @@ class ClientTest {
                                 new Person()
                         )).getUsername()
         );
+        assertNotEquals(0, user.getId());
     }
 
     /* Integration test for device share */
