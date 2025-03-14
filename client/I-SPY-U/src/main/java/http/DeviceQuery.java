@@ -55,8 +55,7 @@ public class DeviceQuery extends HttpQuery {
         Trace.out(Trace.Level.INFO, "Removing device: " + device);
         super.setEndpoint(endpoint + "/" + device.getId());
         try {
-            super.delete();
-            return true;
+            return super.delete();
         }catch (Exception e) {
             // throw device not found exception
             Trace.out(Trace.Level.ERR, "Removal of device failed");

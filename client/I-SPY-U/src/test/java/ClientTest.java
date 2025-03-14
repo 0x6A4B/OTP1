@@ -1,9 +1,13 @@
 import model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import util.ConfigSingleton;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -59,48 +63,93 @@ class ClientTest {
         );
     }
 
+    /* Integration test for device share */
+    /* TODO: REFACTOR THIS AND CREATE UNIT TESTS WITH SOME MOCK API */
     @Test
     void testSharing(){
         //login as jarppi
-        User user = client.login(new User("jarppi", "jarppi"));
+        User jarppi = client.login(new User("jarppi", "jarppi"));
 
         // Create device to be shared
-        Device device = client.addDevice(new Device(UUID.randomUUID(), "TESTI", true, "description", "model"));
-
+        UUID uuid = UUID.randomUUID();
+        Device device = client.addDevice(new Device(uuid, "TESTI", true, "description", "model"));
+        assertEquals(uuid, device.getUuid());   // device created successfully
         // Create a user that device is shared with
-        User user1 = new User();
-        user1.setUsername("wasdi");
+        User wasdi = new User("wasdi", "wasdi");
 
         // Create a device share object
-        DeviceShare share = new DeviceShare( device, user1, "", "random desc" );
-
-        assertEquals( share.toString(), client.shareDevice(share).toString() );
+        DeviceShare share = new DeviceShare( device, wasdi, "GODLY", "random desc" );
+        //assertEquals( share.toString(), client.shareDevice(share).toString() );
+        // device created and updated with id and share created and updated with id
 
 
         //share device with wasdi
-        client.shareDevice(share);
+        DeviceShare shareResponse = client.shareDevice(share);
+        assertNotNull(shareResponse);   // share created
+        // id created for device and matches with device id got for share
+        assertEquals(device.getId(), shareResponse.getDevice().getId());
+        assertEquals(share.getDescription(), shareResponse.getDescription());
 
-        //getdevices for jarppi => getlast
-        client.getDevices(user);
 
-        //get shares for device
 
+        //getdevice for jarppi => getlast
+        // this should be the device we created
+        Device deviceResponse = client.getDevices(jarppi).getLast();
+        // we are getting correct device id
+        assertEquals(shareResponse.getDevice().getId(), deviceResponse.getId());
+
+        //get shares for device / get the last share
+        DeviceShare lastShare = client.getDeviceShares(deviceResponse).getLast();
+        // the share from GET response matches the POST response
+        assertEquals(lastShare.getId(), shareResponse.getId());
+
+
+        // the person it is shared with
         //login as wasdi
-        User wasdi = client.login(new User("wasdi", "wasdi"));
+        client.login(wasdi);
 
         //getshares
-        assertEquals( device.getId() , client.getDeviceShares(device).getFirst().getDevice() );
+        // last share made and retrieved by sharer matches last share retrieved by sharee
+        DeviceShare wasdisShare = client.getDeviceShares().getLast();
+        assertEquals(lastShare.getId(), wasdisShare.getId());
 
 
         //update description
+        // description matches the one set when creating the share
+        assertEquals(share.getDescription(), wasdisShare.getDescription());
+
+        String newDescription = "new description";
+        wasdisShare.setDescription(newDescription);
+        DeviceShare wasdisShareResponse = client.updateDeviceShare(wasdisShare);
+        // let's see description is in the response
+        assertEquals(newDescription, wasdisShareResponse.getDescription());
+
+        // now let's check the description is also saved in the DB
+//        String getResponseDesc = client.getDeviceShares().stream()
+//                .filter(d -> d.getDevice().getId() == deviceResponse.getId())
+//                .findFirst().get().getDescription(); // this needs work...
+        String getResponseDesc = client.getDeviceShares().getLast().getDescription();
+        assertEquals(newDescription, getResponseDesc);
 
 
         //delete share
-        client.removeDevice(share);
-        assertNotEquals(null , client.getDevices(user).getLast());
-        // get shares == null
+        boolean successfulDelete = client.removeDeviceShare(wasdisShare);
+        //assertNotEquals(null , client.getDevices(user).getLast());
+        // get shares, last isn't our share
+        // if no shares this will fail?
+        List<DeviceShare> sharesAfterDelete = new ArrayList<>();
+        sharesAfterDelete = client.getDeviceShares();
 
-        //login as jarppi
+        if(sharesAfterDelete.size() > 0)
+            assertNotEquals(wasdisShareResponse.getId(), sharesAfterDelete.getLast().getId());
+        //else success
+
+
+        //login as jarppi and delete device
+        client.login(new User("jarppi", "jarppi"));
+        assertTrue(client.removeDevice(device));    // supposedly success
+        // will fail if no devices => TODO: FIX THIS
+        assertNotEquals(device, client.getDevices(user).getLast());
 
 
     }

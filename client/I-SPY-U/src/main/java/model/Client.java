@@ -17,36 +17,37 @@ public class Client {
         Trace.out(Trace.Level.INFO, "Client instantiated");
     }
 
-
+    /* Devices */
     public List<Device> getDevices(User user){
         return connectionManager.getDevices();
     }
-
     public Device addDevice(Device device){
         return connectionManager.createDevice(device);
     }
-
     public boolean removeDevice(Device device){
         return connectionManager.removeDevice(device);
     }
 
+    /* Shares */
     public DeviceShare shareDevice(DeviceShare deviceShare) {
         return connectionManager.shareDevice(deviceShare);
     }
-
     public boolean removeDeviceShare(DeviceShare deviceShare){
         return connectionManager.removeDeviceShare(deviceShare);
     }
-
     public List<DeviceShare> getDeviceShares(Device device){
         return connectionManager.getDeviceShares(device);
     }
-
     public List<DeviceShare> getDeviceShares(){
         return connectionManager.getDeviceShares();
     }
+    public DeviceShare updateDeviceShare(DeviceShare deviceShare){
+        return connectionManager.updateDeviceShare(deviceShare);
+    }
 
-    // LOG
+
+
+    /* LOG */
     // TODO: Deprecating this...??
     public List<LogEntry> getLogEntries(Device device){
         //return connectionManager.getLogEntries(device);
@@ -61,7 +62,8 @@ public class Client {
         return connectionManager.removeLogEntry(logEntry);
     }
 
-    // USER
+
+    /* USER */
     public User login(User user){
         Trace.out(Trace.Level.DEV, "client.login");
         //if (ConfigSingleton.getInstance().getToken() != null && !ConfigSingleton.getInstance().getToken().isEmpty())

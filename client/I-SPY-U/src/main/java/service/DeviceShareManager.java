@@ -41,7 +41,7 @@ public class DeviceShareManager implements IManager {
 
     @Override
     public boolean remove(Object device) {
-        return deviceShareQuery.removeSharedDevice((Device) device);
+        return deviceShareQuery.removeSharedDevice((DeviceShare) device);
     }
     // Why would we need and use this?
     // Why not iterate a list of devices to be removed and use normal remove device
