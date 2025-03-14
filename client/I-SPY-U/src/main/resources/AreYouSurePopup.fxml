@@ -9,7 +9,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="190.0" prefWidth="300.0" style="-fx-border-color: black; -fx-border-width: 2px;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AreYouSureController">
    <children>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutY="20.0" prefWidth="300.0" text="Are you sure?" textAlignment="CENTER">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutY="20.0" prefWidth="300.0" text="Are you sure?" textAlignment="CENTER" fx:id="popUpTitle">
          <font>
             <Font name="System Bold" size="21.0" />
          </font>

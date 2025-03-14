@@ -37,7 +37,6 @@ public class LogSingController extends IController {
         String password = logInPassword.getText();
         String error = "error happened";
         if (logInRememberMe.isSelected()){
-            /* TODO tässä sit laitetaan jos haluu muistaa loginin */
             Trace.out(Trace.Level.DEV, "Remember user");
             client.setRememberUser(true);
         }
@@ -69,7 +68,6 @@ public class LogSingController extends IController {
         String error = "error happened";
         if (singUpRememberMe.isSelected()){
             client.setRememberUser(true);
-            /* TODO tässä sit laitetaan jos haluu muistaa loginin */
         }
         if (awnser != null) {
             try {

@@ -24,7 +24,6 @@ public class GUI extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        /* TODO: check here if user is already set and depending on it then launch login or devicelist */
         // Checking if user token exists
         // Checks that config singleton has loaded the properties and there is
         // a token saved, otherwise need to login
