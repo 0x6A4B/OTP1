@@ -132,6 +132,7 @@ public abstract class HttpQuery {
             HttpResponse<String> response = futureResponse.get();
             Trace.out(Trace.Level.INFO, "HttpQuery.Patch response: " + response.statusCode());
             //if not 204 || 200 then fucked are we
+            return response;
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -125,7 +125,10 @@ class ClientTest {
         assertEquals(newDescription, wasdisShareResponse.getDescription());
 
         // now let's check the description is also saved in the DB
-        String getResponseDesc = client.getDeviceShares(deviceResponse).getLast().getDescription();
+//        String getResponseDesc = client.getDeviceShares().stream()
+//                .filter(d -> d.getDevice().getId() == deviceResponse.getId())
+//                .findFirst().get().getDescription(); // this needs work...
+        String getResponseDesc = client.getDeviceShares().getLast().getDescription();
         assertEquals(newDescription, getResponseDesc);
 
 
