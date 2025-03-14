@@ -50,6 +50,9 @@ public class DeviceListController extends IController {
     private List<Device> devices;
     private Device currentDevice;
 
+    private int logEntriesCount = 0;
+    @FXML private Label logEntriesCountLabel;
+
     private Label createNewDeviceLabel(Device dev){
         Label deviceLabel = new Label(dev.getName());
         deviceLabel.setAlignment(Pos.CENTER);
@@ -94,6 +97,7 @@ public class DeviceListController extends IController {
 
     @FXML
     private void ShowDeviceDetails(MouseEvent event, Device dev){
+        logEntriesCount=0;
         Calendar calendar = Calendar.getInstance();
         Trace.out(Trace.Level.DEV, "ShowDevice: " + dev.getName());
         for (Node node : DevicesList.getChildren()) {
@@ -110,6 +114,7 @@ public class DeviceListController extends IController {
         currentDevice = dev;
         List<LogEntry> entries = client.getLogEntries(dev);
         for (int i = 0; i < entries.size(); i++) {
+            logEntriesCount++;
             calendar.setTime(entries.get(i).getDate());
             DeviceDetailsListview.getItems().add((calendar.get(Calendar.HOUR_OF_DAY) +":"
             + calendar.get(Calendar.MINUTE) + ":"
@@ -119,6 +124,7 @@ public class DeviceListController extends IController {
             + calendar.get(Calendar.YEAR)
         )+": "+entries.get(i).getValue());
         }
+        logEntriesCountLabel.setText(logEntriesCount+" Log entries");
     }
 
     private void addNewDevice(MouseEvent event){
