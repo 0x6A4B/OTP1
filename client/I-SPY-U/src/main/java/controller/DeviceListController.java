@@ -192,7 +192,11 @@ public class DeviceListController extends IController {
         devices = client.getDevices(gui.getUser());
         getDevices(myDevicesList, devices);
 
-        /* TODO tässä pitää kattoo miten saa sharedDevices List<Device> muotoon jotta voi sit täyttää sharedDevicesList 
+        /* TODO 
+         * client.getDeviceShares()
+         * getDevice(DeviceShare.getDeviceId()) saa itse laitteen ulos DeviceSharesta
+         * 
+         * tässä pitää kattoo miten saa sharedDevices List<Device> muotoon jotta voi sit täyttää sharedDevicesList 
          * Kato samalla sitä miltä shared deviced details näyttää
          * miten Device saa devicen jos se on shared et meneekä DeviceShare???
          * jokaselle shared Device laittaa Device.setOwned(false)

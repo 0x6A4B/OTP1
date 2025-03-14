@@ -183,7 +183,10 @@ public class DeviceController extends IController {
         descTextBox.setText(device.getDescription());
         descTextBox.setVisible(false);
 
-        /* TODO device katsoo onko device.isOwned() false tai true */
+        /* TODO 
+         * device katsoo onko device.isOwned() false tai true 
+         * client.getDeviceShares(Device) saa kaikki joille on jaettu ja täyytää ne sharedUsersList
+        */
 
         /* TODO: these we disable when it is own device
          * descLabel.setDisable(true);
