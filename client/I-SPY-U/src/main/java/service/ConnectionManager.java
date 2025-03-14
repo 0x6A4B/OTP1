@@ -38,6 +38,10 @@ public class ConnectionManager {
         return deviceManager.remove(device);
     }
 
+    public Device getDevice(Long deviceId){
+        return deviceManager.read(deviceId);
+    }
+
     /* LogEntry methods */
     public List<LogEntry> getLogEntries(Device device){
         return getLogEntries(device, -1);
@@ -69,6 +73,8 @@ public class ConnectionManager {
     public boolean removeDeviceShare(DeviceShare deviceShare){
         return deviceShareManager.remove(deviceShare);
     }
+
+
 
     public boolean removeAllDeviceShares(Device device){
         return deviceShareManager.removeAll(device);

@@ -27,6 +27,16 @@ class ClientTest {
     }
 
     @Test
+    void getUser() {
+        // TODO: Fix *maailman parhain testi*
+        Long devId = 3L;
+        Device device = client.getDevice(devId);
+        assertNotNull(device);
+        assertEquals(devId, device.getId());
+        assertEquals("koirankoppi", device.getDescription());
+    }
+
+    @Test
     void getDevices() {
         //assertEquals(5, client.getDevices(user).size());
         assertTrue(client.getDevices(user).get(0).getName().contains("AntsaAnturi"));

@@ -27,6 +27,9 @@ public class Client {
     public boolean removeDevice(Device device){
         return connectionManager.removeDevice(device);
     }
+    public Device getDevice(Long deviceId){
+        return connectionManager.getDevice(deviceId);
+    }
 
     /* Shares */
     public DeviceShare shareDevice(DeviceShare deviceShare) {

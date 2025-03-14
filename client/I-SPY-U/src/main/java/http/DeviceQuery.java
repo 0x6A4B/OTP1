@@ -76,4 +76,16 @@ public class DeviceQuery extends HttpQuery {
         return false;
     }
 
+    public Device getDevice(Long deviceId){
+        super.setEndpoint(endpoint + "/" + deviceId);
+        try{
+            HttpResponse<String> response = super.get();
+            // TODO: response exception
+            return deviceParser.parse(response.body());
+        } catch (Exception e) {
+            Trace.out(Trace.Level.ERR, "GET device: " + deviceId + " failed: " + e.getMessage());
+            return null;
+        }
+    }
+
 }
