@@ -129,7 +129,7 @@ public class DeviceController extends IController {
     @FXML
     private void handleShare() {
         System.out.println(sharingEmail.getText());
-        /* TODO tässä laitetaan sharing eteenpäin */
+        /* TODO WIP ota shareChoice ja sen mukaan laita sharen permission read/write */
 
         DeviceShare deviceShare = new DeviceShare();
         User user = new User(sharingEmail.getText(), "");
@@ -182,6 +182,8 @@ public class DeviceController extends IController {
 
         descTextBox.setText(device.getDescription());
         descTextBox.setVisible(false);
+
+        /* TODO device katsoo onko device.isOwned() false tai true */
 
         /* TODO: these we disable when it is own device
          * descLabel.setDisable(true);

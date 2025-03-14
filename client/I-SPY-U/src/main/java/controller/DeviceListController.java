@@ -160,8 +160,7 @@ public class DeviceListController extends IController {
     public void hook(){
         System.out.println("HOOK");
         devices = client.getDevices(gui.getUser());
-        getDevices(myDevicesList);
-        getDevices(sharedDevicesList);
+        getDevices(myDevicesList, devices);
         ownDeviceDetails.setVisible(false);
         removeDeviceButton.setVisible(false);
         sharedDeviceDetails.setVisible(false);
@@ -180,7 +179,7 @@ public class DeviceListController extends IController {
         return newdeviceLabel;
     }
 
-    private void getDevices(VBox boksi){
+    private void getDevices(VBox boksi, List<Device> devices){
         boksi.getChildren().clear();
         for (Device device : devices) {
             boksi.getChildren().add(createNewDeviceLabel(device));
@@ -191,8 +190,14 @@ public class DeviceListController extends IController {
     @Override
     public void start(){
         devices = client.getDevices(gui.getUser());
-        getDevices(myDevicesList);
-        getDevices(sharedDevicesList);
+        getDevices(myDevicesList, devices);
+
+        /* TODO tässä pitää kattoo miten saa sharedDevices List<Device> muotoon jotta voi sit täyttää sharedDevicesList 
+         * Kato samalla sitä miltä shared deviced details näyttää
+         * miten Device saa devicen jos se on shared et meneekä DeviceShare???
+         * jokaselle shared Device laittaa Device.setOwned(false)
+        */
+        getDevices(sharedDevicesList, devices);
 
         ownDeviceDetails.setVisible(false);
         removeDeviceButton.setVisible(false);
@@ -210,6 +215,6 @@ public class DeviceListController extends IController {
                 switchToSharedDevices();
             }
         });
-        sharedDevicesTab.setDisable(true);
+        //sharedDevicesTab.setDisable(true);
     }
 }
