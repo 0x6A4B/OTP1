@@ -38,9 +38,11 @@ public class Client {
     public boolean removeDeviceShare(DeviceShare deviceShare){
         return connectionManager.removeDeviceShare(deviceShare);
     }
+    /* Only owner can get all shares they have made */
     public List<DeviceShare> getDeviceShares(Device device){
         return connectionManager.getDeviceShares(device);
     }
+    /* All devices shared with you */
     public List<DeviceShare> getDeviceShares(){
         return connectionManager.getDeviceShares();
     }
