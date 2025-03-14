@@ -66,7 +66,6 @@ public class DeviceListController extends IController {
 
     @FXML
     private void openDevice(ActionEvent event){
-        /* TODO: miten täs sais datan jos vaikka on vain devcies id?? ja sit jatkaa eteenpäin */
         System.out.println("Open own device"+currentDevice);
         try {
                 gui.setCurrentDevice(currentDevice);
@@ -130,7 +129,6 @@ public class DeviceListController extends IController {
     private void addNewDevice(MouseEvent event){
         try {
             gui.openPopup("AddDeviceWindow", 300, 350, this);
-            // TODO: Refresh the device window
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -185,9 +183,6 @@ public class DeviceListController extends IController {
 
     private void getDevices(VBox boksi){
         boksi.getChildren().clear();
-        /* TODO: tässä pitäis hakee ne devicet ja laittaa ne tohon boksiin
-        pitää kattoo jos siihen saa jotenki dictionary tyylisesti
-        jotta voidaan saada ehkä id siihen mukaan ja sit se device ikkunalle eteenpäin */
         for (Device device : devices) {
             boksi.getChildren().add(createNewDeviceLabel(device));
         }

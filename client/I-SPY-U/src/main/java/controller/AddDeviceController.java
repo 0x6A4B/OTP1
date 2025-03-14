@@ -34,7 +34,6 @@ public class AddDeviceController extends IController {
 
         try{
             UUID realUuid = UUID.fromString(uuid.getText());
-            /* TODO tässä lisätään sitten uusi device userille */
             client.addDevice(new Device(ConfigSingleton.getInstance().getUser(), realUuid, name.getText(), true, desc.getText(), "model"));
             try {
                 gui.closePopup();
