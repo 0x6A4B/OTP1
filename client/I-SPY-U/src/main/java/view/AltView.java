@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import model.Device;
 import model.DeviceShare;
 import model.LogEntry;
+import util.LocaleSingleton;
 import util.Trace;
 
 import java.text.SimpleDateFormat;
@@ -63,13 +64,13 @@ public class AltView extends Application {
     private void sceneLogin(){
         VBox root = new VBox();
 
-        Label title = new Label("Login");
+        Label title = new Label(LocaleSingleton.getInstance().getTranslation("login"));
 
         HBox usernameBox = new HBox();
         HBox passwordBox = new HBox();
 
-        Label username = new Label("Username");
-        Label password = new Label("Password");
+        Label username = new Label(LocaleSingleton.getInstance().getTranslation("username"));
+        Label password = new Label(LocaleSingleton.getInstance().getTranslation("Password"));
         Label errorMessage = new Label();
         errorMessage.setVisible(false);
 
@@ -79,7 +80,7 @@ public class AltView extends Application {
         usernameBox.getChildren().addAll(username, usernameField);
         passwordBox.getChildren().addAll(password, passwordField);
 
-        Button loginButton = new Button("Login");
+        Button loginButton = new Button(LocaleSingleton.getInstance().getTranslation("Login"));
 
         loginButton.setOnAction(event -> {
             String response = controller.login(usernameField.getText(), passwordField.getText());
@@ -111,19 +112,19 @@ public class AltView extends Application {
     /* Main scene */
     private void sceneDevices(){
         VBox root = new VBox();
-        Label title = new Label("Devices");
+        Label title = new Label(LocaleSingleton.getInstance().getTranslation("Devices"));
 
         //HBox toolBar = new HBox();
         ToolBar toolBar = new ToolBar();
 
-        Button addDevice = new Button("Add Device");
-        Button deleteDevice = new Button("Delete Device");
-        Button editDevice = new Button("Edit Device");
-        Button shareDevice = new Button("Share Device");
+        Button addDevice = new Button(LocaleSingleton.getInstance().getTranslation("add_device"));
+        Button deleteDevice = new Button(LocaleSingleton.getInstance().getTranslation("Delete_Device"));
+        Button editDevice = new Button(LocaleSingleton.getInstance().getTranslation("Edit Device"));
+        Button shareDevice = new Button(LocaleSingleton.getInstance().getTranslation("Share Device"));
 
-        Button viewShares = new Button("View Shares");
-        Button viewDevice = new Button("View Device");
-        Button logOut = new Button("Log Out");
+        Button viewShares = new Button(LocaleSingleton.getInstance().getTranslation("View Shares"));
+        Button viewDevice = new Button(LocaleSingleton.getInstance().getTranslation("View Device"));
+        Button logOut = new Button(LocaleSingleton.getInstance().getTranslation("Log Out"));
         toolBar.getItems().addAll(addDevice, deleteDevice, editDevice, shareDevice, new Separator(),
                 viewShares, viewDevice, new Separator(), logOut);
 
@@ -147,22 +148,24 @@ public class AltView extends Application {
 
 
         /* Columns */
-        TableColumn<Device, String> deviceNameColumn = new TableColumn<>("Name");
+        TableColumn<Device, String> deviceNameColumn = new TableColumn<>(LocaleSingleton.getInstance().getTranslation("Name"));
         deviceNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         deviceNameColumn.setMinWidth(150);
-        TableColumn<Device, String> deviceDescColumn = new TableColumn<>("Description");
+        TableColumn<Device, String> deviceDescColumn = new TableColumn<>(LocaleSingleton.getInstance().getTranslation("Description"));
         deviceDescColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
         deviceNameColumn.setMinWidth(250);
-        TableColumn<Device, String> deviceModelColumn = new TableColumn<>("Model");
+        TableColumn<Device, String> deviceModelColumn = new TableColumn<>(LocaleSingleton.getInstance().getTranslation("Model"));
         deviceModelColumn.setCellValueFactory(new PropertyValueFactory<>("model"));
         deviceNameColumn.setMinWidth(150);
 
 
-        TableColumn<LogEntry, Date> logEntryDateColumn = new TableColumn<>("Date");
+        TableColumn<LogEntry, Date> logEntryDateColumn = new TableColumn<>(LocaleSingleton.getInstance().getTranslation("Date"));
         logEntryDateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
         logEntryDateColumn.setCellFactory(col -> {
             TableCell<LogEntry, Date> cell = new TableCell<>() {
                 private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                //private DateTimeFormatter dateFormat = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(LocaleSingleton.getInstance().getLocale());
+
 
                 @Override
                 protected void updateItem(Date item, boolean empty) {
