@@ -46,4 +46,13 @@ class LocaleSingletonTest {
         System.out.println("Login => Login");
         assertEquals("Login", instance.getTranslation("login"));
     }
+
+    @Test
+    void testLocaleAE(){
+        System.out.println("Testing Locale US");
+        instance.setLocale(new Locale("ar", "AE"));
+        System.out.println("Add device => أَدِمْ الْمُهَارَّجَ");
+        System.out.println(instance.getTranslation("add_device"));
+        assertEquals("أَدِمْ الْمُهَارَّجَ", instance.getTranslation("add_device"));
+    }
 }
