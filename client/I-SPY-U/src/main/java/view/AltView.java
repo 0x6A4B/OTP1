@@ -127,7 +127,7 @@ public class AltView extends Application {
 
         Button viewShares = new Button(LocaleSingleton.getInstance().getTranslation("View Shares"));
         Button viewDevice = new Button(LocaleSingleton.getInstance().getTranslation("View Device"));
-        Button logOut = new Button(LocaleSingleton.getInstance().getTranslation("Log Out"));
+        Button logOut = new Button(LocaleSingleton.getInstance().getTranslation("LogOut"));
         toolBar.getItems().addAll(addDevice, deleteDevice, editDevice, shareDevice, new Separator(),
                 viewShares, viewDevice, new Separator(), logOut);
 
@@ -190,10 +190,10 @@ public class AltView extends Application {
         });
         logEntryDateColumn.setMinWidth(150);
         //TableColumn<LogEntry, String> logEntryTimeColumn = new TableColumn<>("Time");
-        TableColumn<LogEntry, String> logEntryKeyColumn = new TableColumn<>("Key");
+        TableColumn<LogEntry, String> logEntryKeyColumn = new TableColumn<>(LocaleSingleton.getInstance().getTranslation("Key"));
         logEntryKeyColumn.setCellValueFactory(new PropertyValueFactory<>("logkey"));
         logEntryDateColumn.setMinWidth(150);
-        TableColumn<LogEntry, String> logEntryValueColumn = new TableColumn<>("Value");
+        TableColumn<LogEntry, String> logEntryValueColumn = new TableColumn<>(LocaleSingleton.getInstance().getTranslation("Value"));
         logEntryValueColumn.setCellValueFactory(new PropertyValueFactory<>("value"));
         logEntryDateColumn.setMinWidth(150);
 
