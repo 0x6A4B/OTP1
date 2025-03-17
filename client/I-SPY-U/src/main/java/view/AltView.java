@@ -20,7 +20,10 @@ import model.LogEntry;
 import util.LocaleSingleton;
 import util.Trace;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -163,8 +166,14 @@ public class AltView extends Application {
         logEntryDateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
         logEntryDateColumn.setCellFactory(col -> {
             TableCell<LogEntry, Date> cell = new TableCell<>() {
-                private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                //private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
                 //private DateTimeFormatter dateFormat = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(LocaleSingleton.getInstance().getLocale());
+                //private DateTimeFormatter dateFormat = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.LONG, FormatStyle.LONG);
+                //private DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, LocaleSingleton.getInstance().getLocale());
+                private SimpleDateFormat dateFormat = new SimpleDateFormat(
+                        ((SimpleDateFormat) DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG)).toLocalizedPattern()
+
+                        , LocaleSingleton.getInstance().getLocale());
 
 
                 @Override
