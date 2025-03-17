@@ -149,8 +149,8 @@
                                           <Font size="12.5" />
                                        </font>
                                     </Label>
-                                    <TextField layoutX="26.0" layoutY="305.0" prefHeight="50.0" prefWidth="250.0" promptText="Here would fill the description and switch this when editing desc" fx:id="descTextBox"/>
-                                    <Button layoutX="26.0" layoutY="365.0" mnemonicParsing="false" text="Edit Description" fx:id="editDescButton">
+                                    <TextField alignment="TOP_LEFT"  layoutX="26.0" layoutY="305.0" prefHeight="50.0" prefWidth="250.0" promptText="Here would fill the description and switch this when editing desc" fx:id="descTextBox"/>
+                                    <Button layoutX="26.0" layoutY="365.0" mnemonicParsing="false" text="Edit Description" fx:id="editDescButton" onAction="#handleEditDesc">
                                        <padding>
                                           <Insets bottom="11.0" left="11.0" right="11.0" top="11.0" />
                                        </padding>

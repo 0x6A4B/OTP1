@@ -53,18 +53,19 @@ public class DeviceController extends IController {
     @FXML private Label chartLabel;
     @FXML private LineChart<String, Double> lineChart;
 
-    @FXML private VBox sharedUsersList; //TODO to this we add labels for all shared users. Maybe add a cool label with name on the left and the right side will have a button to remove the sharing.
+    @FXML private VBox sharedUsersList;
     @FXML private ScrollPane sharedUsersListContainer;
 
     @FXML private Label descLabel;
     @FXML private TextField descTextBox;
-    @FXML private Button editDescButton; //TODO handle for this is: handleEditDesc
+    @FXML private Button editDescButton;
 
     private SingleSelectionModel<Tab> selectionModel;
     @FXML private TabPane tabPane;
 
     private User user;
     private Device device;
+    private Boolean editing = false;
 
     private void setUpCharts() {
         lineChart.getData().clear();
@@ -151,6 +152,40 @@ public class DeviceController extends IController {
         selectionModel.select(0);
     }
 
+    @FXML
+    private void handleEditDesc() {
+        if (editing) {
+            System.out.println("saved desc");
+            descLabel.setVisible(true);
+            descTextBox.setVisible(false);
+            editDescButton.setText("Edit");
+            editing = false;
+            /* TODO Tässä laitetaan descTextBox.getText() sit edit description */
+        } else {
+            System.out.println("edit desc");
+            editing = true;
+            descLabel.setVisible(false);
+            descTextBox.setVisible(true);
+            editDescButton.setText("Save");
+        }
+    }
+
+    private void fillSharedUsersList() {
+        sharedUsersList.getChildren().clear();
+        List<DeviceShare> shares = client.getDeviceShares(device);
+        for (DeviceShare i : shares) {
+            System.out.println(i.getUserId());
+            Label userLabel = new Label(i.getUser().getUsername());
+            Button removeButton = new Button("Remove");
+            removeButton.setOnAction(e -> {
+                //client.removeDeviceShare(i);
+                fillSharedUsersList();
+            });
+            VBox userBox = new VBox(userLabel, removeButton);
+            sharedUsersList.getChildren().add(userBox);
+        }
+    }
+
     @Override
     public void start(){
         device = gui.getCurrentDevice();
@@ -180,12 +215,28 @@ public class DeviceController extends IController {
         configTab.setDisable(true);
         //shareTab.setDisable(true); working on this now
 
+        descLabel.setText(device.getDescription());
         descTextBox.setText(device.getDescription());
         descTextBox.setVisible(false);
 
+        if (device.isOwned()) {
+            descLabel.setDisable(true);
+            editDescButton.setDisable(true);
+            //fillSharedUsersList();
+        } else {
+            shareChoice.setDisable(true);
+            setShareButton.setDisable(true);
+            sharingEmail.setDisable(true);
+            sharedUsersList.setVisible(false);
+            sharedUsersListContainer.setVisible(false);
+        }
+
         /* TODO 
-         * device katsoo onko device.isOwned() false tai true 
-         * client.getDeviceShares(Device) saa kaikki joille on jaettu ja täyytää ne sharedUsersList
+         * client.getDeviceShares(Device) saa kaikki joille on jaettu ja täyyttää ne sharedUsersList
+         * ja lisää joku tapa poistaa esim Vaikka HBox johon menee Label ekana ja sit X nappi joka poistaa ja sit tää VBox
+         * 
+         * tee niin että kun klikkaa edit discription sharessa se vaihtaa label textboksiin 
+         * ja sit nappi muuttuu saveksi ja sit save napista menee takas labelii ja nappi vaihtuu editiks
         */
 
         /* TODO: these we disable when it is own device
