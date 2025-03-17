@@ -19,10 +19,10 @@ public class LocaleSingleton {
         /* Is this really how we are supposed to do it? Ugly mess for a simple job... */
         /* List all translation files */
         try {
-            Enumeration<URL> en = LocaleSingleton.class.getClassLoader().getResources("./");
+            Enumeration<URL> en = LocaleSingleton.class.getClassLoader().getResources(".");
             while (en.hasMoreElements()) {
                 URL url = en.nextElement();
-                File file = new File(en.nextElement().toURI());
+                File file = new File(url.toURI());
                 if (file.isDirectory())
                     Arrays.stream(file.listFiles())
                             .filter(f -> f.getName().startsWith("Translation_"))
@@ -53,6 +53,7 @@ public class LocaleSingleton {
     }
 
     public String getTranslation(String key) {
+        key = key.toLowerCase().replace(" ", "_");
         if (translations.containsKey(key))
             return translations.getString(key);
 
