@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.Client;
 import model.Device;
+import model.DeviceShare;
 import model.User;
 import util.ConfigSingleton;
 
@@ -20,6 +21,7 @@ public class GUI extends Application {
     private /*static*/ Client service;
     private /*static*/ User user;
     private /*static*/ Device currentDevice;
+    private /*static*/ DeviceShare currentShare;
     private IController kontrolleri;
 
     @Override
@@ -88,6 +90,7 @@ public class GUI extends Application {
     public /*static*/ Device getCurrentDevice() {
         return currentDevice;
     }
+
 
     // TODO: FIX THIS HACK
     private IController popupCtrl;

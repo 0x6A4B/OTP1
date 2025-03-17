@@ -69,6 +69,7 @@ public class DeviceController extends IController {
 
     private User user;
     private Device device;
+    private DeviceShare deviceShare = null;
     private Boolean editing = false;
 
     private void setUpCharts() {
@@ -143,8 +144,10 @@ public class DeviceController extends IController {
 
         deviceShare.setUser(user);
         deviceShare.setDevice(device);
+        deviceShare.setDescription(descTextBox.getText());
+        descTextBox.clear();
 
-        client.shareDevice(deviceShare);
+        client.shareDevice(deviceShare); /* TODO tässä pitää kattoo jos on null nii laittaa error message share napin vieree vaikka "User not found" */
 
         fillSharedUsersList();
     }
@@ -164,8 +167,11 @@ public class DeviceController extends IController {
             descLabel.setVisible(true);
             descTextBox.setVisible(false);
             editDescButton.setText("Edit");
+            deviceShare.setDescription(descTextBox.getText());
+            descLabel.setText(descTextBox.getText());
+            descTextBox.clear();
+            client.updateDeviceShare(deviceShare);
             editing = false;
-            /* TODO Tässä laitetaan descTextBox.getText() sit edit description */
         } else {
             System.out.println("edit desc");
             editing = true;
@@ -228,7 +234,7 @@ public class DeviceController extends IController {
         });
 
         setLimitsButton.disableProperty().bind(limitMin.textProperty().isEmpty().or(limitMax.textProperty().isEmpty()));
-        shareButton.disableProperty().bind(sharingEmail.textProperty().isEmpty());
+        shareButton.disableProperty().bind(sharingEmail.textProperty().isEmpty().or(descTextBox.textProperty().isEmpty()));
 
         actionChoice.setValue("Select an action");
         shareChoice.setValue("Select a role");
@@ -238,15 +244,22 @@ public class DeviceController extends IController {
         configTab.setDisable(true);
         //shareTab.setDisable(true); working on this now
 
-        descLabel.setText(device.getDescription());
-        descTextBox.setText(device.getDescription());
-        descTextBox.setVisible(false);
-
         if (device.isOwned()) {
             descLabel.setDisable(true);
             editDescButton.setDisable(true);
+            descTextBox.setVisible(true);
             fillSharedUsersList();
         } else {
+            List<DeviceShare> shares = client.getDeviceShares();
+            for (DeviceShare share : shares) {
+                if (share.getDeviceId() == device.getId()) {
+                    descLabel.setText(share.getDescription());
+                    descTextBox.setText(share.getDescription());
+                    descTextBox.setVisible(false);
+                    deviceShare = share;
+                    break;
+                }
+            }
             shareChoice.setDisable(true);
             setShareButton.setDisable(true);
             sharingEmail.setDisable(true);
