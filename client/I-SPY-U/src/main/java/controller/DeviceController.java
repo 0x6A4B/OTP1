@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
@@ -16,7 +17,9 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import model.Device;
 import model.DeviceShare;
 import model.LogEntry;
@@ -49,6 +52,7 @@ public class DeviceController extends IController {
 
     @FXML private ChoiceBox<String> shareChoice;
     @FXML private Button setShareButton;
+    @FXML private Label sharedUsersLabel;
 
     @FXML private Label chartLabel;
     @FXML private LineChart<String, Double> lineChart;
@@ -170,18 +174,36 @@ public class DeviceController extends IController {
         }
     }
 
+    private HBox makeTheBox(String name, DeviceShare share){
+        HBox hbox = new HBox();
+        hbox.setPrefHeight(25.0);
+        hbox.setPrefWidth(200.0);
+
+        Label label = new Label(name);
+        label.setMaxHeight(26.0);
+        label.setMinHeight(26.0);
+        label.setPrefHeight(26.0);
+        label.setPrefWidth(165.0);
+        label.setStyle("-fx-border-color: grey;");
+        label.setPadding(new Insets(0, 0, 0, 10.0));
+
+        Button button = new Button("X");
+        button.setStyle("-fx-background-color: darkred;");
+        button.setTextFill(Color.WHITE);
+        button.setOnAction(e -> {
+            client.removeDeviceShare(share);
+            fillSharedUsersList();
+        });
+
+        hbox.getChildren().addAll(label, button);
+        return hbox;
+    }
+
     private void fillSharedUsersList() {
         sharedUsersList.getChildren().clear();
         List<DeviceShare> shares = client.getDeviceShares(device);
         for (DeviceShare i : shares) {
-            System.out.println(i.getUserId());
-            Label userLabel = new Label(i.getUser().getUsername());
-            Button removeButton = new Button("Remove");
-            removeButton.setOnAction(e -> {
-                //client.removeDeviceShare(i);
-                fillSharedUsersList();
-            });
-            VBox userBox = new VBox(userLabel, removeButton);
+            HBox userBox = makeTheBox("Id: "+i.getUserId(), i);
             sharedUsersList.getChildren().add(userBox);
         }
     }
@@ -222,13 +244,14 @@ public class DeviceController extends IController {
         if (device.isOwned()) {
             descLabel.setDisable(true);
             editDescButton.setDisable(true);
-            //fillSharedUsersList();
+            fillSharedUsersList();
         } else {
             shareChoice.setDisable(true);
             setShareButton.setDisable(true);
             sharingEmail.setDisable(true);
             sharedUsersList.setVisible(false);
             sharedUsersListContainer.setVisible(false);
+            sharedUsersLabel.setVisible(false);
         }
 
         /* TODO 

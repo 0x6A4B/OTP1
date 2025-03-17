@@ -160,6 +160,11 @@
                                          <Font size="16.0" style="bold" />
                                        </font>
                                     </Label>
+                                    <Label layoutX="252.0" layoutY="14.0" text="Device is shared to:" fx:id="sharedUsersLabel">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
                                  </children>
                               </AnchorPane>
                            </content>
