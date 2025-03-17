@@ -99,13 +99,13 @@
                                     </Label>
                                     <ListView prefHeight="267.0" prefWidth="200.0" style="-fx-border-color: Black;" fx:id="sharedDeviceDetalsListview"/>
                                 </children>
-                            </VBox>
-                            <Button layoutX="373.0" layoutY="389.0" mnemonicParsing="false" text="Open Device" fx:id="sharedOpenDeviceButton" onAction="#openDevice">
-                                <padding>
-                                    <Insets bottom="10.0" left="12.0" right="12.0" top="10.0" />
-                                </padding>
-                            </Button>
-                            <Button layoutX="264.0" layoutY="389.0" mnemonicParsing="false" style="-fx-background-color: red;" textFill="WHITE" text="Remove Share(WIP)" fx:id="removeShareButton">
+                                </VBox>
+                                <Button layoutX="373.0" layoutY="389.0" mnemonicParsing="false" text="Open Device" fx:id="sharedOpenDeviceButton" onAction="#openDevice">
+                                    <padding>
+                                        <Insets bottom="10.0" left="12.0" right="12.0" top="10.0" />
+                                    </padding>
+                                </Button>
+                                <Button layoutX="264.0" layoutY="389.0" mnemonicParsing="false" style="-fx-background-color: red;" textFill="WHITE" text="Remove Share" fx:id="removeShareButton" onAction="#handleRemoveShare">
                                 <padding>
                                     <Insets bottom="10.0" left="12.0" right="12.0" top="10.0" />
                                 </padding>

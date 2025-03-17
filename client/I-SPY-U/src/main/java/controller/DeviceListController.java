@@ -43,6 +43,8 @@ public class DeviceListController extends IController {
     @FXML private Button ownOpenDeviceButton;
 
     @FXML private Button removeDeviceButton;
+    @FXML private Button removeShareButton;
+    private Button removeButton;
 
     @FXML private Label ownDeviceDetalsLabel;
     @FXML private ListView ownDeviceDetalsListview;
@@ -58,6 +60,7 @@ public class DeviceListController extends IController {
     private Device currentDevice;
 
     private int logEntriesCount = 0;
+    private List<DeviceShare> shares;
 
     private Label createNewDeviceLabel(Device dev){
         Label deviceLabel = new Label(dev.getName());
@@ -90,6 +93,7 @@ public class DeviceListController extends IController {
         this.DeviceDetailsLabel = sharedDeviceDetalsLabel;
         this.DeviceDetailsListview = sharedDeviceDetalsListview;
         this.logEntriesCountLabel = shareLogEntriesCountLabel;
+        this.removeButton = removeShareButton;
     }
 
     @FXML
@@ -100,6 +104,7 @@ public class DeviceListController extends IController {
         this.DeviceDetailsLabel = ownDeviceDetalsLabel;
         this.DeviceDetailsListview = ownDeviceDetalsListview;
         this.logEntriesCountLabel = ownLogEntriesCountLabel;
+        this.removeButton = removeDeviceButton;
     }
 
     @FXML
@@ -115,7 +120,7 @@ public class DeviceListController extends IController {
         ((Label) event.getSource()).setStyle("-fx-background-color: grey; -fx-border-color: Black;");
         DeviceDetails.setVisible(true);
         openDeviceButton.setVisible(true);
-        removeDeviceButton.setVisible(true);
+        removeButton.setVisible(true);
         DeviceDetailsLabel.setText(((Label) event.getSource()).getText());
         DeviceDetailsListview.getItems().clear();
         currentDevice = dev;
@@ -195,24 +200,41 @@ public class DeviceListController extends IController {
         boksi.getChildren().add(addNewDeviceButton());
     }
 
+    @FXML
+    private void handleRemoveShare(){
+        for (DeviceShare share : shares) {
+            if (share.getDeviceId() == currentDevice.getId()) {
+                client.removeDeviceShare(share);
+                break;
+            }
+        }
+        sharedDevices.remove(currentDevice);
+        getDevices(sharedDevicesList, sharedDevices);
+        sharedDeviceDetails.setVisible(false);
+        sharedOpenDeviceButton.setVisible(false);
+        removeShareButton.setVisible(false);
+    }
+
     @Override
     public void start(){
         devices = client.getDevices(gui.getUser());
         getDevices(myDevicesList, devices);
-        List<DeviceShare> shares = client.getDeviceShares();
-        Device theDevice; //does declaring it here make it faster than having Device theDevice = something; in the for loop?
+        shares = client.getDeviceShares();
+        //Device theDevice; does declaring it here make it faster than having Device theDevice = something; in the for loop?
         for (DeviceShare share : shares) {
-            theDevice = client.getDevice(share.getDeviceId());
+            Device theDevice = client.getDevice(share.getDeviceId());
             theDevice.setOwned(false);
             sharedDevices.add(theDevice);
         }
         getDevices(sharedDevicesList, sharedDevices);
 
         ownDeviceDetails.setVisible(false);
+        ownOpenDeviceButton.setVisible(false);
         removeDeviceButton.setVisible(false);
+
         sharedDeviceDetails.setVisible(false);
         sharedOpenDeviceButton.setVisible(false);
-        ownOpenDeviceButton.setVisible(false);
+        removeShareButton.setVisible(false);
 
         switchToOwnDevices();
 

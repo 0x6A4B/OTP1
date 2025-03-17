@@ -133,19 +133,20 @@ public class DeviceController extends IController {
 
     @FXML
     private void handleShare() {
+        System.out.println("sharing Happening");
         System.out.println(sharingEmail.getText());
         /* TODO WIP ota shareChoice ja sen mukaan laita sharen permission read/write */
 
         DeviceShare deviceShare = new DeviceShare();
         User user = new User(sharingEmail.getText(), "");
+        sharingEmail.clear();
 
         deviceShare.setUser(user);
         deviceShare.setDevice(device);
 
         client.shareDevice(deviceShare);
 
-        System.out.println("sharing Happening");
-        selectionModel.select(0);
+        fillSharedUsersList();
     }
 
     @FXML
