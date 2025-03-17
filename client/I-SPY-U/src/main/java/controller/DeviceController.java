@@ -15,6 +15,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
@@ -61,7 +62,7 @@ public class DeviceController extends IController {
     @FXML private ScrollPane sharedUsersListContainer;
 
     @FXML private Label descLabel;
-    @FXML private TextField descTextBox;
+    @FXML private TextArea descTextBox;
     @FXML private Button editDescButton;
 
     private SingleSelectionModel<Tab> selectionModel;
@@ -267,26 +268,5 @@ public class DeviceController extends IController {
             sharedUsersListContainer.setVisible(false);
             sharedUsersLabel.setVisible(false);
         }
-
-        /* TODO 
-         * client.getDeviceShares(Device) saa kaikki joille on jaettu ja täyyttää ne sharedUsersList
-         * ja lisää joku tapa poistaa esim Vaikka HBox johon menee Label ekana ja sit X nappi joka poistaa ja sit tää VBox
-         * 
-         * tee niin että kun klikkaa edit discription sharessa se vaihtaa label textboksiin 
-         * ja sit nappi muuttuu saveksi ja sit save napista menee takas labelii ja nappi vaihtuu editiks
-        */
-
-        /* TODO: these we disable when it is own device
-         * descLabel.setDisable(true);
-         * editDescButton.setDisable(true);
-        */
-
-        /* TODO: these we disable when it is shared device
-         * shareChoice.setDisable(true);
-         * setShareButton.setDisable(true);
-         * sharingEmail.setDisable(true);
-         * sharedUsersList.setVisible(false);
-         * sharedUsersListContainer.setVisible(false);
-        */
     }
 }
