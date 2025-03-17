@@ -2,7 +2,10 @@ package util;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -44,7 +47,15 @@ public class LocaleSingleton {
     public Locale getLocale() { return locale; }
     public void setLocale(Locale locale) {
         this.locale = locale;
-        translations = ResourceBundle.getBundle("Translation", locale);
+
+        //translations = ResourceBundle.getBundle("Translation", locale, );
+        try {
+            String bundleFileName = "Translation_" + locale.getLanguage() + "_" + locale.getCountry() + ".properties";
+            InputStream stream = LocaleSingleton.class.getClassLoader().getResourceAsStream(bundleFileName);
+            translations = new PropertyResourceBundle(new InputStreamReader(stream, StandardCharsets.UTF_8));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public List<Locale> getAvailableLocales() {

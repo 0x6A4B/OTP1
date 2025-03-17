@@ -13,7 +13,9 @@ public class Main {
         //GUI.launch(GUI.class);
         //GUI.setClient(client);
         ConfigSingleton.getInstance();
-        LocaleSingleton.getInstance().setLocale(new Locale("fi", "FI"));
+        //LocaleSingleton.getInstance().setLocale(new Locale("fi", "FI"));
+        LocaleSingleton.getInstance().setLocale(new Locale("ar", "AE"));
+
         AltView.launch(AltView.class);
 
         //Trace.out(Trace.Level.DEV, "Starting application");
