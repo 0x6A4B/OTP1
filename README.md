@@ -3,14 +3,6 @@ OTP1 Software Engineering Project 1
 
 
 
-## Tehtävät
-
-- tuntilista(https://metropoliafi-my.sharepoint.com/:x:/g/personal/tonihirv_metropolia_fi/Ea14dZ-eydxItsQ5Mh2XgPcBL7n6WQnzVAWS_SRhqxHraQ?e=UqqDKj&nav=MTVfezAwMDAwMDAwLTAwMDEtMDAwMC0wMDAwLTAwMDAwMDAwMDAwMH0)
-- projectplan _ markdown/github
-- productvision _ markdown/github
-- setup trello
-- setup team
-- presentation link(https://docs.google.com/presentation/d/1MlfKxJ8iGxZMGYpVgSVQCBMqi3PgQaskcB6KySv8td0/edit#slide=id.g3268e255a1e_0_438)
 
 
 ## Muu dokumentaatio
@@ -23,98 +15,109 @@ OTP1 Software Engineering Project 1
 Bruno API testauksen määrittelyt [bruno/](bruno/) hakemistossa, lokaali ja remote API:lle
 
 
-### Mikrokontrolleri
+<a name="top"></a>
+[![I-SPY-U Application](./resources/banner_1.png)]()
+[![JDK21](https://img.shields.io/badge/JDK-21-512BD4)](https://docs.abblix.com/docs/technical-requirements)
+[![language](https://img.shields.io/badge/Java-%23ED8B00.svg?logo=openjdk&logoColor=white)]()
+[![OS](https://img.shields.io/badge/OS-Linux%2C%20Windows-0078D4)]()
+[![CPU](https://img.shields.io/badge/CPU-x86-FF8C00)]()
+[![GitHub release](https://img.shields.io/github/v/release/0x6a4b/OTP1)](#)
+[![GitHub release date](https://img.shields.io/github/release-date/0x6a4b/OTP1)](https://github.com/0x6a4b/OTP1/releases)
+[![GitHub last commit](https://img.shields.io/github/last-commit/0x6a4b/OTP1)](#)
+[![getting started](https://img.shields.io/badge/getting_started-guide-1D76DB)](./docs/getting-started-guide)
+[![Free](https://img.shields.io/badge/free_for_non_commercial_use-brightgreen)](#-license)
 
-- Description: A platform to manage iot sensors. Get temperature, add lower and upper limits with actions for crossing the limits. Track temperature over time.
-- Features:
-    - Register user account
-    - Add and connect devices to the account
-    - View temperature
-    - View logged temperatures
-    - Set upper and lower limits for temperatures
-    - Set an action for crossing set temperatures
-
-- Microcontroller side:
-    - Connect to wifi network
-    - Connect to an API
-    - Read temperature sensor
-    - Pinout according to set action
-    - Technologies: JavaFX, MariaDB, ESP8266, NodeJS, ExpressJS
-
-## Trello
-
-- Product backlog(https://trello.com/b/qHL6mSgy/otp1-product-backlog)
-- Sprint 1(https://trello.com/b/WIYIIN36/otp1-sprint1)
-- Sprint 2(https://trello.com/b/IqVvURY3/otp1-sprint2)
-- Sprint 3(https://trello.com/b/sWQ92Kam/otp1-sprint3)
-- Sprint 4(https://trello.com/b/28VbEdLX/otp1-sprint4)
+⭐ Star us on GitHub — it motivates us a lot!
 
 
-## DB relations:
+🔥 Why I-SPY-U is the best choice for sensor management — find out in our [presentation](./docs/presentation-eng.pdf) 📑
 
 
-```mermaid
+## !!! NOTICE !!!
 
-erDiagram
-    USER 1--1 PERSON : is
-    USER 1--0+ DEVICE : has
-    DEVICE 1--0+ LOGENTRY : creates
-    USER 1--0+ DEVICE_SHARE : can_access
-    DEVICE 1--0+ SETTING : has
+This is an educational college project not meant for real deployment but for learning!!
 
-    USER {
-        int id PK,UK
-        string username
-        string password
-        date registered_date
-        string status
-    }
+## Table of Contents
+- [About](#-about)
+- [How to Build](#-how-to-deploy)
+- [Documentation](#-documentation)
+- [Feedback and Contributions](#-feedback-and-contributions)
+- [License](#-license)
+- [Contacts](#%EF%B8%8F-contacts)
 
-    PERSON {
-        int id PK,UK
-        int userid FK,UK
-        string firstname
-        string lastname
-        string email
-        string streetaddress
-        string city
-        string postcode
-        string phonenumber
-    }
+## 🚀 About
 
-    DEVICE {
-        int id PK,UK
-        int userid FK 
-        string name
-        string description
-        string uuid
-        string model
-        date register_date
-    }
+**I-SPY-U** is a sensor management suite with Dockerized Spring Boot backend, MQTT Broker and JavaFX GUI client. Client is released as multiplatform JAR for Linux and Windows as well as VNC and X Display Docker containers. This ensures the following benefits:
 
-    LOGENTRY {
-        int id PK,UK
-        int deviceid FK
-        string key
-        string value
-        date log_date
-    }
+- **IOT Standard communication with MQTT**: Efficiency and compatibility with IOT industry standard communications. 
+- **Java and JavaFX client**: Multiplatform compatibility with a modern GUI possibilities. 
+- **Dockerized**: Efficient, secure and fast deployment. Extra compatibility through Dockerized client. 
+- **Multilanguage support i18n**: Supports multiple languages and character sets. Easy to add more languages with automatic loading of new translation files. 
 
-    DEVICE_SHARE {
-        int id PK,UK
-        int deviceid FK
-        int userid FK
-        date share_date
-        string privilege
-    }
 
-    SETTING {
-        int id PK,UK
-        int deviceid FK
-        int userid FK
-        String category
-        String key
-        String value
-    }
+New functionality added..
+
+
+
+## 📝 How to Deploy
+
+To build the packages, follow these steps:
+
+```shell
+# Ensure Docker or podmand is installed
+
+# Install server
+docker run -d -p 8080:8080 0x6a4b/otp:server
+
+# Install MariaDB
+docker run -d -p 3306:3306 mariadb
+
+# Install MQTT Broker
+docker run -d -p 1883:1883 eclipse/mosquitto
+
+# Optionally you can install Dockerized clients
+# For VNC access, running on server for example
+docker run -d -p 5900:5900 0x6a4b/otp:client
+
+# For X Display sharing, running locally containerized or on a server
+docker run -d 0x6a4b/otp:clientX
 ```
 
+## 📚 Documentation 
+
+### Getting Started
+Explore the [Getting Started Guide]().
+In this guide, install/client usage is demonstrated.
+
+To better understand the I-SPY-U product, we recommend visiting our [Documentation](./docs) site. There, you will find useful information about the product.
+
+
+
+## 🤝 Feedback and Contributions
+
+We've made every effort to implement all the main aspects of the OpenID protocol in the best possible way. However, the development journey doesn't end here, and your input is crucial for our continuous improvement.
+
+> [!IMPORTANT]
+> Whether you have feedback on features, have encountered any bugs, or have suggestions for enhancements, we're eager to hear from you. 
+
+Please feel free to contribute by [submitting an issue](https://github.com/0x6a4b/OTP1/issues).
+
+
+
+## 📃 License
+
+This product is distributed under a proprietary license.
+
+For non-commercial use, this product is available for free.
+
+## 🗨️ Contacts
+
+For more details about our products, services, or any general information regarding the I-SPY-U, feel free to reach out to us. We are here to provide support and answer any questions you may have. Below are the best ways to contact our team:
+
+- **Email**: Send us your inquiries or support requests at [0x6a4b@0xa6ab.dev](mailto:0x6a4b@0xa6ab.dev).
+- **Website**: Visit the official I-SPY-U page for more information: [I-SPY-U](https://otp1.censored.xxx).
+
+
+We look forward to assisting you and ensuring your experience with our products is successful and enjoyable!
+
+[Back to top](#top)
