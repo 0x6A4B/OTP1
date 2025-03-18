@@ -16,7 +16,7 @@ Bruno API testauksen määrittelyt [bruno/](bruno/) hakemistossa, lokaali ja rem
 
 
 <a name="top"></a>
-[![I-SPY-U Application](./resources/banner_1.png)]()
+[![I-SPY-U Application](./resources/banner_1.png)]()  
 [![JDK21](https://img.shields.io/badge/JDK-21-512BD4)](https://docs.abblix.com/docs/technical-requirements)
 [![language](https://img.shields.io/badge/Java-%23ED8B00.svg?logo=openjdk&logoColor=white)]()
 [![OS](https://img.shields.io/badge/OS-Linux%2C%20Windows-0078D4)]()
