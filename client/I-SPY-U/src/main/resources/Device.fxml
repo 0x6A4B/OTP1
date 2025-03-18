@@ -10,6 +10,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.text.Font?>
 <?import javafx.collections.FXCollections?>
@@ -116,7 +117,7 @@
                                     </Label>
                                     <Label layoutX="25.0" layoutY="78.0" text="Email:" />
                                     <TextField layoutX="62.0" layoutY="74.0" fx:id="sharingEmail"/>
-                                    <Label layoutX="20.0" layoutY="156.0" text="What shared people can do">
+                                    <Label layoutX="20.0" layoutY="156.0" text="What shared people can do (WIP)">
                                        <font>
                                           <Font size="16.0" style="bold"/>
                                        </font>
@@ -144,13 +145,13 @@
                                           <VBox prefHeight="200.0" prefWidth="185.0" fx:id="sharedUsersList"/>
                                        </content>
                                     </ScrollPane>
-                                    <Label alignment="TOP_LEFT" layoutX="26.0" layoutY="305.0" prefHeight="50.0" prefWidth="250.0" text="Description goes here" fx:id="descLabel">
+                                    <Label alignment="TOP_LEFT" layoutX="26.0" layoutY="305.0" prefHeight="50.0" prefWidth="250.0" text="Description goes here" wrapText="true" fx:id="descLabel">
                                        <font>
                                           <Font size="12.5" />
                                        </font>
                                     </Label>
-                                    <TextField layoutX="26.0" layoutY="305.0" prefHeight="50.0" prefWidth="250.0" promptText="Here would fill the description and switch this when editing desc" fx:id="descTextBox"/>
-                                    <Button layoutX="26.0" layoutY="365.0" mnemonicParsing="false" text="Edit Description" fx:id="editDescButton">
+                                    <TextArea layoutX="26.0" layoutY="305.0" prefHeight="50.0" prefWidth="250.0" promptText="Add description to share" wrapText="true" fx:id="descTextBox"/>
+                                    <Button layoutX="26.0" layoutY="365.0" mnemonicParsing="false" text="Edit Description" fx:id="editDescButton" onAction="#handleEditDesc">
                                        <padding>
                                           <Insets bottom="11.0" left="11.0" right="11.0" top="11.0" />
                                        </padding>
@@ -158,6 +159,11 @@
                                     <Label layoutX="20.0" layoutY="270.0" text="Description">
                                        <font>
                                          <Font size="16.0" style="bold" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="252.0" layoutY="14.0" text="Device is shared to:" fx:id="sharedUsersLabel">
+                                       <font>
+                                          <Font size="14.0" />
                                        </font>
                                     </Label>
                                  </children>
