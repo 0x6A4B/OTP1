@@ -40,19 +40,27 @@ Toni Hirvikallio
 
 ## Task division
 
+#### Eino Ruuth
+---
 GUI (Client view)/controller:
 - Ensure the user interface is fully prepared for localization.
 - Identify text elements that require translation.
 - Implement language selection functionality
 
+#### Niko Meriluoto
+---
 Client model:
 - Ensure the business logic for user interface is fully prepared for localization.
 - Implement language selection and translation API
 
+#### Joonas Karppinen
+---
 DB:
 - Plan and prepare the database for handling multilingual data
 - Create a strategy for managing character encoding and locale settings
 
+#### Toni Hirvikallio
+---
 Project management:
 - Update the product backlog to reflect localization requirements.
 - Add new user stories, tasks, and acceptance criteria
