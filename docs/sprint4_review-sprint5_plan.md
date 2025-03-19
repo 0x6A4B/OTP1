@@ -15,7 +15,7 @@
 
 |Team Member Name|Assigned Tasks|Time spent on tasks|
 |--|--|--|
-|Toni Hirvikallio|XX|XX|
+|Toni Hirvikallio|presentation, device share crud operations, API for gui controller |6|
 |Niko Meriluoto|XX|XX|
 |Eino Ruuth|presentation, remove device, popup, device share frontend|14|
 |Joonas Karppinen|UML drawings, presentation, Jenkins pipeline, REST API changes, Client Docker, Device share REST API, i18n service class, readme|27.5|
