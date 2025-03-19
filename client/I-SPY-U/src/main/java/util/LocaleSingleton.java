@@ -6,8 +6,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.text.*;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DecimalStyle;
+import java.time.format.FormatStyle;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class LocaleSingleton {
     private static LocaleSingleton instance = new LocaleSingleton();
@@ -72,4 +75,81 @@ public class LocaleSingleton {
         /* If that fails then return the key? */
         return key;
     }
+
+    public String getLongFormattedDateTime(Date date) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+            ((SimpleDateFormat) DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.SHORT, locale))
+                .toLocalizedPattern()
+                , locale);
+
+        return dateFormat.format(date);
+    }
+
+    public String getShortFormattedDateTime(Date date) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                ((SimpleDateFormat) DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, locale))
+                        .toLocalizedPattern()
+                , locale);
+
+        return dateFormat.format(date);
+    }
+
+    public String getShortFormattedDate(Date date) {
+        /*SimpleDateFormat dateFormat = new SimpleDateFormat(
+                ((SimpleDateFormat) DateFormat.getDateInstance(DateFormat.SHORT, locale))
+                        .toLocalizedPattern()
+                , locale);
+*/
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)
+                .withLocale(locale)
+                .withDecimalStyle(DecimalStyle.of(locale));
+        return dateFormat.format(date.toInstant().);
+    }
+
+    public String getLongFormattedDate(Date date) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                ((SimpleDateFormat) DateFormat.getDateInstance(DateFormat.LONG, locale))
+                        .toLocalizedPattern()
+                , locale);
+
+        return dateFormat.format(date);
+    }
+
+    public boolean isRightToLeft() {
+        // https://www.loc.gov/standards/iso639-2/php/code_list.php
+        // https://lingohub.com/blog/right-to-left-vs-left-to-right
+        List<String> list = Arrays.asList(
+                "ar", "he", "fa", "ur", "ug", "ks", "ps", "ku", "pa", "sd"
+        );
+        return list.contains(locale.getLanguage());
+    }
+
+    public String getFormattedDouble(double number) {
+        NumberFormat format = NumberFormat.getNumberInstance(locale);
+        return format.format(number);
+    }
+
+    public String getFormattedPercent(double number) {
+        NumberFormat format = NumberFormat.getPercentInstance(locale);
+        return format.format(number);
+    }
+
+    public String getFormattedCurrency(double number) {
+        NumberFormat format = NumberFormat.getCurrencyInstance(locale);
+        return format.format(number);
+    }
+
+    // use celsius as default? or kelvin as it's the SI unit?
+    public String getFormattedTemperature(double temperature) {
+        List<String> fahrenheitList = Arrays.asList("US", "BS", "BZ", "KY", "PW");
+        boolean celsius = !fahrenheitList.contains(locale.getCountry());
+        String tempSymbol = celsius ? getTranslation("celsius") : getTranslation("fahrenheit");
+        double convertedTemperature = celsius ? temperature : temperature * 1.8 + 32;
+        //NumberFormat format = NumberFormat.getNumberInstance(locale);
+        DecimalFormat decimalFormat = new DecimalFormat(getTranslation("temp.format"), DecimalFormatSymbols.getInstance(locale));
+        String result = decimalFormat.format(convertedTemperature); // + tempSymbol;
+        //return format.format(temperature) + tempSymbol;
+        return result;
+    }
+
 }
