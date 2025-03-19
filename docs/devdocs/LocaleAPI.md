@@ -78,3 +78,33 @@ instance.isRightToLeft()
 ```
 Return value
 >true / false
+
+
+## Number formatting
+
+Get formatting for numbers
+
+Decimal format
+![img](img/decimal_format.png)
+
+```
+instance.getFormattedDouble(12.34)
+```
+
+Percentage format
+![img](img/percentage_format.png)
+```
+instance.getFormattedPercent(0.5)
+```
+
+Currency format
+![img](img/currency_format.png)
+```
+instance.getFormattedCurrency(12.34)
+```
+
+Temperature format
+![img](img/temperature_format.png)
+```
+instance.getFormattedTemperature(12.34)
+```
