@@ -13,11 +13,11 @@
     - How many hours did each team member spend during the sprint?
     - Provide a breakdown of who did what during the sprint.
 
-|Team Member Name|Assigned Tasks|Time spent on task|
+|Team Member Name|Assigned Tasks|Time spent on tasks|
 |--|--|--|
 |Toni Hirvikallio|XX|XX|
 |Niko Meriluoto|XX|XX|
-|Eino Ruuth|ZZ|ZZ|
+|Eino Ruuth|presentation, remove device, popup, device share frontend|14|
 |Joonas Karppinen|UML drawings, presentation, Jenkins pipeline, REST API changes, Client Docker, Device share REST API, i18n service class, readme|27.5|
 
 3. **AI Tools Utilized:**
