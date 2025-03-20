@@ -45,33 +45,29 @@ Toni Hirvikallio
 
 
 GUI (Client view)/controller:
-- Ensure the user interface is fully prepared for localization.
-- Identify text elements that require translation.
-- Implement language selection functionality
+
+Ensure the user interface is fully prepared for localization. Identify text elements that require translation. Implement language selection functionality
 
 ### Niko Meriluoto
 
 
 Client model:
-- Ensure the business logic for user interface is fully prepared for localization.
-- Implement language selection and translation API
+
+Ensure the business logic for user interface is fully prepared for localization. Implement language selection and translation API
 
 ### Joonas Karppinen
 
 
 DB:
-- Plan and prepare the database for handling multilingual data
-- Create a strategy for managing character encoding and locale settings
+
+Plan and prepare the database for handling multilingual data. Create a strategy for managing character encoding and locale settings
 
 ### Toni Hirvikallio
 
 
 Project management:
-- Update the product backlog to reflect localization requirements.
-- Add new user stories, tasks, and acceptance criteria
-- Identify essential resources, such as translators and content management systems, for the
-localization process.
-- Finalize the sprint plan, detailing tasks and estimated story points for both user interface and
+
+Update the product backlog to reflect localization requirements. Add new user stories, tasks, and acceptance criteria. Identify essential resources, such as translators and content management systems, for the localization process. Finalize the sprint plan, detailing tasks and estimated story points for both user interface and
 database localization
 
 
@@ -80,7 +76,7 @@ database localization
 
 ## User stories aimed to be implemented
 
-During sprint 5 we have chosen 2 user stories we would like to complete
+During sprint 5 we have chosen 3 user stories we would like to complete
 
 - As a user I want to be able to select my language so that I can use the application in my chosen language
     - 5 points
