@@ -95,15 +95,16 @@ public class LocaleSingleton {
     }
 
     public String getShortFormattedDate(Date date) {
-        /*SimpleDateFormat dateFormat = new SimpleDateFormat(
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
                 ((SimpleDateFormat) DateFormat.getDateInstance(DateFormat.SHORT, locale))
                         .toLocalizedPattern()
                 , locale);
-*/
+        return dateFormat.format(date);
+        /*
         DateTimeFormatter dateFormat = DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)
                 .withLocale(locale)
                 .withDecimalStyle(DecimalStyle.of(locale));
-        return dateFormat.format(date.toInstant().);
+        return dateFormat.format(date.toInstant());*/
     }
 
     public String getLongFormattedDate(Date date) {
