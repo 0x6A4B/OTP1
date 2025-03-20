@@ -146,9 +146,11 @@ public class LocaleSingleton {
         boolean celsius = !fahrenheitList.contains(locale.getCountry());
         String tempSymbol = celsius ? getTranslation("celsius") : getTranslation("fahrenheit");
         double convertedTemperature = celsius ? temperature : temperature * 1.8 + 32;
-        //NumberFormat format = NumberFormat.getNumberInstance(locale);
+        NumberFormat format = NumberFormat.getNumberInstance(locale);
+        format.setMaximumFractionDigits(2);
         DecimalFormat decimalFormat = new DecimalFormat(getTranslation("temp.format"), DecimalFormatSymbols.getInstance(locale));
-        String result = decimalFormat.format(convertedTemperature); // + tempSymbol;
+        //String result = decimalFormat.format(convertedTemperature); // + tempSymbol;
+        String result = MessageFormat.format(getTranslation(tempSymbol).toUpperCase(), format.format(convertedTemperature), locale);
         //return format.format(temperature) + tempSymbol;
         return result;
     }

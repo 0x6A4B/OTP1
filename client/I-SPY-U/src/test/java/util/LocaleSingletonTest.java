@@ -218,6 +218,6 @@ class LocaleSingletonTest {
         instance.setLocale(new Locale("ar", "AE"));
         System.out.println("12.34 celsius for: " + instance.getLocale().getDisplayLanguage());
         System.out.println(instance.getFormattedTemperature(12.34));
-        assertEquals("12.34°م", instance.getFormattedTemperature(12.34));
+        assertEquals("م°12.34", instance.getFormattedTemperature(12.34));
     }
 }
