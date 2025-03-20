@@ -51,7 +51,6 @@ public class LocaleSingleton {
     public void setLocale(Locale locale) {
         this.locale = locale;
 
-        //translations = ResourceBundle.getBundle("Translation", locale, );
         try {
             String bundleFileName = "Translation_" + locale.getLanguage() + "_" + locale.getCountry() + ".properties";
             InputStream stream = LocaleSingleton.class.getClassLoader().getResourceAsStream(bundleFileName);
@@ -141,6 +140,8 @@ public class LocaleSingleton {
     }
 
     // use celsius as default? or kelvin as it's the SI unit?
+    // https://numberformat.app/
+    // https://industryarabic.com/numbers-in-arabic/
     public String getFormattedTemperature(double temperature) {
         List<String> fahrenheitList = Arrays.asList("US", "BS", "BZ", "KY", "PW");
         boolean celsius = !fahrenheitList.contains(locale.getCountry());
@@ -148,11 +149,13 @@ public class LocaleSingleton {
         double convertedTemperature = celsius ? temperature : temperature * 1.8 + 32;
         NumberFormat format = NumberFormat.getNumberInstance(locale);
         format.setMaximumFractionDigits(2);
-        DecimalFormat decimalFormat = new DecimalFormat(getTranslation("temp.format"), DecimalFormatSymbols.getInstance(locale));
-        //String result = decimalFormat.format(convertedTemperature); // + tempSymbol;
         String result = MessageFormat.format(getTranslation(tempSymbol).toUpperCase(), format.format(convertedTemperature), locale);
-        //return format.format(temperature) + tempSymbol;
         return result;
+
+
+        //DecimalFormat decimalFormat = new DecimalFormat(getTranslation("temp.format"), DecimalFormatSymbols.getInstance(locale));
+        //String result = decimalFormat.format(convertedTemperature); // + tempSymbol;
+        //return format.format(temperature) + tempSymbol;
     }
 
 }
