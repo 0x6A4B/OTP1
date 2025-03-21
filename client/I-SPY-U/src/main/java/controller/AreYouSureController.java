@@ -7,7 +7,9 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 
+
 public class AreYouSureController extends IController {
+    
     
     @FXML
     private void handleRemoveDevice(){
@@ -24,5 +26,10 @@ public class AreYouSureController extends IController {
     private void handleCancelButton(ActionEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
+    }
+
+    @Override
+    public void start(){
+        //mirrorUI();
     }
 }

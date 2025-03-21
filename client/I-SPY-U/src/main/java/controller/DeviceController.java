@@ -268,5 +268,6 @@ public class DeviceController extends IController {
             sharedUsersListContainer.setVisible(false);
             sharedUsersLabel.setVisible(false);
         }
+        //mirrorUI();
     }
 }

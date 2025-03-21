@@ -105,5 +105,7 @@ public class LogSingController extends IController {
         singUpUSername.setText("usernami");
         singUpCity.setText("cityni");
         singUpPostalCode.setText("postalcodeni"); */
+
+        //mirrorUI();
     }
 }

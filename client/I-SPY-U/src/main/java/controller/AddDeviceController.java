@@ -9,6 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.Device;
 import util.ConfigSingleton;
@@ -19,6 +20,8 @@ public class AddDeviceController extends IController {
     @FXML TextField uuid;
     @FXML TextField name;
     @FXML TextField desc;
+
+    @FXML private AnchorPane mainBoio;
 
     @FXML Label errorMsg;
 
@@ -57,5 +60,6 @@ public class AddDeviceController extends IController {
     public void start(){
         errorMsg.setVisible(false);
         AddDeviceButton.disableProperty().bind(uuid.textProperty().isEmpty().or(name.textProperty().isEmpty().or(desc.textProperty().isEmpty())));
+        //mirrorUI();
     }
 }

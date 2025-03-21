@@ -7,6 +7,7 @@ import java.util.List;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.NodeOrientation;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -14,7 +15,9 @@ import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import model.Device;
 import model.DeviceShare;
@@ -53,7 +56,6 @@ public class DeviceListController extends IController {
     @FXML private Label sharedDeviceDetalsLabel;
     @FXML private ListView sharedDeviceDetalsListview;
     @FXML private Label shareLogEntriesCountLabel;
-
 
     private List<Device> devices;
     private List<Device> sharedDevices = new ArrayList<Device>();
@@ -247,5 +249,7 @@ public class DeviceListController extends IController {
             }
         });
         //sharedDevicesTab.setDisable(true);
+
+        //mirrorUI();
     }
 }
