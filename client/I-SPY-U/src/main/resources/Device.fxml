@@ -110,7 +110,7 @@
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="465.0" prefWidth="485.0">
                                  <children>
-                                    <Label layoutX="20.0" layoutY="38.0" text="Sharing">
+                                    <Label layoutX="20.0" layoutY="38.0" text="Sharing" fx:id="shareLabel">
                                        <font>
                                           <Font size="20.0" style="bold" />
                                        </font>
@@ -145,7 +145,7 @@
                                           <VBox prefHeight="200.0" prefWidth="185.0" fx:id="sharedUsersList"/>
                                        </content>
                                     </ScrollPane>
-                                    <Label alignment="TOP_LEFT" layoutX="26.0" layoutY="305.0" prefHeight="50.0" prefWidth="250.0" text="Description goes here" fx:id="shareDescLabel" wrapText="true" fx:id="descLabel">
+                                    <Label alignment="TOP_LEFT" layoutX="26.0" layoutY="305.0" prefHeight="50.0" prefWidth="250.0" text="Description goes here" wrapText="true" fx:id="descLabel">
                                        <font>
                                           <Font size="12.5" />
                                        </font>
@@ -156,7 +156,7 @@
                                           <Insets bottom="11.0" left="11.0" right="11.0" top="11.0" />
                                        </padding>
                                     </Button>
-                                    <Label layoutX="20.0" layoutY="270.0" text="Description">
+                                    <Label layoutX="20.0" layoutY="270.0" text="Description" fx:id="shareDescLabel">
                                        <font>
                                          <Font size="16.0" style="bold" />
                                        </font>
@@ -182,7 +182,7 @@
          </font>
       </Label>
       <Button layoutX="474.0" layoutY="2.0" maxHeight="23.0" minHeight="23.0" mnemonicParsing="false" style="-fx-background-color: red;" text="X" textFill="WHITE" onAction="#handleCloseButtonAction"/>
-      <Button layoutX="459.0" layoutY="2.0" maxHeight="23.0" minHeight="23.0" mnemonicParsing="false" text="🌐" onAction="#handleCloseButtonAction"/>
+      <Button layoutX="444.0" layoutY="2.0" maxHeight="23.0" minHeight="23.0" mnemonicParsing="false" text="🌐"/>
       <Button layoutX="5.0" layoutY="448.0" mnemonicParsing="false" text="Back to device list" onAction="#handleBackButton">
          <padding>
             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
