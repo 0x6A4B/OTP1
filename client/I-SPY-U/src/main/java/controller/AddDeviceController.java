@@ -27,6 +27,13 @@ public class AddDeviceController extends IController {
 
     @FXML Button AddDeviceButton;
 
+    //these are for chanhing text for localization
+    @FXML private Button cancelButton;
+    @FXML private Label addDeviceTitle;
+    @FXML private Label addDeviceUUID;
+    @FXML private Label addDeviceName;
+    @FXML private Label addDeviceDescription;
+
     @FXML 
     private void handleAddDeviceButtonAction(){
         System.out.println("Adding device...");

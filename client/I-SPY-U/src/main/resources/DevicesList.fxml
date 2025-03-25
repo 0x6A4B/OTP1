@@ -43,7 +43,7 @@
                                 <Insets bottom="2.0" />
                             </padding>
                             </Label>
-                            <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="200.0" text="Log of last measurements:" textAlignment="CENTER">
+                            <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="200.0" text="Log of last measurements:" textAlignment="CENTER" fx:id="ownDevicesLogTitle">
                             <padding>
                                 <Insets bottom="2.0" />
                             </padding>
@@ -92,7 +92,7 @@
                                         <Insets bottom="2.0" />
                                     </padding>
                                     </Label>
-                                    <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="200.0" text="Log of last measurements:" textAlignment="CENTER">
+                                    <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="200.0" text="Log of last measurements:" fx:id="sharedDevicesLogTitle" textAlignment="CENTER">
                                     <padding>
                                         <Insets bottom="2.0" />
                                     </padding>

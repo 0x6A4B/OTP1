@@ -29,6 +29,20 @@ public class LogSingController extends IController {
     @FXML private Label singUpErrorMsg;
     @FXML private CheckBox singUpRememberMe;
 
+    //these are for chanhing text for localization
+    @FXML private Tab logInTab;
+    @FXML private Label logInLabel;
+    @FXML private Label usernameLabel;
+    @FXML private Label passwordLabel;
+
+    @FXML private Tab signUpTab;
+    @FXML private Label signUpLabel;
+    @FXML private Label signUpPasswordLabel;
+    @FXML private Label signUpUsernameLabel;
+    @FXML private Label signUpEmailLabel;
+    @FXML private Label signUpCityLabel;
+    @FXML private Label signUpPostalcodeLabel;
+
     private User awnser;
 
     @FXML

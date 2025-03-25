@@ -73,6 +73,12 @@ public class DeviceController extends IController {
     private DeviceShare deviceShare = null;
     private Boolean editing = false;
 
+    //these are for chanhing text for localization
+    @FXML private Tab dataTab;
+    @FXML private Label shareEmailLabel;
+    @FXML private Label shareRoleLabel;
+    @FXML private Label shareDescLabel;
+
     private void setUpCharts() {
         lineChart.getData().clear();
         XYChart.Series<String, Double> series = new XYChart.Series<>();
