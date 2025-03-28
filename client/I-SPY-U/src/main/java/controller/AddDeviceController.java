@@ -69,4 +69,9 @@ public class AddDeviceController extends IController {
         AddDeviceButton.disableProperty().bind(uuid.textProperty().isEmpty().or(name.textProperty().isEmpty().or(desc.textProperty().isEmpty())));
         //mirrorUI();
     }
+
+    @Override
+    public void initialize(){
+        //do nothingh
+    }
 }

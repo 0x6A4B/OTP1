@@ -1,25 +1,28 @@
 package controller;
 
 import java.util.List;
-import java.util.Locale;
-import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.NodeOrientation;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import model.Client;
+import util.LocaleSingleton;
 import view.GUI;
 
 public abstract class IController {
     protected GUI gui;
     protected Client client = new Client();
     @FXML protected AnchorPane mainBoio;
-    protected Locale locale;
-    protected ResourceBundle rb;
+    @FXML protected ComboBox<String> languageDropdown;
+    LocaleSingleton localeSingleton = LocaleSingleton.getInstance();
 
     @FXML
     private void handleCloseButtonAction(ActionEvent event) {
@@ -45,15 +48,6 @@ public abstract class IController {
      * translate() jossa sit vaihetaan kaikki siihen kieleen per controller
      * ja ehkä tekee inizialise joka alottaa localen ja rb en.US
      */
-    public void setLanguage(Locale locale){
-        this.locale = locale;
-        this.rb = ResourceBundle.getBundle("resources.lang", locale);
-    }
-
-    public void mirrorUI() {
-        //this mirrors the UI
-        mainBoio.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
-    }
 
     public void start(){
         System.out.println("Starting");
@@ -65,4 +59,31 @@ public abstract class IController {
 
     // TODO: FIX THIS UGLY HACK
     public void hook(){}
+
+    @FXML
+    public void initialize() {
+        localeSingleton.getAvailableLocales().forEach(l -> languageDropdown.getItems().add(l.getDisplayLanguage()));
+        languageDropdown.getSelectionModel().select(1);
+        languageDropdown.setPrefWidth(54);
+        System.out.println(languageDropdown.getSelectionModel().getSelectedItem());
+
+        //this sets the button to always show globe emoji
+        StringProperty fixedText = new SimpleStringProperty("🌐");
+        languageDropdown.setButtonCell(new ListCell<String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(fixedText.get());
+                }
+            }
+        });
+        if (localeSingleton.isRightToLeft()) {
+            mainBoio.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
+        } else {
+            mainBoio.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
+        }
+    }
 }

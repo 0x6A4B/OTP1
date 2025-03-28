@@ -36,7 +36,7 @@ public class AreYouSureController extends IController {
     }
 
     @Override
-    public void start(){
-        //mirrorUI();
+    public void initialize(){
+        //do nothingh
     }
 }
