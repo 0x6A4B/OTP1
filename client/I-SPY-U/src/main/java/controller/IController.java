@@ -43,12 +43,6 @@ public abstract class IController {
         //this.client = client;
     }
 
-    /* TODO
-     * tee setLanguage tähä joka vaihtaa locale ja rb muuttujaa ja riippuen kieli tekee mirrorUI ja sit tekee
-     * translate() jossa sit vaihetaan kaikki siihen kieleen per controller
-     * ja ehkä tekee inizialise joka alottaa localen ja rb en.US
-     */
-
     public void start(){
         System.out.println("Starting");
     };
@@ -62,6 +56,12 @@ public abstract class IController {
 
     @FXML
     public void initialize() {
+        /* 
+         * TODO
+         * Tee joku funktio joka tapahtuu ku languageDropdownissa valitaan uus, joka sit tekee localeSingleton setlocale
+         * samalla se sit tekee translate funktion jotka pitää täyttää jokaisessa kontrollerissa
+         * tehä viel joku et translate runataan initializessa kattoen
+         */
         localeSingleton.getAvailableLocales().forEach(l -> languageDropdown.getItems().add(l.getDisplayLanguage()));
         languageDropdown.getSelectionModel().select(1);
         languageDropdown.setPrefWidth(54);
