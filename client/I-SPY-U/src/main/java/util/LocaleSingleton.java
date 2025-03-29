@@ -75,6 +75,15 @@ public class LocaleSingleton {
         return key;
     }
 
+    // TODO: FIX dutty hack
+    public String getLanguageName(Locale locale) {
+        Locale chosen = this.locale;
+        this.locale = locale;
+        String language = getTranslation("language");
+        this.locale = chosen;
+        return language;
+    }
+
     public String getLongFormattedDateTime(Date date) {
         SimpleDateFormat dateFormat = new SimpleDateFormat(
             ((SimpleDateFormat) DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.SHORT, locale))
