@@ -126,15 +126,6 @@ public class LogSingController extends IController {
         singUpButton.setText(localeSingleton.getTranslation("signup"));
         singUpRememberMe.setText(localeSingleton.getTranslation("remember_me"));
         singUpErrorMsg.setText(localeSingleton.getTranslation("error happened"));
-
-        //brother, buttons moving is grabonzo, so need to wait like 2 secs after opening to change language
-        javafx.application.Platform.runLater(() -> {
-            System.out.println(logInButton.getWidth());
-            logInButton.setLayoutX(150 - (logInButton.getWidth() / 2));
-
-            System.out.println(singUpButton.getWidth());
-            singUpButton.setLayoutX(150 - (singUpButton.getWidth() / 2));
-        });
     }
 
     @Override

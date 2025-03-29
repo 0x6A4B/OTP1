@@ -247,12 +247,6 @@ public class DeviceListController extends IController {
         } catch (Exception e) {
         }
         newDeviceLabelSaver.setText("+ "+localeSingleton.getTranslation("add_new_device"));
-
-        //brother, buttons moving is grabonzo, so need to wait like 2 secs after opening to change language
-        javafx.application.Platform.runLater(() -> {
-            System.out.println(logOutButton.getWidth());
-            logOutButton.setLayoutX(410 - logOutButton.getWidth());
-        });
     }
 
     @Override
