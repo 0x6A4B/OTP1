@@ -5,7 +5,9 @@ import java.util.List;
 
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -74,6 +76,8 @@ public class DeviceController extends IController {
     private Boolean editing = false;
 
     //these are for chanhing text for localization
+    @FXML private CategoryAxis chartXAxis;
+    @FXML private NumberAxis chartYAxis;
     @FXML private Tab dataTab;
     @FXML private Label shareLabel;
     @FXML private Label shareEmailLabel;
@@ -224,6 +228,31 @@ public class DeviceController extends IController {
     }
 
     @Override
+    public void translate() {
+        System.out.println("Translating");
+
+        dataTab.setText(localeSingleton.getTranslation("data"));
+        chartLabel.setText(localeSingleton.getTranslation("log_entries"));
+        radioDaily.setText(localeSingleton.getTranslation("Daily"));
+        radioWeekly.setText(localeSingleton.getTranslation("Weekly"));
+        radioHourly.setText(localeSingleton.getTranslation("hourly"));
+        chartXAxis.setLabel(localeSingleton.getTranslation("date"));
+        chartYAxis.setLabel(localeSingleton.getTranslation("measurement"));
+
+        configTab.setText(localeSingleton.getTranslation("config"));
+
+        shareTab.setText(localeSingleton.getTranslation("share"));
+        shareLabel.setText(localeSingleton.getTranslation("sharing"));
+        editDescButton.setText(localeSingleton.getTranslation("edit_description"));
+        setShareButton.setText(localeSingleton.getTranslation("set"));
+        sharedUsersLabel.setText(localeSingleton.getTranslation("device_is_shared_to"));
+        shareButton.setText(localeSingleton.getTranslation("share"));
+        shareEmailLabel.setText(localeSingleton.getTranslation("email"));
+        shareRoleLabel.setText(localeSingleton.getTranslation("select_role"));
+        shareDescLabel.setText(localeSingleton.getTranslation("description"));
+    }
+
+    @Override
     public void start(){
         device = gui.getCurrentDevice();
         // Tarviiko user???? user = gui.getUser();
@@ -231,6 +260,11 @@ public class DeviceController extends IController {
         radioDaily.setSelected(true);
         radioWeekly.setToggleGroup(toggleGroup);
         radioHourly.setToggleGroup(toggleGroup);
+
+        //disable the buttons cause no functionality
+        radioDaily.setVisible(false);
+        radioWeekly.setVisible(false);
+        radioHourly.setVisible(false);
 
         toggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {

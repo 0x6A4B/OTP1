@@ -105,6 +105,30 @@ public class LogSingController extends IController {
     }
 
     @Override
+    public void translate(){
+        System.out.println("Translating");
+        
+        logInTab.setText(localeSingleton.getTranslation("login"));
+        logInLabel.setText(localeSingleton.getTranslation("login"));
+        usernameLabel.setText(localeSingleton.getTranslation("username"));
+        passwordLabel.setText(localeSingleton.getTranslation("password"));
+        logInButton.setText(localeSingleton.getTranslation("login"));
+        logInRememberMe.setText(localeSingleton.getTranslation("remember_me"));
+        logInErrorMsg.setText(localeSingleton.getTranslation("error happened"));
+
+        signUpTab.setText(localeSingleton.getTranslation("signup"));
+        signUpLabel.setText(localeSingleton.getTranslation("signup"));
+        signUpUsernameLabel.setText(localeSingleton.getTranslation("username"));
+        signUpPasswordLabel.setText(localeSingleton.getTranslation("password"));
+        signUpEmailLabel.setText(localeSingleton.getTranslation("email"));
+        signUpCityLabel.setText(localeSingleton.getTranslation("city"));
+        signUpPostalcodeLabel.setText(localeSingleton.getTranslation("postalcode"));
+        singUpButton.setText(localeSingleton.getTranslation("signup"));
+        singUpRememberMe.setText(localeSingleton.getTranslation("remember_me"));
+        singUpErrorMsg.setText(localeSingleton.getTranslation("error happened"));
+    }
+
+    @Override
     public void start() {
         logInButton.disableProperty().bind(logInUsername.textProperty().isEmpty().or(logInPassword.textProperty().isEmpty()));
         singUpButton.disableProperty().bind(singUpEmail.textProperty().isEmpty().or(singUpPassword.textProperty().isEmpty().or(singUpUSername.textProperty().isEmpty().or(singUpCity.textProperty().isEmpty().or(singUpPostalCode.textProperty().isEmpty())))));

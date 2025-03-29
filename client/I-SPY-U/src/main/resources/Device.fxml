@@ -36,10 +36,10 @@
                                     <Label alignment="CENTER" contentDisplay="CENTER" layoutY="55.0" prefWidth="485.0" text="Hourly temperatures" textAlignment="CENTER" fx:id="chartLabel"/>
                                     <LineChart layoutX="20.0" layoutY="72.0" prefHeight="300.0" prefWidth="440.0" fx:id="lineChart">
                                        <xAxis>
-                                          <CategoryAxis label="Date" />
+                                          <CategoryAxis label="Date" fx:id="chartXAxis"/>
                                        </xAxis>
                                        <yAxis>
-                                          <NumberAxis label="Measurement" />
+                                          <NumberAxis label="Measurement" fx:id="chartYAxis" />
                                        </yAxis>
                                     </LineChart>
                                     <RadioButton layoutX="150.0" layoutY="364.0" mnemonicParsing="false" selected="true" text="Hourly" fx:id="radioHourly"/>

@@ -64,6 +64,8 @@ public class DeviceListController extends IController {
     private int logEntriesCount = 0;
     private List<DeviceShare> shares;
 
+    private Label newDeviceLabelSaver = addNewDeviceButton();
+
     //these are for chanhing text for localization
     @FXML private Label ownDevicesLogTitle;
     @FXML private Label sharedDevicesLogTitle;
@@ -142,7 +144,7 @@ public class DeviceListController extends IController {
             + calendar.get(Calendar.YEAR)
         )+": "+entries.get(i).getValue());
         }
-        logEntriesCountLabel.setText(logEntriesCount+" Log entries");
+        logEntriesCountLabel.setText(logEntriesCount+" "+localeSingleton.getTranslation("log_entries"));
     }
 
     private void addNewDevice(MouseEvent event){
@@ -179,7 +181,7 @@ public class DeviceListController extends IController {
     public void hook(){
         System.out.println("HOOK");
         devices = client.getDevices(gui.getUser());
-        getDevices(myDevicesList, devices);
+        getDevices(myDevicesList, devices, true);
         ownDeviceDetails.setVisible(false);
         removeDeviceButton.setVisible(false);
         sharedDeviceDetails.setVisible(false);
@@ -188,7 +190,7 @@ public class DeviceListController extends IController {
     }
 
     private Label addNewDeviceButton(){
-        Label newdeviceLabel = new Label("+ Add new device");
+        Label newdeviceLabel = new Label("+ "+localeSingleton.getTranslation("add_new_device"));
         newdeviceLabel.setAlignment(Pos.CENTER);
         newdeviceLabel.setContentDisplay(ContentDisplay.CENTER);
         newdeviceLabel.setPrefHeight(30.0);
@@ -198,12 +200,14 @@ public class DeviceListController extends IController {
         return newdeviceLabel;
     }
 
-    private void getDevices(VBox boksi, List<Device> devices){
+    private void getDevices(VBox boksi, List<Device> devices, Boolean IsOwn){
         boksi.getChildren().clear();
         for (Device device : devices) {
             boksi.getChildren().add(createNewDeviceLabel(device));
         }
-        boksi.getChildren().add(addNewDeviceButton());
+        if (IsOwn) {
+            boksi.getChildren().add(newDeviceLabelSaver);
+        }
     }
 
     @FXML
@@ -215,16 +219,38 @@ public class DeviceListController extends IController {
             }
         }
         sharedDevices.remove(currentDevice);
-        getDevices(sharedDevicesList, sharedDevices);
+        getDevices(sharedDevicesList, sharedDevices, false);
         sharedDeviceDetails.setVisible(false);
         sharedOpenDeviceButton.setVisible(false);
         removeShareButton.setVisible(false);
     }
 
     @Override
+    public void translate(){
+        //TODO check if this all works, kinda buggin when all translations are empty
+        System.out.println("Translating");
+        
+        sharedDevicesTab.setText(localeSingleton.getTranslation("share_devices"));
+        sharedDevicesLogTitle.setText(localeSingleton.getTranslation("last_log"));
+        removeShareButton.setText(localeSingleton.getTranslation("remove_share"));
+        sharedOpenDeviceButton.setText(localeSingleton.getTranslation("open_device"));
+
+        ownDevicesTab.setText(localeSingleton.getTranslation("my_devices"));
+        ownDevicesLogTitle.setText(localeSingleton.getTranslation("last_log"));
+        removeDeviceButton.setText(localeSingleton.getTranslation("delete_device"));
+        ownOpenDeviceButton.setText(localeSingleton.getTranslation("open_device"));
+        try {
+            logEntriesCountLabel.setText(logEntriesCount+" "+localeSingleton.getTranslation("log_entries"));
+        } catch (Exception e) {
+        }
+
+        newDeviceLabelSaver.setText("+ "+localeSingleton.getTranslation("add_new_device"));
+    }
+
+    @Override
     public void start(){
         devices = client.getDevices(gui.getUser());
-        getDevices(myDevicesList, devices);
+        getDevices(myDevicesList, devices, true);
         shares = client.getDeviceShares();
         //Device theDevice; does declaring it here make it faster than having Device theDevice = something; in the for loop?
         for (DeviceShare share : shares) {
@@ -232,7 +258,7 @@ public class DeviceListController extends IController {
             theDevice.setOwned(false);
             sharedDevices.add(theDevice);
         }
-        getDevices(sharedDevicesList, sharedDevices);
+        getDevices(sharedDevicesList, sharedDevices, false);
 
         ownDeviceDetails.setVisible(false);
         ownOpenDeviceButton.setVisible(false);
