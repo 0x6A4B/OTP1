@@ -1,6 +1,5 @@
 package controller;
 
-import java.util.Calendar;
 import java.util.List;
 
 import javafx.fxml.FXML;
@@ -89,20 +88,12 @@ public class DeviceController extends IController {
         lineChart.getData().clear();
         XYChart.Series<String, Double> series = new XYChart.Series<>();
         series.setName(device.getName());
-        Calendar calendar = Calendar.getInstance();
         List<LogEntry> logs = client.getLogEntries(device, 30);
         Trace.out(Trace.Level.DEV, "Loading logentries:");
         for (LogEntry i : logs) {
             Trace.out(Trace.Level.DEV, "\tLogEntry: " + i);
-            calendar.setTime(i.getDate());
             final XYChart.Data<String, Double> data = new XYChart.Data<>(
-                (calendar.get(Calendar.HOUR_OF_DAY) +":"
-                        + calendar.get(Calendar.MINUTE) + ":"
-                        + calendar.get(Calendar.SECOND) + " - "
-                        + calendar.get(Calendar.DATE) + "/"
-                        + (calendar.get(Calendar.MONTH) + 1) + "/"
-                        + calendar.get(Calendar.YEAR)
-                ),
+                (localeSingleton.getShortFormattedDateTime(i.getDate())),
                 Double.parseDouble(i.getValue())/*.substring(0, 6)*/);
                 data.setNode(new HoveredThresholdNodea("temperature", i.getValue()));
             series.getData().add(data);

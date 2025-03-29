@@ -137,13 +137,7 @@ public class DeviceListController extends IController {
         for (int i = 0; i < entries.size(); i++) {
             logEntriesCount++;
             calendar.setTime(entries.get(i).getDate());
-            DeviceDetailsListview.getItems().add((calendar.get(Calendar.HOUR_OF_DAY) +":"
-            + calendar.get(Calendar.MINUTE) + ":"
-            + calendar.get(Calendar.SECOND) + " - "
-            + calendar.get(Calendar.DATE) + "/"
-            + (calendar.get(Calendar.MONTH) + 1) + "/"
-            + calendar.get(Calendar.YEAR)
-        )+": "+entries.get(i).getValue());
+            DeviceDetailsListview.getItems().add(localeSingleton.getShortFormattedDateTime(entries.get(i).getDate())+": "+entries.get(i).getValue());
         }
         logEntriesCountLabel.setText(logEntriesCount+" "+localeSingleton.getTranslation("log_entries"));
     }
