@@ -10,6 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.layout.VBox?>
 
 
 <AnchorPane fx:id="mainBoio" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LogSingController">
@@ -30,7 +31,11 @@
                             <Label alignment="CENTER" layoutY="99.0" prefWidth="300.0" text="Username" fx:id="usernameLabel" />
                             <Label alignment="CENTER" layoutY="186.0" prefWidth="300.0" text="Password" fx:id="passwordLabel" />
                             <CheckBox layoutX="102.0" layoutY="254.0" mnemonicParsing="false" text="Remember me" fx:id="logInRememberMe"/>
-                            <Button layoutX="125.0" layoutY="282.0" mnemonicParsing="false" text="Log In" fx:id="logInButton" onAction="#handleLogInButtonAction"/>
+                            <VBox alignment="CENTER" layoutY="275.0" prefHeight="50.0" prefWidth="300.0">
+                                <children>
+                                    <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Log In" fx:id="logInButton" onAction="#handleLogInButtonAction"/>
+                                </children>
+                            </VBox>
                             <Label layoutX="113.0" layoutY="325.0" text="Error Message" fx:id="logInErrorMsg" textFill="RED"/>
                         </children>
                     </AnchorPane>
@@ -51,7 +56,11 @@
                             <Label alignment="CENTER" layoutY="180.0" prefWidth="300.0" text="Password"  fx:id="signUpPasswordLabel"/>
                             <Label alignment="CENTER" layoutY="120.0" prefWidth="300.0" text="Username" fx:id="signUpUsernameLabel"/>
                             <Label alignment="CENTER" layoutY="60.0" prefWidth="300.0" text="Email" fx:id="signUpEmailLabel"/>
-                            <Button layoutX="121.0" layoutY="280.0" mnemonicParsing="false" text="Sign Up" fx:id="singUpButton" onAction="#handleSingUpButtonAction"/>
+                            <VBox alignment="CENTER" layoutY="275.0" prefHeight="50.0" prefWidth="300.0">
+                                <children>
+                                    <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Sign Up" fx:id="singUpButton" onAction="#handleSingUpButtonAction"/>
+                                </children>
+                            </VBox>
                             <Label layoutX="113.0" layoutY="323.0" text="Error message" fx:id="singUpErrorMsg" textFill="RED"/>
                             <!-- <TextField layoutX="75.0" layoutY="180.0" fx:id="singUpCity"/>
                             <Label layoutX="48.0" layoutY="184.0" text="city:" fx:id="signUpCityLabel"/>
