@@ -69,7 +69,7 @@ public abstract class IController {
 
     @FXML
     public void initialize() {
-        localeSingleton.getAvailableLocales().forEach(l -> languageDropdown.getItems().add(l.getDisplayLanguage()));
+        localeSingleton.getAvailableLocales().forEach(l -> languageDropdown.getItems().add(localeSingleton.getLanguageName(l)));
         System.out.println(localeSingleton.getLocale());
         System.out.println(localeSingleton.getAvailableLocales().indexOf(localeSingleton.getLocale()));
         languageDropdown.getSelectionModel().select(localeSingleton.getAvailableLocales().indexOf(localeSingleton.getLocale()));
