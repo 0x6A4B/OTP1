@@ -6,6 +6,7 @@ erDiagram
     DEVICE 1--0+ LOGENTRY : creates
     USER 1--0+ DEVICE_SHARE : can_access
     DEVICE 1--0+ SETTING : has
+    SETTING 1--1 CATEGORY : belongs_to
 
     USER {
         int id PK,UK
@@ -57,9 +58,15 @@ erDiagram
         int id PK,UK
         int deviceid FK
         int userid FK
-        String category
+        int categoryid FK
         String key
         String value
+    }
+
+    CATEGORY {
+        int id PK,UK
+        String name
+        String description
     }
 ```
 

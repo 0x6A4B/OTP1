@@ -14,22 +14,22 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Button layoutX="274.0" layoutY="3.0" maxHeight="23.0" minHeight="23.0" mnemonicParsing="false" style="-fx-background-color: red;" text="X" textFill="WHITE" onAction="#handleCancelButton"/>
+      <Button layoutX="274.0" layoutY="3.0" maxHeight="23.0" minHeight="23.0" mnemonicParsing="false" style="-fx-background-color: red;" text="X" textFill="WHITE" fx:id="cancelButton" onAction="#handleCancelButton"/>
       <Button layoutX="210.0" layoutY="304.0" mnemonicParsing="false" text="Add Device" fx:id="AddDeviceButton" onAction="#handleAddDeviceButtonAction">
          <padding>
             <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
          </padding>
       </Button>
-      <Label layoutX="20.0" layoutY="45.0" text="Add a new device">
+      <Label layoutX="20.0" layoutY="45.0" text="Add a new device" fx:id="addDeviceTitle">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label layoutX="35.0" layoutY="100.0" text="UUID" />
+      <Label layoutX="35.0" layoutY="100.0" text="UUID" fx:id="addDeviceUUID"/>
       <TextField layoutX="35.0" layoutY="117.0" promptText="Input device uuid" fx:id="uuid"/>
-      <Label layoutX="35.0" layoutY="160.0" text="Name" />
+      <Label layoutX="35.0" layoutY="160.0" text="Name" fx:id="addDeviceName"/>
       <TextField layoutX="35.0" layoutY="177.0" promptText="Input device name" fx:id="name"/>
-      <Label layoutX="35.0" layoutY="220.0" text="Description" />
+      <Label layoutX="35.0" layoutY="220.0" text="Description" fx:id="addDeviceDescription"/>
       <TextField layoutX="35.0" layoutY="237.0" promptText="Input device description" fx:id="desc"/>
       <Label layoutX="35.0" layoutY="280.0" text="Error msg" textFill="RED" fx:id="errorMsg"/>
    </children>
