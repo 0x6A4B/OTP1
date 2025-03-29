@@ -241,9 +241,13 @@ public class DeviceController extends IController {
         setShareButton.setText(localeSingleton.getTranslation("set"));
         sharedUsersLabel.setText(localeSingleton.getTranslation("device_is_shared_to"));
         shareButton.setText(localeSingleton.getTranslation("share"));
-        shareEmailLabel.setText(localeSingleton.getTranslation("email"));
+        shareEmailLabel.setText(localeSingleton.getTranslation("email")+":");
         shareRoleLabel.setText(localeSingleton.getTranslation("select_role"));
         shareDescLabel.setText(localeSingleton.getTranslation("description"));
+
+        shareChoice.setValue(localeSingleton.getTranslation("select_role"));
+        shareChoice.getItems().clear();
+        shareChoice.getItems().addAll(localeSingleton.getTranslation("viewer"), localeSingleton.getTranslation("editor"));
     }
 
     @Override
@@ -273,7 +277,6 @@ public class DeviceController extends IController {
         shareButton.disableProperty().bind(sharingEmail.textProperty().isEmpty().or(descTextBox.textProperty().isEmpty()));
 
         actionChoice.setValue("Select an action");
-        shareChoice.setValue("Select a role");
 
         selectionModel = tabPane.getSelectionModel();
         setUpCharts();
