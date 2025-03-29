@@ -47,12 +47,23 @@ public abstract class IController {
         System.out.println("Starting");
     };
 
-    public void trainslate(){
+    public void translate(){
+        System.out.println("Translating");
         //this we fill in separate controllers, and where we switch the text in labels and such
     }
 
     // TODO: FIX THIS UGLY HACK
     public void hook(){}
+
+    public void setLanguage() {
+        localeSingleton.setLocale(localeSingleton.getAvailableLocales().get(languageDropdown.getSelectionModel().getSelectedIndex()));
+        System.out.println("Language set to: " + localeSingleton.getLocale());
+        if (localeSingleton.isRightToLeft()) {
+            mainBoio.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
+        } else {
+            mainBoio.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
+        }
+    }
 
     @FXML
     public void initialize() {
@@ -66,6 +77,11 @@ public abstract class IController {
         languageDropdown.getSelectionModel().select(1);
         languageDropdown.setPrefWidth(54);
         System.out.println(languageDropdown.getSelectionModel().getSelectedItem());
+        languageDropdown.setOnAction(event -> {
+            setLanguage();
+            translate();
+        });
+        
 
         //this sets the button to always show globe emoji
         StringProperty fixedText = new SimpleStringProperty("🌐");
@@ -85,5 +101,6 @@ public abstract class IController {
         } else {
             mainBoio.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
         }
+        translate();
     }
 }
