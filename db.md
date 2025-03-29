@@ -7,6 +7,7 @@ erDiagram
     USER 1--0+ DEVICE_SHARE : can_access
     DEVICE 1--0+ SETTING : has
     SETTING 1--1 CATEGORY : belongs_to
+    PERSON 1--1+ POSTCODE : postcode
 
     USER {
         int id PK,UK
@@ -19,13 +20,18 @@ erDiagram
     PERSON {
         int id PK,UK
         int userid FK,UK
+        string postcode FK
         string firstname
         string lastname
         string email
         string streetaddress
-        string city
-        string postcode
         string phonenumber
+    }
+
+    POSTCODE {
+        string postcode PK,UK
+        string city
+        string country
     }
 
     DEVICE {
