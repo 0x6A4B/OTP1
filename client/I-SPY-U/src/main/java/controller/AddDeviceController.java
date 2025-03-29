@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.NodeOrientation;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -72,6 +73,11 @@ public class AddDeviceController extends IController {
 
     @Override
     public void initialize(){
-        //do nothingh
+        if (localeSingleton.isRightToLeft()) {
+            mainBoio.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
+        } else {
+            mainBoio.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
+        }
+        translate();
     }
 }

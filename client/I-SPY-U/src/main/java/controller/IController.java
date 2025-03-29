@@ -60,23 +60,18 @@ public abstract class IController {
         System.out.println("Language set to: " + localeSingleton.getLocale());
         if (localeSingleton.isRightToLeft()) {
             mainBoio.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
+            System.out.println("Right to left");
         } else {
             mainBoio.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
+            System.out.println("Left to right");
         }
     }
 
     @FXML
     public void initialize() {
-        /* 
-         * TODO
-         * Tee joku funktio joka tapahtuu ku languageDropdownissa valitaan uus, joka sit tekee localeSingleton setlocale
-         * samalla se sit tekee translate funktion jotka pitää täyttää jokaisessa kontrollerissa
-         * tehä viel joku et translate runataan initializessa kattoen
-         */
         localeSingleton.getAvailableLocales().forEach(l -> languageDropdown.getItems().add(l.getDisplayLanguage()));
         languageDropdown.getSelectionModel().select(1);
         languageDropdown.setPrefWidth(54);
-        System.out.println(languageDropdown.getSelectionModel().getSelectedItem());
         languageDropdown.setOnAction(event -> {
             setLanguage();
             translate();
@@ -98,8 +93,10 @@ public abstract class IController {
         });
         if (localeSingleton.isRightToLeft()) {
             mainBoio.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
+            System.out.println("Right to left");
         } else {
             mainBoio.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
+            System.out.println("Left to right");
         }
         translate();
     }
