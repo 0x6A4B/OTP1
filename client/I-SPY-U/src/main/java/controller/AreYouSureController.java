@@ -4,9 +4,11 @@ import java.io.IOException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.NodeOrientation;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 
@@ -17,6 +19,7 @@ public class AreYouSureController extends IController {
     @FXML private Label warningText2;
     @FXML private Button continueButton;
     @FXML private Button cancelButton;
+    @FXML private AnchorPane mainBoio;
     
     @FXML
     private void handleRemoveDevice(){
@@ -37,6 +40,11 @@ public class AreYouSureController extends IController {
 
     @Override
     public void initialize(){
-        //do nothingh
+        if (localeSingleton.isRightToLeft()) {
+            mainBoio.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
+        } else {
+            mainBoio.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
+        }
+        translate();
     }
 }
