@@ -14,7 +14,7 @@ import java.util.*;
 
 public class LocaleSingleton {
     private static LocaleSingleton instance = new LocaleSingleton();
-    private Locale locale = Locale.ENGLISH;
+    private Locale locale = Locale.US;
     private ResourceBundle translations;
     private List<Locale> availableLocales = new ArrayList<>();
 
@@ -78,9 +78,9 @@ public class LocaleSingleton {
     // TODO: FIX dutty hack
     public String getLanguageName(Locale locale) {
         Locale chosen = this.locale;
-        this.locale = locale;
+        setLocale(locale);
         String language = getTranslation("language");
-        this.locale = chosen;
+        setLocale(chosen);
         return language;
     }
 

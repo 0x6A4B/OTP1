@@ -318,4 +318,9 @@ class LocaleSingletonTest {
         System.out.println(instance.getFormattedTemperature(12.34));
         assertEquals("12.34°C", instance.getFormattedTemperature(12.34));
     }
+
+    @Test
+    void testLanguageNames(){
+        instance.getAvailableLocales().forEach(l -> System.out.println(instance.getLanguageName(l)));
+    }
 }
