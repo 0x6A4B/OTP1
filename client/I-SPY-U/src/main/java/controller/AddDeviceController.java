@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.NodeOrientation;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -26,6 +27,13 @@ public class AddDeviceController extends IController {
     @FXML Label errorMsg;
 
     @FXML Button AddDeviceButton;
+
+    //these are for chanhing text for localization
+    @FXML private Button cancelButton;
+    @FXML private Label addDeviceTitle;
+    @FXML private Label addDeviceUUID;
+    @FXML private Label addDeviceName;
+    @FXML private Label addDeviceDescription;
 
     @FXML 
     private void handleAddDeviceButtonAction(){
@@ -61,5 +69,15 @@ public class AddDeviceController extends IController {
         errorMsg.setVisible(false);
         AddDeviceButton.disableProperty().bind(uuid.textProperty().isEmpty().or(name.textProperty().isEmpty().or(desc.textProperty().isEmpty())));
         //mirrorUI();
+    }
+
+    @Override
+    public void initialize(){
+        if (localeSingleton.isRightToLeft()) {
+            mainBoio.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
+        } else {
+            mainBoio.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
+        }
+        translate();
     }
 }

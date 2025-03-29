@@ -64,6 +64,10 @@ public class DeviceListController extends IController {
     private int logEntriesCount = 0;
     private List<DeviceShare> shares;
 
+    //these are for chanhing text for localization
+    @FXML private Label ownDevicesLogTitle;
+    @FXML private Label sharedDevicesLogTitle;
+
     private Label createNewDeviceLabel(Device dev){
         Label deviceLabel = new Label(dev.getName());
         deviceLabel.setAlignment(Pos.CENTER);
