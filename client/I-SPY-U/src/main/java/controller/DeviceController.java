@@ -79,6 +79,7 @@ public class DeviceController extends IController {
     @FXML private CategoryAxis chartXAxis;
     @FXML private NumberAxis chartYAxis;
     @FXML private Tab dataTab;
+    @FXML private Button backToList;
     @FXML private Label shareLabel;
     @FXML private Label shareEmailLabel;
     @FXML private Label shareRoleLabel;
@@ -178,7 +179,7 @@ public class DeviceController extends IController {
             System.out.println("saved desc");
             descLabel.setVisible(true);
             descTextBox.setVisible(false);
-            editDescButton.setText("Edit");
+            editDescButton.setText(localeSingleton.getTranslation("edit_description"));
             deviceShare.setDescription(descTextBox.getText());
             descLabel.setText(descTextBox.getText());
             descTextBox.clear();
@@ -189,7 +190,7 @@ public class DeviceController extends IController {
             editing = true;
             descLabel.setVisible(false);
             descTextBox.setVisible(true);
-            editDescButton.setText("Save");
+            editDescButton.setText(localeSingleton.getTranslation("Save"));
         }
     }
 
@@ -230,6 +231,8 @@ public class DeviceController extends IController {
     @Override
     public void translate() {
         System.out.println("Translating");
+
+        backToList.setText(localeSingleton.getTranslation("back_to_devicelist"));
 
         dataTab.setText(localeSingleton.getTranslation("data"));
         chartLabel.setText(localeSingleton.getTranslation("log_entries"));

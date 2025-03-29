@@ -69,6 +69,7 @@ public class DeviceListController extends IController {
     //these are for chanhing text for localization
     @FXML private Label ownDevicesLogTitle;
     @FXML private Label sharedDevicesLogTitle;
+    @FXML private Button logOutButton;
 
     private Label createNewDeviceLabel(Device dev){
         Label deviceLabel = new Label(dev.getName());
@@ -230,6 +231,8 @@ public class DeviceListController extends IController {
         //TODO check if this all works, kinda buggin when all translations are empty
         System.out.println("Translating");
         
+        logOutButton.setText(localeSingleton.getTranslation("logout"));
+        
         sharedDevicesTab.setText(localeSingleton.getTranslation("share_devices"));
         sharedDevicesLogTitle.setText(localeSingleton.getTranslation("last_log"));
         removeShareButton.setText(localeSingleton.getTranslation("remove_share"));
@@ -243,8 +246,13 @@ public class DeviceListController extends IController {
             logEntriesCountLabel.setText(logEntriesCount+" "+localeSingleton.getTranslation("log_entries"));
         } catch (Exception e) {
         }
-
         newDeviceLabelSaver.setText("+ "+localeSingleton.getTranslation("add_new_device"));
+
+        //brother, buttons moving is grabonzo, so need to wait like 2 secs after opening to change language
+        javafx.application.Platform.runLater(() -> {
+            System.out.println(logOutButton.getWidth());
+            logOutButton.setLayoutX(410 - logOutButton.getWidth());
+        });
     }
 
     @Override
@@ -278,8 +286,5 @@ public class DeviceListController extends IController {
                 switchToSharedDevices();
             }
         });
-        //sharedDevicesTab.setDisable(true);
-
-        //mirrorUI();
     }
 }

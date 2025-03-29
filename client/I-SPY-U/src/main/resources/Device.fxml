@@ -184,7 +184,7 @@
       </Label>
       <Button layoutX="474.0" layoutY="2.0" maxHeight="23.0" minHeight="23.0" mnemonicParsing="false" style="-fx-background-color: red;" text="X" textFill="WHITE" onAction="#handleCloseButtonAction"/>
       <ComboBox layoutX="414.0" layoutY="2.0" maxHeight="23.0" minHeight="23.0" fx:id="languageDropdown"/>
-      <Button layoutX="5.0" layoutY="448.0" mnemonicParsing="false" text="Back to device list" onAction="#handleBackButton">
+      <Button layoutX="5.0" layoutY="448.0" mnemonicParsing="false" fx:id="backToList" text="Back to device list" onAction="#handleBackButton">
          <padding>
             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
          </padding>
