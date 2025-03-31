@@ -7,7 +7,10 @@ erDiagram
     USER 1--0+ DEVICE_SHARE : can_access
     DEVICE 1--0+ SETTING : has
     SETTING 1--1 CATEGORY : belongs_to
+<<<<<<< HEAD:db.md
     PERSON 1--1+ POSTCODE : postcode
+=======
+>>>>>>> sprint5:docs/diagrams/db.md
 
     USER {
         int id PK,UK
@@ -73,7 +76,10 @@ erDiagram
         int id PK,UK
         String name
         String description
+<<<<<<< HEAD:db.md
         String localeCode
+=======
+>>>>>>> sprint5:docs/diagrams/db.md
     }
 ```
 

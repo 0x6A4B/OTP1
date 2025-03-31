@@ -1,0 +1,53 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    field.cattle.io/publicEndpoints: >-
+      [{"addresses":["172.18.0.2","172.18.0.3","172.18.0.4"],"port":80,"protocol":"HTTP","serviceName":"local:otp-server","ingressName":"local:otp-server-ingress","path":"/api","allNodes":false},{"addresses":["172.18.0.2","172.18.0.3","172.18.0.4"],"port":443,"protocol":"HTTPS","serviceName":"local:otp-server","ingressName":"local:otp-server-ingress","path":"/api","allNodes":false}]
+  creationTimestamp: '2025-03-25T17:11:31Z'
+  generation: 4
+  managedFields:
+    - apiVersion: networking.k8s.io/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:status:
+          f:loadBalancer:
+            f:ingress: {}
+      manager: traefik
+      operation: Update
+      subresource: status
+      time: '2025-03-25T17:11:31Z'
+    - apiVersion: networking.k8s.io/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:annotations:
+            .: {}
+            f:field.cattle.io/publicEndpoints: {}
+        f:spec:
+          f:rules: {}
+      manager: rancher
+      operation: Update
+      time: '2025-03-25T17:51:34Z'
+  name: otp-server-ingress
+  namespace: local
+  resourceVersion: '49228'
+  uid: e3b00a90-1de4-4a02-af60-9b094ff6a36a
+spec:
+  ingressClassName: traefik
+  rules:
+    - http:
+        paths:
+          - backend:
+              service:
+                name: otp-server
+                port:
+                  number: 80
+            path: /api
+            pathType: Prefix
+status:
+  loadBalancer:
+    ingress:
+      - ip: 172.18.0.2
+      - ip: 172.18.0.3
+      - ip: 172.18.0.4
