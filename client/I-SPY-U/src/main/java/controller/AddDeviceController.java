@@ -29,7 +29,6 @@ public class AddDeviceController extends IController {
     @FXML Button AddDeviceButton;
 
     //these are for chanhing text for localization
-    @FXML private Button cancelButton;
     @FXML private Label addDeviceTitle;
     @FXML private Label addDeviceUUID;
     @FXML private Label addDeviceName;
@@ -69,6 +68,16 @@ public class AddDeviceController extends IController {
         errorMsg.setVisible(false);
         AddDeviceButton.disableProperty().bind(uuid.textProperty().isEmpty().or(name.textProperty().isEmpty().or(desc.textProperty().isEmpty())));
         //mirrorUI();
+    }
+
+    @Override
+    public void translate(){
+        System.out.println("Translating");
+        addDeviceTitle.setText(localeSingleton.getTranslation("add_device"));
+        addDeviceUUID.setText(localeSingleton.getTranslation("uuid"));
+        addDeviceName.setText(localeSingleton.getTranslation("name"));
+        addDeviceDescription.setText(localeSingleton.getTranslation("description"));
+        AddDeviceButton.setText(localeSingleton.getTranslation("add_device"));
     }
 
     @Override
