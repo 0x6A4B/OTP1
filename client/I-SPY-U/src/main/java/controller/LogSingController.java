@@ -24,8 +24,8 @@ public class LogSingController extends IController {
     @FXML private TextField singUpEmail;
     @FXML private PasswordField singUpPassword;
     @FXML private TextField singUpUSername;
-    @FXML private TextField singUpCity;
-    @FXML private TextField singUpPostalCode;
+    /* @FXML private TextField singUpCity;
+    @FXML private TextField singUpPostalCode; */
     @FXML private Button singUpButton;
     @FXML private Label singUpErrorMsg;
     @FXML private CheckBox singUpRememberMe;
@@ -41,8 +41,8 @@ public class LogSingController extends IController {
     @FXML private Label signUpPasswordLabel;
     @FXML private Label signUpUsernameLabel;
     @FXML private Label signUpEmailLabel;
-    @FXML private Label signUpCityLabel;
-    @FXML private Label signUpPostalcodeLabel;
+    /* @FXML private Label signUpCityLabel;
+    @FXML private Label signUpPostalcodeLabel; */
 
     private User awnser;
 
@@ -73,12 +73,12 @@ public class LogSingController extends IController {
         String email = singUpEmail.getText();
         String password = singUpPassword.getText();
         String username = singUpUSername.getText();
-        String city = singUpCity.getText();
-        String postalCode = singUpPostalCode.getText();
+        /* String city = singUpCity.getText();
+        String postalCode = singUpPostalCode.getText(); */
         // TODO: get user's name and address => faking it for now
         User user = new User(username, password, "active",
                 new Person("Urho Kaleva", "Kekkonen", email,
-                        "Suomen maa kunta", city, postalCode));
+                        "Suomen maa kunta", "Suomen hienoin kaupunki", "42069"));
         awnser = client.register(user);
         String error = "error happened";
         if (singUpRememberMe.isSelected()){
@@ -105,9 +105,33 @@ public class LogSingController extends IController {
     }
 
     @Override
+    public void translate(){
+        System.out.println("Translating");
+        
+        logInTab.setText(localeSingleton.getTranslation("login"));
+        logInLabel.setText(localeSingleton.getTranslation("login"));
+        usernameLabel.setText(localeSingleton.getTranslation("username"));
+        passwordLabel.setText(localeSingleton.getTranslation("password"));
+        logInButton.setText(localeSingleton.getTranslation("login"));
+        logInRememberMe.setText(localeSingleton.getTranslation("remember_me"));
+        logInErrorMsg.setText(localeSingleton.getTranslation("error happened"));
+
+        signUpTab.setText(localeSingleton.getTranslation("signup"));
+        signUpLabel.setText(localeSingleton.getTranslation("signup"));
+        signUpUsernameLabel.setText(localeSingleton.getTranslation("username"));
+        signUpPasswordLabel.setText(localeSingleton.getTranslation("password"));
+        signUpEmailLabel.setText(localeSingleton.getTranslation("email"));
+        /* signUpCityLabel.setText(localeSingleton.getTranslation("city"));
+        signUpPostalcodeLabel.setText(localeSingleton.getTranslation("postalcode")); */
+        singUpButton.setText(localeSingleton.getTranslation("signup"));
+        singUpRememberMe.setText(localeSingleton.getTranslation("remember_me"));
+        singUpErrorMsg.setText(localeSingleton.getTranslation("error happened"));
+    }
+
+    @Override
     public void start() {
         logInButton.disableProperty().bind(logInUsername.textProperty().isEmpty().or(logInPassword.textProperty().isEmpty()));
-        singUpButton.disableProperty().bind(singUpEmail.textProperty().isEmpty().or(singUpPassword.textProperty().isEmpty().or(singUpUSername.textProperty().isEmpty().or(singUpCity.textProperty().isEmpty().or(singUpPostalCode.textProperty().isEmpty())))));
+        singUpButton.disableProperty().bind(singUpEmail.textProperty().isEmpty().or(singUpPassword.textProperty().isEmpty().or(singUpUSername.textProperty().isEmpty())));
         logInErrorMsg.setVisible(false);
         singUpErrorMsg.setVisible(false);
 

@@ -39,6 +39,17 @@ public class AreYouSureController extends IController {
     }
 
     @Override
+    public void translate(){
+        System.out.println("Translating");
+        popUpTitle.setText(localeSingleton.getTranslation("are_you_sure"));
+        warningText1.setText(localeSingleton.getTranslation("you_are_removing_device"));
+        warningText2.setText(localeSingleton.getTranslation("destructive_action"));
+        continueButton.setText(localeSingleton.getTranslation("delete_device"));
+        cancelButton.setText(localeSingleton.getTranslation("cancel"));
+    }
+
+
+    @Override
     public void initialize(){
         if (localeSingleton.isRightToLeft()) {
             mainBoio.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);

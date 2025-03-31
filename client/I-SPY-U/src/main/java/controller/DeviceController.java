@@ -1,11 +1,12 @@
 package controller;
 
-import java.util.Calendar;
 import java.util.List;
 
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -74,7 +75,10 @@ public class DeviceController extends IController {
     private Boolean editing = false;
 
     //these are for chanhing text for localization
+    @FXML private CategoryAxis chartXAxis;
+    @FXML private NumberAxis chartYAxis;
     @FXML private Tab dataTab;
+    @FXML private Button backToList;
     @FXML private Label shareLabel;
     @FXML private Label shareEmailLabel;
     @FXML private Label shareRoleLabel;
@@ -84,20 +88,12 @@ public class DeviceController extends IController {
         lineChart.getData().clear();
         XYChart.Series<String, Double> series = new XYChart.Series<>();
         series.setName(device.getName());
-        Calendar calendar = Calendar.getInstance();
         List<LogEntry> logs = client.getLogEntries(device, 30);
         Trace.out(Trace.Level.DEV, "Loading logentries:");
         for (LogEntry i : logs) {
             Trace.out(Trace.Level.DEV, "\tLogEntry: " + i);
-            calendar.setTime(i.getDate());
             final XYChart.Data<String, Double> data = new XYChart.Data<>(
-                (calendar.get(Calendar.HOUR_OF_DAY) +":"
-                        + calendar.get(Calendar.MINUTE) + ":"
-                        + calendar.get(Calendar.SECOND) + " - "
-                        + calendar.get(Calendar.DATE) + "/"
-                        + (calendar.get(Calendar.MONTH) + 1) + "/"
-                        + calendar.get(Calendar.YEAR)
-                ),
+                (localeSingleton.getShortFormattedDateTime(i.getDate())),
                 Double.parseDouble(i.getValue())/*.substring(0, 6)*/);
                 data.setNode(new HoveredThresholdNodea("temperature", i.getValue()));
             series.getData().add(data);
@@ -174,7 +170,7 @@ public class DeviceController extends IController {
             System.out.println("saved desc");
             descLabel.setVisible(true);
             descTextBox.setVisible(false);
-            editDescButton.setText("Edit");
+            editDescButton.setText(localeSingleton.getTranslation("edit_description"));
             deviceShare.setDescription(descTextBox.getText());
             descLabel.setText(descTextBox.getText());
             descTextBox.clear();
@@ -185,7 +181,7 @@ public class DeviceController extends IController {
             editing = true;
             descLabel.setVisible(false);
             descTextBox.setVisible(true);
-            editDescButton.setText("Save");
+            editDescButton.setText(localeSingleton.getTranslation("Save"));
         }
     }
 
@@ -224,6 +220,37 @@ public class DeviceController extends IController {
     }
 
     @Override
+    public void translate() {
+        System.out.println("Translating");
+
+        backToList.setText(localeSingleton.getTranslation("back_to_devicelist"));
+
+        dataTab.setText(localeSingleton.getTranslation("data"));
+        chartLabel.setText(localeSingleton.getTranslation("log_entries"));
+        radioDaily.setText(localeSingleton.getTranslation("Daily"));
+        radioWeekly.setText(localeSingleton.getTranslation("Weekly"));
+        radioHourly.setText(localeSingleton.getTranslation("hourly"));
+        chartXAxis.setLabel(localeSingleton.getTranslation("date"));
+        chartYAxis.setLabel(localeSingleton.getTranslation("measurement"));
+
+        configTab.setText(localeSingleton.getTranslation("config"));
+
+        shareTab.setText(localeSingleton.getTranslation("share"));
+        shareLabel.setText(localeSingleton.getTranslation("sharing"));
+        editDescButton.setText(localeSingleton.getTranslation("edit_description"));
+        setShareButton.setText(localeSingleton.getTranslation("set"));
+        sharedUsersLabel.setText(localeSingleton.getTranslation("device_is_shared_to"));
+        shareButton.setText(localeSingleton.getTranslation("share"));
+        shareEmailLabel.setText(localeSingleton.getTranslation("email")+":");
+        shareRoleLabel.setText(localeSingleton.getTranslation("select_role"));
+        shareDescLabel.setText(localeSingleton.getTranslation("description"));
+
+        shareChoice.setValue(localeSingleton.getTranslation("select_role"));
+        shareChoice.getItems().clear();
+        shareChoice.getItems().addAll(localeSingleton.getTranslation("viewer"), localeSingleton.getTranslation("editor"));
+    }
+
+    @Override
     public void start(){
         device = gui.getCurrentDevice();
         // Tarviiko user???? user = gui.getUser();
@@ -231,6 +258,11 @@ public class DeviceController extends IController {
         radioDaily.setSelected(true);
         radioWeekly.setToggleGroup(toggleGroup);
         radioHourly.setToggleGroup(toggleGroup);
+
+        //disable the buttons cause no functionality
+        radioDaily.setVisible(false);
+        radioWeekly.setVisible(false);
+        radioHourly.setVisible(false);
 
         toggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
@@ -245,7 +277,6 @@ public class DeviceController extends IController {
         shareButton.disableProperty().bind(sharingEmail.textProperty().isEmpty().or(descTextBox.textProperty().isEmpty()));
 
         actionChoice.setValue("Select an action");
-        shareChoice.setValue("Select a role");
 
         selectionModel = tabPane.getSelectionModel();
         setUpCharts();
