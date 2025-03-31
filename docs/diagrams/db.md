@@ -41,7 +41,7 @@ erDiagram
     LOGENTRY {
         int id PK,UK
         int deviceid FK
-        string key
+        string logkey
         string value
         date log_date
     }
@@ -59,7 +59,7 @@ erDiagram
         int deviceid FK
         int userid FK
         int categoryid FK
-        String key
+        String settingkey
         String value
     }
 
