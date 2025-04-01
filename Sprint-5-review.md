@@ -17,75 +17,75 @@ Localizations:
 
 List of translations:
 
-- user
-English (US)
-Login
-Log Out
-Username
-Password
-Sign Up
-First Name
-Last Name
-Street
-Postalcode
-City
-Country
-Email
-Remember Me
-
-- devices
-Devices
-Add Device
-Add a new device
-Remove Device
-Edit Device
-Share Device
-View Shares
-View Device
-Share Devices
-Remove Share
-My Devices
-Open device
-Back to device list
-
-- table views
-Name
-Description
-Model
-Date
-Key
-Value
-UUID
-Number
-Log entries
-Log of last measurement
-Measurement
-Hourly
-Daily
-Weekly
-
-Data
-Config
-Share
-Sharing
-Share role
-Select role
-Editor
-Viewer
-Set
-
-Edit description
-Device is shared to
-Are you sure?
-Cancel
-Ok
-You are removing a device!
-This is destructive action!
-
-- units
-celsius = {0}°C
-fahrenheit = {0}°F
-temp.format = ###,###.##°F
+**user**  
+English (US)  
+Login  
+Log Out  
+Username  
+Password  
+Sign Up  
+First Name  
+Last Name  
+Street  
+Postalcode  
+City  
+Country  
+Email  
+Remember Me  
+  
+**devices**  
+Devices  
+Add Device  
+Add a new device  
+Remove Device  
+Edit Device  
+Share Device  
+View Shares  
+View Device  
+Share Devices  
+Remove Share  
+My Devices  
+Open device  
+Back to device list  
+  
+**table views**  
+Name  
+Description  
+Model  
+Date  
+Key  
+Value  
+UUID  
+Number  
+Log entries  
+Log of last measurement  
+Measurement  
+Hourly  
+Daily  
+Weekly  
+  
+Data  
+Config  
+Share  
+Sharing  
+Share role  
+Select role  
+Editor  
+Viewer  
+Set  
+  
+Edit description  
+Device is shared to  
+Are you sure?  
+Cancel  
+Ok  
+You are removing a device!  
+This is destructive action!  
+  
+**units**  
+celsius = {0}°C  
+fahrenheit = {0}°F  
+temp.format = ###,###.##°F  
 
 User Interface has been fully translated and localized. Including reading direction, temperature and date formats.
 
