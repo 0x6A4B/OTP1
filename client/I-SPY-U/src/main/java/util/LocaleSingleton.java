@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.security.CodeSource;
 import java.text.DateFormat;
 import java.text.MessageFormat;
 import java.text.NumberFormat;
@@ -18,6 +19,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 public class LocaleSingleton {
     private static LocaleSingleton instance = new LocaleSingleton();
@@ -32,10 +35,39 @@ public class LocaleSingleton {
         /* Is this really how we are supposed to do it? Ugly mess for a simple job... */
         /* List all translation files */
         try {
-            Enumeration<URL> en = LocaleSingleton.class.getClassLoader().getResources(".");
+            System.out.println("XX");
+            Enumeration<URL> en = LocaleSingleton.class.getClassLoader().getResources("");
+            System.out.println("XZX: " + en.hasMoreElements());
+            System.out.println("__: " + LocaleSingleton.class.getClassLoader().getResource("Translation.properties").getPath());
+
+            // In JAR
+            // TODO: FIX this ugly hack => make sure works in development as well as in deployed JAR file
+            if (en.hasMoreElements() == false){
+                CodeSource src = LocaleSingleton.class.getProtectionDomain().getCodeSource();
+                if (src != null) {
+                    URL jar = src.getLocation();
+                    ZipInputStream zip = new ZipInputStream(jar.openStream());
+                    while(zip.available() > 0){
+                        ZipEntry entry = zip.getNextEntry();
+                        if (entry == null) break;
+                        if (!entry.getName().endsWith(".properties") || !entry.getName().startsWith("Translation_")) continue;
+
+                        System.out.println("FOUND: " + entry.getName());
+                        availableLocales.add(Locale.forLanguageTag(entry.getName()
+                                .substring("Translation_".length(), entry.getName().indexOf(".")).replace("_", "-")
+                        ));
+                    }
+                }
+            }
+
+
+
             while (en.hasMoreElements()) {
                 URL url = en.nextElement();
+                System.out.println("ZZX: " + url);
+
                 File file = new File(url.toURI());
+                System.out.println("X: " + url + " - " + file);
                 if (file.isDirectory())
                     Arrays.stream(file.listFiles())
                             .filter(f -> f.getName().startsWith("Translation_"))

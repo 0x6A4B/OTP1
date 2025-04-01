@@ -55,7 +55,7 @@ class LocaleSingletonTest {
         System.out.println("Testing Locale FI");
         instance.setLocale(finland);
         System.out.println("Login => Kirjaudu");
-        assertEquals("Kirjaudu", instance.getTranslation("login"));
+        assertEquals("Kirjaudu sisään", instance.getTranslation("login"));
     }
 
     @Test
