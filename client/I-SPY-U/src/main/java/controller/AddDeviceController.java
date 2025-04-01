@@ -5,10 +5,12 @@ import java.util.UUID;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.NodeOrientation;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.Device;
 import util.ConfigSingleton;
@@ -20,9 +22,17 @@ public class AddDeviceController extends IController {
     @FXML TextField name;
     @FXML TextField desc;
 
+    @FXML private AnchorPane mainBoio;
+
     @FXML Label errorMsg;
 
     @FXML Button AddDeviceButton;
+
+    //these are for chanhing text for localization
+    @FXML private Label addDeviceTitle;
+    @FXML private Label addDeviceUUID;
+    @FXML private Label addDeviceName;
+    @FXML private Label addDeviceDescription;
 
     @FXML 
     private void handleAddDeviceButtonAction(){
@@ -57,5 +67,26 @@ public class AddDeviceController extends IController {
     public void start(){
         errorMsg.setVisible(false);
         AddDeviceButton.disableProperty().bind(uuid.textProperty().isEmpty().or(name.textProperty().isEmpty().or(desc.textProperty().isEmpty())));
+        //mirrorUI();
+    }
+
+    @Override
+    public void translate(){
+        System.out.println("Translating");
+        addDeviceTitle.setText(localeSingleton.getTranslation("add_device"));
+        addDeviceUUID.setText(localeSingleton.getTranslation("uuid"));
+        addDeviceName.setText(localeSingleton.getTranslation("name"));
+        addDeviceDescription.setText(localeSingleton.getTranslation("description"));
+        AddDeviceButton.setText(localeSingleton.getTranslation("add_device"));
+    }
+
+    @Override
+    public void initialize(){
+        if (localeSingleton.isRightToLeft()) {
+            mainBoio.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
+        } else {
+            mainBoio.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
+        }
+        translate();
     }
 }

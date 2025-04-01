@@ -1,0 +1,55 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    field.cattle.io/targetWorkloadIds: '["local/otp-server"]'
+    management.cattle.io/ui-managed: 'true'
+  creationTimestamp: '2025-03-25T16:54:14Z'
+  managedFields:
+    - apiVersion: v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:annotations:
+            .: {}
+            f:field.cattle.io/targetWorkloadIds: {}
+            f:management.cattle.io/ui-managed: {}
+        f:spec:
+          f:internalTrafficPolicy: {}
+          f:ports:
+            .: {}
+            k:{"port":80,"protocol":"TCP"}:
+              .: {}
+              f:name: {}
+              f:port: {}
+              f:protocol: {}
+              f:targetPort: {}
+          f:selector: {}
+          f:sessionAffinity: {}
+          f:type: {}
+      manager: rancher
+      operation: Update
+      time: '2025-03-25T17:31:09Z'
+  name: otp-server
+  namespace: local
+  resourceVersion: '46771'
+  uid: faf02551-4d45-4f69-ab2e-f2d4878be95c
+spec:
+  clusterIP: 10.43.239.30
+  clusterIPs:
+    - 10.43.239.30
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+    - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+    - name: otp-server
+      port: 80
+      protocol: TCP
+      targetPort: 8088
+  selector:
+    workload.user.cattle.io/workloadselector: apps.deployment-local-otp-server
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

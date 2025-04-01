@@ -7,10 +7,21 @@ OTP1 Software Engineering Project 1
 
 ## Muu dokumentaatio
 
-- [DB ERD](./db.md)
-- [Palvelimen asennuksesta](./install.md)
-- [Luokkakaavio UML](./uml.md)
-- [API deployment](server/README.md)
+
+- [Palvelimen asennuksesta](docs/technical_md/install.md)
+- [Docker kontit](docs/technical_md/containers.md)
+- [JavaFX dockerissa](docs/technical_md/javafx_in_container.md)
+- [Jenkins](docs/technical_md/jenkins_docker_maven_jdk_kubernetes.md)
+- [MQTT broker Mosquitto](docs/technical_md/mosquitto.md)
+- [GitHub Release](docs/technical_md/release_to_github.md)
+- [Vanha pre-CI/CD API deployment](server/README.md)
+
+Kaaviot
+- [DB ERD](docs/diagrams/db.md)
+- [Luokkakaavio UML](docs/technical_md/uml.md)
+- [Luokkakaavio HttpQuery](docs/diagrams/uml_httpquery.md)
+- [Luokkakaavio Manager](docs/diagrams/uml_manager.md)
+- [Sekvenssikaavio](docs/diagrams/sequence.md)
 
 Bruno API testauksen määrittelyt [bruno/](bruno/) hakemistossa, lokaali ja remote API:lle
 

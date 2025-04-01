@@ -10,11 +10,12 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.control.ComboBox?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DeviceListController">
+<AnchorPane fx:id="mainBoio" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DeviceListController">
    <children>
-      <TabPane prefHeight="500.0" prefWidth="500.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane prefHeight="500.0" prefWidth="500.0" tabClosingPolicy="UNAVAILABLE" fx:id="tabPane">
         <tabs>
           <Tab text="My Devices" fx:id="ownDevicesTab">
             <content>
@@ -43,7 +44,7 @@
                                 <Insets bottom="2.0" />
                             </padding>
                             </Label>
-                            <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="200.0" text="Log of last measurements:" textAlignment="CENTER">
+                            <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="200.0" text="Log of last measurements:" textAlignment="CENTER" fx:id="ownDevicesLogTitle">
                             <padding>
                                 <Insets bottom="2.0" />
                             </padding>
@@ -92,7 +93,7 @@
                                         <Insets bottom="2.0" />
                                     </padding>
                                     </Label>
-                                    <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="200.0" text="Log of last measurements:" textAlignment="CENTER">
+                                    <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="200.0" text="Log of last measurements:" fx:id="sharedDevicesLogTitle" textAlignment="CENTER">
                                     <padding>
                                         <Insets bottom="2.0" />
                                     </padding>
@@ -121,6 +122,9 @@
          </font>
       </Label>
       <Button layoutX="474.0" layoutY="2.0" maxHeight="23.0" minHeight="23.0" mnemonicParsing="false" style="-fx-background-color: red;" text="X" textFill="WHITE" onAction="#handleCloseButtonAction"/>
-      <Button layoutX="410.0" layoutY="2.0" mnemonicParsing="false" text="Log out" onAction="#handleLogOut"/>
+    <Button layoutX="410.0" layoutY="2.0" mnemonicParsing="false" fx:id="logOutButton" text="Log out" onAction="#handleLogOut">
+       <AnchorPane.rightAnchor>90.0</AnchorPane.rightAnchor>
+    </Button>
+      <ComboBox layoutX="415.0" layoutY="2.0" maxHeight="23.0" minHeight="23.0" fx:id="languageDropdown"/>
    </children>
 </AnchorPane>
