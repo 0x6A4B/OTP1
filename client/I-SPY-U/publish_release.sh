@@ -1,5 +1,6 @@
 #!/bin/bash
 
+echo "Starting publishing of JAR to GitHub releases..." &&
 
 RELEASE_BODY=$(git log -1 | tail -n 1 | awk '{gsub(/  /, "", $0); print}')
 
