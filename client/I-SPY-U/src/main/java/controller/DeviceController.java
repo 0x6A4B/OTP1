@@ -95,7 +95,7 @@ public class DeviceController extends IController {
             final XYChart.Data<String, Double> data = new XYChart.Data<>(
                 (localeSingleton.getShortFormattedDateTime(i.getDate())),
                 Double.parseDouble(i.getValue())/*.substring(0, 6)*/);
-                data.setNode(new HoveredThresholdNodea("temperature", i.getValue()));
+                data.setNode(new HoveredThresholdNodea("temperature", localeSingleton.getFormattedTemperature(Double.parseDouble(i.getValue()))));
             series.getData().add(data);
         }
     
