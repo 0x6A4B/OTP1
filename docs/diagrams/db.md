@@ -7,6 +7,7 @@ erDiagram
     USER 1--0+ DEVICE_SHARE : can_access
     DEVICE 1--0+ SETTING : has
     SETTING 1--1 CATEGORY : belongs_to
+    CATEGORY 1--0+ TRANSLATION : localizes_to
     PERSON 0+--1 POSTCODE : postcode
 
     USER {
@@ -73,7 +74,13 @@ erDiagram
         int id PK,UK
         String name
         String description
-        String localeCode
+    }
+
+    TRANSLATION {
+        string localecode PK,UK
+        string transkey PK,UK
+        int categoryid FK
+        string value
     }
 ```
 
