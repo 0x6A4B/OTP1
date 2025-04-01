@@ -2,7 +2,7 @@
 OTP1 Software Engineering Project 1
 
 
-
+Contributors: 
 
 
 ## Muu dokumentaatio
