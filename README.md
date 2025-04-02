@@ -16,6 +16,10 @@ Contributors:
 - [GitHub Release](docs/technical_md/release_to_github.md)
 - [Vanha pre-CI/CD API deployment](server/README.md)
 
+- [Kubernetes](docs/kubernetes/cluster_setup.md)
+- [Kubernetes](docs/kubernetes/k3d.md)
+- [Kubernetes](docs/kubernetes/nginx-proxy.md)
+
 Kaaviot
 - [DB ERD](docs/diagrams/db.md)
 - [Luokkakaavio UML](docs/technical_md/uml.md)
