@@ -18,21 +18,13 @@ import util.Trace;
 
 public class AddDeviceController extends IController {
 
-    @FXML TextField uuid;
-    @FXML TextField name;
-    @FXML TextField desc;
-
+    @FXML TextField uuid, name, desc;
     @FXML private AnchorPane mainBoio;
-
     @FXML Label errorMsg;
-
     @FXML Button AddDeviceButton;
 
     //these are for chanhing text for localization
-    @FXML private Label addDeviceTitle;
-    @FXML private Label addDeviceUUID;
-    @FXML private Label addDeviceName;
-    @FXML private Label addDeviceDescription;
+    @FXML private Label addDeviceTitle, addDeviceUUID, addDeviceName, addDeviceDescription;
 
     @FXML 
     private void handleAddDeviceButtonAction(){
@@ -67,7 +59,6 @@ public class AddDeviceController extends IController {
     public void start(){
         errorMsg.setVisible(false);
         AddDeviceButton.disableProperty().bind(uuid.textProperty().isEmpty().or(name.textProperty().isEmpty().or(desc.textProperty().isEmpty())));
-        //mirrorUI();
     }
 
     @Override

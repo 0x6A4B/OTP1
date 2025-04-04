@@ -26,36 +26,26 @@ import util.Trace;
 
 public class DeviceListController extends IController {
 
-    private VBox DevicesList;
-    private VBox DeviceDetails;
-    private Label DeviceDetailsLabel;
+    private VBox DevicesList, DeviceDetails;
+    private Label DeviceDetailsLabel, logEntriesCountLabel;
     private ListView DeviceDetailsListview;
     private Button openDeviceButton;
-    private Label logEntriesCountLabel;
 
-    @FXML private VBox myDevicesList;
-    @FXML private VBox sharedDevicesList;
+    @FXML private VBox myDevicesList, sharedDevicesList;
 
-    @FXML private Tab ownDevicesTab;
-    @FXML private Tab sharedDevicesTab;
+    @FXML private Tab ownDevicesTab, sharedDevicesTab;
 
-    @FXML private VBox sharedDeviceDetails;
-    @FXML private VBox ownDeviceDetails;
+    @FXML private VBox sharedDeviceDetails, ownDeviceDetails;
 
-    @FXML private Button sharedOpenDeviceButton;
-    @FXML private Button ownOpenDeviceButton;
+    @FXML private Button sharedOpenDeviceButton, ownOpenDeviceButton;
 
-    @FXML private Button removeDeviceButton;
-    @FXML private Button removeShareButton;
-    private Button removeButton;
+    @FXML private Button removeDeviceButton, removeShareButton, removeButton;
 
-    @FXML private Label ownDeviceDetalsLabel;
+    @FXML private Label ownDeviceDetalsLabel, ownLogEntriesCountLabel;
     @FXML private ListView ownDeviceDetalsListview;
-    @FXML private Label ownLogEntriesCountLabel;
 
-    @FXML private Label sharedDeviceDetalsLabel;
+    @FXML private Label sharedDeviceDetalsLabel, shareLogEntriesCountLabel;
     @FXML private ListView sharedDeviceDetalsListview;
-    @FXML private Label shareLogEntriesCountLabel;
 
     private List<Device> devices;
     private List<Device> sharedDevices = new ArrayList<Device>();
@@ -66,9 +56,8 @@ public class DeviceListController extends IController {
 
     private Label newDeviceLabelSaver = addNewDeviceButton();
 
-    //these are for chanhing text for localization
-    @FXML private Label ownDevicesLogTitle;
-    @FXML private Label sharedDevicesLogTitle;
+    //these are for chanching text for localization
+    @FXML private Label ownDevicesLogTitle, sharedDevicesLogTitle;
     @FXML private Button logOutButton;
 
     private Label createNewDeviceLabel(Device dev){
@@ -222,7 +211,6 @@ public class DeviceListController extends IController {
 
     @Override
     public void translate(){
-        //TODO check if this all works, kinda buggin when all translations are empty
         System.out.println("Translating");
         
         logOutButton.setText(localeSingleton.getTranslation("logout"));

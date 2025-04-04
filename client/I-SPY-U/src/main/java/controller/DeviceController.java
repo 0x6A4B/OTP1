@@ -32,16 +32,12 @@ public class DeviceController extends IController {
 
     private ToggleGroup toggleGroup = new ToggleGroup();
 
-    @FXML private RadioButton radioDaily;
-    @FXML private RadioButton radioWeekly;
-    @FXML private RadioButton radioHourly;
+    @FXML private RadioButton radioHourly, radioDaily, radioWeekly;
 
-    @FXML private TextField limitMin;
-    @FXML private TextField limitMax;
+    @FXML private TextField limitMin, limitMax;
     @FXML private Button setLimitsButton;
 
-    @FXML private Tab configTab;
-    @FXML private Tab shareTab;
+    @FXML private Tab configTab, shareTab;
 
     @FXML private TextField sharingEmail;
     @FXML private Button shareButton;
@@ -79,10 +75,7 @@ public class DeviceController extends IController {
     @FXML private NumberAxis chartYAxis;
     @FXML private Tab dataTab;
     @FXML private Button backToList;
-    @FXML private Label shareLabel;
-    @FXML private Label shareEmailLabel;
-    @FXML private Label shareRoleLabel;
-    @FXML private Label shareDescLabel;
+    @FXML private Label shareLabel, shareEmailLabel, shareRoleLabel, shareDescLabel;
 
     private void setUpCharts() {
         lineChart.getData().clear();
@@ -94,7 +87,7 @@ public class DeviceController extends IController {
             Trace.out(Trace.Level.DEV, "\tLogEntry: " + i);
             final XYChart.Data<String, Double> data = new XYChart.Data<>(
                 (localeSingleton.getShortFormattedDateTime(i.getDate())),
-                Double.parseDouble(i.getValue())/*.substring(0, 6)*/);
+                Double.parseDouble(i.getValue()));
                 data.setNode(new HoveredThresholdNodea("temperature", localeSingleton.getFormattedTemperature(Double.parseDouble(i.getValue()))));
             series.getData().add(data);
         }
@@ -111,31 +104,31 @@ public class DeviceController extends IController {
         }
     }
 
-    @FXML
+    /* @FXML
     private void handleSetLimits() {
         System.out.println(limitMin.getText());
         System.out.println(limitMax.getText());
-        /* TODO tässä laitetaan limitit eteenpäin */
+        // TODO tässä laitetaan limitit eteenpäin
         System.out.println("set Limits");
         selectionModel.select(0);
-    }
+    } */
 
-    @FXML
+    /* @FXML
     private void handleActionChoice() {
         String actionString = actionChoice.getValue();
         actionItemLabel.setText(actionString.substring(7, actionString.length())+" for action");
         System.out.println("set Action choice");
-    }
+    } */
 
-    @FXML
+    /* @FXML
     private void handleSetAction() {
         System.out.println(actionChoice.getValue());
         System.out.println(actionInput.getText());
-        /* TODO tässä laitetaan action eteenpäin */
+        // TODO tässä laitetaan action eteenpäin
         System.out.println("set Action Happening");
         selectionModel.select(0);
     }
-
+ */
     @FXML
     private void handleShare() {
         System.out.println("sharing Happening");
@@ -154,14 +147,6 @@ public class DeviceController extends IController {
         client.shareDevice(deviceShare); /* TODO tässä pitää kattoo jos on null nii laittaa error message share napin vieree vaikka "User not found" */
 
         fillSharedUsersList();
-    }
-
-    @FXML
-    private void handleSetShare() {
-        System.out.println(shareChoice.getValue());
-        /* TODO tässä laitetaan sharing settings eteenpäin */
-        System.out.println("sharing settings Happening");
-        selectionModel.select(0);
     }
 
     @FXML
@@ -253,7 +238,6 @@ public class DeviceController extends IController {
     @Override
     public void start(){
         device = gui.getCurrentDevice();
-        // Tarviiko user???? user = gui.getUser();
         radioDaily.setToggleGroup(toggleGroup);
         radioDaily.setSelected(true);
         radioWeekly.setToggleGroup(toggleGroup);
@@ -281,7 +265,6 @@ public class DeviceController extends IController {
         selectionModel = tabPane.getSelectionModel();
         setUpCharts();
         configTab.setDisable(true);
-        //shareTab.setDisable(true); working on this now
 
         if (device.isOwned()) {
             descLabel.setDisable(true);
@@ -306,6 +289,5 @@ public class DeviceController extends IController {
             sharedUsersListContainer.setVisible(false);
             sharedUsersLabel.setVisible(false);
         }
-        //mirrorUI();
     }
 }

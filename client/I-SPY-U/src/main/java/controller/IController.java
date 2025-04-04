@@ -39,10 +39,6 @@ public abstract class IController {
         this.gui = gui;
     }
 
-    public void setClient(Client client) {
-        //this.client = client;
-    }
-
     public void start(){
         System.out.println("Starting");
     };

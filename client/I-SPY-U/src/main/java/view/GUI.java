@@ -16,12 +16,12 @@ import model.User;
 import util.ConfigSingleton;
 
 public class GUI extends Application {
-    private /*static*/ Scene scene;
-    private /*static*/ Stage popupStage;
-    private /*static*/ Client service;
-    private /*static*/ User user;
-    private /*static*/ Device currentDevice;
-    private /*static*/ DeviceShare currentShare;
+    private Scene scene;
+    private Stage popupStage;
+    private Client service;
+    private User user;
+    private Device currentDevice;
+    private DeviceShare currentShare;
     private IController kontrolleri;
 
     @Override
@@ -35,7 +35,6 @@ public class GUI extends Application {
         // End of check
 
         System.out.println("Loading FXML file...");
-        //scene = new Scene(getLoader("MainView"), 300, 300);
 
         if (!tokenExists)
             scene = new Scene(getLoader("LogSingUp"), 300, 400);
@@ -60,13 +59,12 @@ public class GUI extends Application {
         //IController
         kontrolleri = loader.getController();
         System.out.println("kontrolleri: "+loader.getController());
-//        kontrolleri.setClient(GUI.service);
         kontrolleri.setGUI(this);
         kontrolleri.start();
         return loaded;
     }
 
-    public /*static*/ void setScene(String fxml, int width, int height) throws IOException {
+    public void setScene(String fxml, int width, int height) throws IOException {
         scene.setRoot(getLoader(fxml));
         Stage stage = (Stage) scene.getWindow();
         stage.setWidth(width);
@@ -74,20 +72,19 @@ public class GUI extends Application {
         stage.centerOnScreen();
     }
 
-    public /*static*/ void setUser(User user) {
-        //GUI.
+    public void setUser(User user) {
         this.user = user;
     }
 
-    public /*static*/ User getUser() {
+    public User getUser() {
         return this.user;
     }
 
-    public /*static*/ void setCurrentDevice(Device currentDevice) {
+    public void setCurrentDevice(Device currentDevice) {
         this.currentDevice = currentDevice;
     }
 
-    public /*static*/ Device getCurrentDevice() {
+    public Device getCurrentDevice() {
         return currentDevice;
     }
 
@@ -95,7 +92,7 @@ public class GUI extends Application {
     // TODO: FIX THIS HACK
     private IController popupCtrl;
 
-    public /*static*/ void openPopup(String fxml, int width, int height, IController popupCtrl) throws IOException {
+    public void openPopup(String fxml, int width, int height, IController popupCtrl) throws IOException {
         System.out.println("Opening popup "+fxml);
         popupStage = new Stage();   // we need to create new if popup is called again
         popupStage.initStyle(StageStyle.UNDECORATED);
@@ -110,7 +107,7 @@ public class GUI extends Application {
         popupStage.show();
     }
 
-    public /*static*/ void closePopup() throws IOException {
+    public void closePopup() throws IOException {
         popupStage.close();
         popupCtrl.hook();
         popupCtrl = null;

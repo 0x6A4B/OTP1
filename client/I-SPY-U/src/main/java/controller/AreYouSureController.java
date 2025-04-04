@@ -14,11 +14,8 @@ import javafx.stage.Stage;
 
 public class AreYouSureController extends IController {
     
-    @FXML private Label popUpTitle;
-    @FXML private Label warningText1;
-    @FXML private Label warningText2;
-    @FXML private Button continueButton;
-    @FXML private Button cancelButton;
+    @FXML private Label popUpTitle, warningText1, warningText2;
+    @FXML private Button continueButton, cancelButton;
     @FXML private AnchorPane mainBoio;
     
     @FXML

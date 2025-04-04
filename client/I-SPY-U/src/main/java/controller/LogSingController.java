@@ -15,34 +15,19 @@ import model.User;
 import util.Trace;
 
 public class LogSingController extends IController {
-    @FXML private TextField logInUsername;
-    @FXML private PasswordField logInPassword;
-    @FXML private Button logInButton;
-    @FXML private Label logInErrorMsg;
-    @FXML private CheckBox logInRememberMe;
+    @FXML private TextField logInUsername, singUpEmail;
+    @FXML private PasswordField logInPassword, singUpPassword;
+    @FXML private Button logInButtonm, singUpButton;
+    @FXML private Label logInErrorMsg, singUpErrorMsg;
+    @FXML private CheckBox logInRememberMe, singUpRememberMe;
+    @FXML private TextField singUpUSername;//, singUpCity, singUpPostalCode;
 
-    @FXML private TextField singUpEmail;
-    @FXML private PasswordField singUpPassword;
-    @FXML private TextField singUpUSername;
-    /* @FXML private TextField singUpCity;
-    @FXML private TextField singUpPostalCode; */
-    @FXML private Button singUpButton;
-    @FXML private Label singUpErrorMsg;
-    @FXML private CheckBox singUpRememberMe;
-
-    //these are for chanhing text for localization
+    //these are for chanching text for localization
     @FXML private Tab logInTab;
-    @FXML private Label logInLabel;
-    @FXML private Label usernameLabel;
-    @FXML private Label passwordLabel;
+    @FXML private Label logInLabel, usernameLabel, passwordLabel;
 
     @FXML private Tab signUpTab;
-    @FXML private Label signUpLabel;
-    @FXML private Label signUpPasswordLabel;
-    @FXML private Label signUpUsernameLabel;
-    @FXML private Label signUpEmailLabel;
-    /* @FXML private Label signUpCityLabel;
-    @FXML private Label signUpPostalcodeLabel; */
+    @FXML private Label signUpLabel, signUpPasswordLabel, signUpUsernameLabel, signUpEmailLabel; //,signUpCityLabel, signUpPostalcodeLabel;
 
     private User awnser;
 
@@ -134,17 +119,5 @@ public class LogSingController extends IController {
         singUpButton.disableProperty().bind(singUpEmail.textProperty().isEmpty().or(singUpPassword.textProperty().isEmpty().or(singUpUSername.textProperty().isEmpty())));
         logInErrorMsg.setVisible(false);
         singUpErrorMsg.setVisible(false);
-
-        /* fill fields for easier testing so no need to fill them out */
-        //logInUsername.setText("wasdi");
-        //logInPassword.setText("wasdi");
-
-        /* singUpEmail.setText("emaili");
-        singUpPassword.setText("passwordi");
-        singUpUSername.setText("usernami");
-        singUpCity.setText("cityni");
-        singUpPostalCode.setText("postalcodeni"); */
-
-        //mirrorUI();
     }
 }
