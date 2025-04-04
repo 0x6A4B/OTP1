@@ -11,7 +11,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-
+/*TODO make this into a popup that can be used everywhere
+so best would be to make a popupmaker class (that could be a builder??) where popup is made */
 public class AreYouSureController extends IController {
     
     @FXML private Label popUpTitle, warningText1, warningText2;
