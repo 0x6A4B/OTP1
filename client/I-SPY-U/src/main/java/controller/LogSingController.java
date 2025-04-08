@@ -20,7 +20,7 @@ public class LogSingController extends IController {
     @FXML private Button logInButtonm, singUpButton;
     @FXML private Label logInErrorMsg, singUpErrorMsg;
     @FXML private CheckBox logInRememberMe, singUpRememberMe;
-    @FXML private TextField singUpUSername;//, singUpCity, singUpPostalCode;
+    @FXML private TextField singUpUSername; //, singUpCity, singUpPostalCode;
 
     //these are for chanching text for localization
     @FXML private Tab logInTab;
@@ -31,12 +31,15 @@ public class LogSingController extends IController {
 
     private User awnser;
 
+    private final int DEVICELIST_WINDOW_WIDTH = 500;
+    private final int DEVICELIST_WINDOW_HEIGHT = 500;
+
     @FXML
     private void handleLogInButtonAction(ActionEvent event) {
         String username = logInUsername.getText();
         String password = logInPassword.getText();
         String error = "error happened";
-        if (logInRememberMe.isSelected()){
+        if (logInRememberMe.isSelected()) {
             Trace.out(Trace.Level.DEV, "Remember user");
             client.setRememberUser(true);
         }
@@ -44,7 +47,7 @@ public class LogSingController extends IController {
         if (awnser != null) {
             try {
                 gui.setUser(awnser);
-                gui.setScene("DevicesList", 500, 500);
+                gui.setScene("DevicesList", DEVICELIST_WINDOW_WIDTH, DEVICELIST_WINDOW_HEIGHT);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -66,7 +69,7 @@ public class LogSingController extends IController {
                         "Suomen maa kunta", "Suomen hienoin kaupunki", "42069"));
         awnser = client.register(user);
         String error = "error happened";
-        if (singUpRememberMe.isSelected()){
+        if (singUpRememberMe.isSelected()) {
             client.setRememberUser(true);
         }
         if (awnser != null) {
@@ -90,9 +93,9 @@ public class LogSingController extends IController {
     }
 
     @Override
-    public void translate(){
+    public void translate() {
         System.out.println("Translating");
-        
+
         logInTab.setText(localeSingleton.getTranslation("login"));
         logInLabel.setText(localeSingleton.getTranslation("login"));
         usernameLabel.setText(localeSingleton.getTranslation("username"));

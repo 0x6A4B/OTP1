@@ -18,25 +18,29 @@ import util.Trace;
 
 public class AddDeviceController extends IController {
 
-    @FXML TextField uuid, name, desc;
+    @FXML private TextField uuid, name, desc;
     @FXML private AnchorPane mainBoio;
-    @FXML Label errorMsg;
-    @FXML Button AddDeviceButton;
+    @FXML private Label errorMsg;
+    @FXML private Button addDeviceButton;
 
     //these are for chanhing text for localization
     @FXML private Label addDeviceTitle, addDeviceUUID, addDeviceName, addDeviceDescription;
 
-    @FXML 
-    private void handleAddDeviceButtonAction(){
+    @FXML
+    private void handleAddDeviceButtonAction() {
         System.out.println("Adding device...");
         System.out.println(uuid.getText());
         System.out.println(name.getText());
         System.out.println(desc.getText());
 
-
-        try{
+        try {
             UUID realUuid = UUID.fromString(uuid.getText());
-            client.addDevice(new Device(ConfigSingleton.getInstance().getUser(), realUuid, name.getText(), true, desc.getText(), "model"));
+            client.addDevice(new Device(ConfigSingleton.getInstance().getUser(),
+                                        realUuid,
+                                        name.getText(),
+                                        true,
+                                        desc.getText(),
+                                        "model"));
             try {
                 gui.closePopup();
             } catch (IOException e) {
@@ -56,23 +60,23 @@ public class AddDeviceController extends IController {
     }
 
     @Override
-    public void start(){
+    public void start() {
         errorMsg.setVisible(false);
-        AddDeviceButton.disableProperty().bind(uuid.textProperty().isEmpty().or(name.textProperty().isEmpty().or(desc.textProperty().isEmpty())));
+        addDeviceButton.disableProperty().bind(uuid.textProperty().isEmpty().or(name.textProperty().isEmpty().or(desc.textProperty().isEmpty())));
     }
 
     @Override
-    public void translate(){
+    public void translate() {
         System.out.println("Translating");
         addDeviceTitle.setText(localeSingleton.getTranslation("add_device"));
         addDeviceUUID.setText(localeSingleton.getTranslation("uuid"));
         addDeviceName.setText(localeSingleton.getTranslation("name"));
         addDeviceDescription.setText(localeSingleton.getTranslation("description"));
-        AddDeviceButton.setText(localeSingleton.getTranslation("add_device"));
+        addDeviceButton.setText(localeSingleton.getTranslation("add_device"));
     }
 
     @Override
-    public void initialize(){
+    public void initialize() {
         if (localeSingleton.isRightToLeft()) {
             mainBoio.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
         } else {

@@ -77,11 +77,16 @@ public class DeviceController extends IController {
     @FXML private Button backToList;
     @FXML private Label shareLabel, shareEmailLabel, shareRoleLabel, shareDescLabel;
 
+    private final int LOG_ENTRIES_AMOUNT = 30;
+
+    private final int WINDOW_WIDTH = 500;
+    private final int WINDOW_HEIGHT = 500;
+
     private void setUpCharts() {
         lineChart.getData().clear();
         XYChart.Series<String, Double> series = new XYChart.Series<>();
         series.setName(device.getName());
-        List<LogEntry> logs = client.getLogEntries(device, 30);
+        List<LogEntry> logs = client.getLogEntries(device, LOG_ENTRIES_AMOUNT);
         Trace.out(Trace.Level.DEV, "Loading logentries:");
         for (LogEntry i : logs) {
             Trace.out(Trace.Level.DEV, "\tLogEntry: " + i);
@@ -98,7 +103,7 @@ public class DeviceController extends IController {
     @FXML
     private void handleBackButton(){
         try {
-            gui.setScene("DevicesList", 500, 500);
+            gui.setScene("DevicesList", WINDOW_WIDTH, WINDOW_HEIGHT);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -170,7 +175,7 @@ public class DeviceController extends IController {
         }
     }
 
-    private HBox makeTheBox(String name, DeviceShare share){
+    private HBox makeTheBox(String name, DeviceShare share) {
         HBox hbox = new HBox();
         hbox.setPrefHeight(25.0);
         hbox.setPrefWidth(200.0);
@@ -236,7 +241,7 @@ public class DeviceController extends IController {
     }
 
     @Override
-    public void start(){
+    public void start() {
         device = gui.getCurrentDevice();
         radioDaily.setToggleGroup(toggleGroup);
         radioDaily.setSelected(true);

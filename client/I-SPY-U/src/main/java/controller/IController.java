@@ -27,8 +27,8 @@ public abstract class IController {
     @FXML
     private void handleCloseButtonAction(ActionEvent event) {
         List<Stage> stages = Window.getWindows().stream()
-            .filter(Stage.class::isInstance)
-            .map(Stage.class::cast)
+            .filter(Stage.class :: isInstance)
+            .map(Stage.class :: cast)
             .collect(Collectors.toList());
         for (Stage stage : stages) {
             stage.close();
@@ -39,17 +39,17 @@ public abstract class IController {
         this.gui = gui;
     }
 
-    public void start(){
+    public void start() {
         System.out.println("Starting");
     };
 
-    public void translate(){
+    public void translate() {
         System.out.println("Translating");
         //this we fill in separate controllers, and where we switch the text in labels and such
     }
 
     // TODO: FIX THIS UGLY HACK
-    public void hook(){}
+    public void hook() {}
 
     public void setLanguage() {
         localeSingleton.setLocale(localeSingleton.getAvailableLocales().get(languageDropdown.getSelectionModel().getSelectedIndex()));
@@ -74,7 +74,7 @@ public abstract class IController {
             setLanguage();
             translate();
         });
-        
+
 
         //this sets the button to always show globe emoji
         StringProperty fixedText = new SimpleStringProperty("🌐");

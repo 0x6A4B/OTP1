@@ -1,8 +1,6 @@
 package controller;
 
-import model.Device;
-import model.DeviceShare;
-import model.LogEntry;
+import model.*;
 
 import java.util.List;
 

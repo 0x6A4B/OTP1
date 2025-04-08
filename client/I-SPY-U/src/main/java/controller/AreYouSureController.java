@@ -18,9 +18,9 @@ public class AreYouSureController extends IController {
     @FXML private Label popUpTitle, warningText1, warningText2;
     @FXML private Button continueButton, cancelButton;
     @FXML private AnchorPane mainBoio;
-    
+
     @FXML
-    private void handleRemoveDevice(){
+    private void handleRemoveDevice() {
         System.out.println("Removing device "+gui.getCurrentDevice().getName());
         client.removeDevice(gui.getCurrentDevice());
         try {
@@ -37,7 +37,7 @@ public class AreYouSureController extends IController {
     }
 
     @Override
-    public void translate(){
+    public void translate() {
         System.out.println("Translating");
         popUpTitle.setText(localeSingleton.getTranslation("are_you_sure"));
         warningText1.setText(localeSingleton.getTranslation("you_are_removing_device"));
@@ -48,7 +48,7 @@ public class AreYouSureController extends IController {
 
 
     @Override
-    public void initialize(){
+    public void initialize() {
         if (localeSingleton.isRightToLeft()) {
             mainBoio.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
         } else {
