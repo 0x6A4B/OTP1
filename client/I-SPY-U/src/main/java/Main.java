@@ -3,17 +3,17 @@ import view.GUI;
 
 public class Main {
     public static void main(String[] args) {
-        //Client client = new Client();
+        //Client client = new Client()
 
-        //GUI.setClient(client);
+        //GUI.setClient(client)
         ConfigSingleton.getInstance();
         GUI.launch(GUI.class);
         
-        //LocaleSingleton.getInstance().setLocale(new Locale("fi", "FI"));
-        //LocaleSingleton.getInstance().setLocale(new Locale("ar", "AE"));
+        //LocaleSingleton.getInstance().setLocale(new Locale("fi", "FI"))
+        //LocaleSingleton.getInstance().setLocale(new Locale("ar", "AE"))
 
-        //AltView.launch(AltView.class);
+        //AltView.launch(AltView.class)
 
-        //Trace.out(Trace.Level.DEV, "Starting application");
+        //Trace.out(Trace.Level.DEV, "Starting application")
     }
 }
