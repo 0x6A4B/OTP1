@@ -37,7 +37,7 @@ public class UserParser implements ResponseParser {
                     + e.getMessage());
             }
         else if (response.contains("id"))
-            try{
+            try {
                 return new ObjectMapper().readValue(response, new TypeReference<User>() {});
             } catch (Exception e) {
                 Trace.out(Trace.Level.ERR, "Parsing error: "

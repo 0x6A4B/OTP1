@@ -9,7 +9,7 @@ import util.Trace;
 
 import java.util.List;
 
-public class DeviceParser implements ResponseParser{
+public class DeviceParser implements ResponseParser {
     private final String token = ConfigSingleton.getInstance().getToken();
 
 

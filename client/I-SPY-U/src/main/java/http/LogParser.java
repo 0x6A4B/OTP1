@@ -7,7 +7,7 @@ import model.LogEntry;
 import util.Trace;
 import java.util.List;
 
-public class LogParser implements ResponseParser{
+public class LogParser implements ResponseParser {
     private final ObjectMapper mapper = new ObjectMapper();
 
     public List<LogEntry> parseList(String response) {

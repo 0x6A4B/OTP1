@@ -99,7 +99,7 @@ public class ConfigSingleton {
 
     // Remember logged in user
     public void saveToken(){
-        try{
+        try {
             Properties prop = new Properties();
             prop.setProperty("token", token);
             Trace.out(Trace.Level.DEV, "Saving to file: " + userConfigFile);

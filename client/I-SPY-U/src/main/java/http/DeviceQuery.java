@@ -20,7 +20,7 @@ public class DeviceQuery extends HttpQuery {
     public List<Device> getDevices() {
         Trace.out(Trace.Level.DEV, ("devq.getdevices"));
         super.setEndpoint("/device");
-        try{
+        try {
             HttpResponse<String> response = super.get();
             return deviceParser.parseList(response.body());
         } catch (Exception e) {
@@ -39,7 +39,7 @@ public class DeviceQuery extends HttpQuery {
         } catch (Exception e){
             Trace.out(Trace.Level.ERR, "Failed to process json");
         }
-        try{
+        try {
             HttpResponse<String> response = super.post();
             // TODO: response exception
             return deviceParser.parse(response.body());
@@ -78,7 +78,7 @@ public class DeviceQuery extends HttpQuery {
 
     public Device getDevice(Long deviceId){
         super.setEndpoint(endpoint + "/" + deviceId);
-        try{
+        try {
             HttpResponse<String> response = super.get();
             // TODO: response exception
             return deviceParser.parse(response.body());

@@ -21,7 +21,7 @@ public class DeviceShareQuery extends HttpQuery {
     public List<DeviceShare> getSharedDevices() {
         System.out.println("devq.getdevices");
         super.setEndpoint(endpoint);
-        try{
+        try {
             HttpResponse<String> response = super.get();
             return deviceShareParser.parseList(response.body());
         } catch (Exception e) {
@@ -33,7 +33,7 @@ public class DeviceShareQuery extends HttpQuery {
     public List<DeviceShare> getDeviceShares(Device device) {
         System.out.println("devq.getdevicessahres for device:" + device.getName());
         super.setEndpoint(endpoint + "/" + device.getId());
-        try{
+        try {
             HttpResponse<String> response = super.get();
             return deviceShareParser.parseList(response.body());
         } catch (Exception e) {
@@ -53,7 +53,7 @@ public class DeviceShareQuery extends HttpQuery {
         } catch (Exception e){
             Trace.out(Trace.Level.ERR, "Failed to process json: " + e.getMessage());
         }
-        try{
+        try {
             HttpResponse<String> response = super.post();
             // TODO: response exception
             return deviceShareParser.parse(response.body());
@@ -75,7 +75,7 @@ public class DeviceShareQuery extends HttpQuery {
         } catch (Exception e){
             Trace.out(Trace.Level.ERR, "Failed to process json: " + e.getMessage());
         }
-        try{
+        try {
             HttpResponse<String> response = super.patch();
             // TODO: response exception
             return deviceShareParser.parse(response.body());
