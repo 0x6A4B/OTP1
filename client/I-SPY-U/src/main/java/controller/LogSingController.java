@@ -15,19 +15,31 @@ import model.User;
 import util.Trace;
 
 public class LogSingController extends AbstractController {
-    @FXML private TextField logInUsername, singUpEmail;
-    @FXML private PasswordField logInPassword, singUpPassword;
-    @FXML private Button logInButton, singUpButton;
-    @FXML private Label logInErrorMsg, singUpErrorMsg;
-    @FXML private CheckBox logInRememberMe, singUpRememberMe;
-    @FXML private TextField singUpUSername; //, singUpCity, singUpPostalCode;
+    @FXML private TextField logInUsername;
+    @FXML private TextField singUpEmail;
+    @FXML private PasswordField logInPassword;
+    @FXML private PasswordField singUpPassword;
+    @FXML private Button logInButton;
+    @FXML private Button singUpButton;
+    @FXML private Label logInErrorMsg;
+    @FXML private Label singUpErrorMsg;
+    @FXML private CheckBox logInRememberMe;
+    @FXML private CheckBox singUpRememberMe;
+    @FXML private TextField singUpUSername; //singUpCity, singUpPostalCode
 
     //these are for chanching text for localization
     @FXML private Tab logInTab;
-    @FXML private Label logInLabel, usernameLabel, passwordLabel;
+    @FXML private Label logInLabel;
+    @FXML private Label usernameLabel;
+    @FXML private Label passwordLabel;
 
     @FXML private Tab signUpTab;
-    @FXML private Label signUpLabel, signUpPasswordLabel, signUpUsernameLabel, signUpEmailLabel; //,signUpCityLabel, signUpPostalcodeLabel;
+    @FXML private Label signUpLabel;
+    @FXML private Label signUpPasswordLabel;
+    @FXML private Label signUpUsernameLabel;
+    @FXML private Label signUpEmailLabel;
+    String error = "error happened";
+    //signUpCityLabel, signUpPostalcodeLabel
 
     private User awnser;
 
@@ -38,7 +50,7 @@ public class LogSingController extends AbstractController {
     private void handleLogInButtonAction(ActionEvent event) {
         String username = logInUsername.getText();
         String password = logInPassword.getText();
-        String error = "error happened";
+        //error = "error happened"
         if (logInRememberMe.isSelected()) {
             Trace.out(Trace.Level.DEV, "Remember user");
             client.setRememberUser(true);
@@ -61,14 +73,14 @@ public class LogSingController extends AbstractController {
         String email = singUpEmail.getText();
         String password = singUpPassword.getText();
         String username = singUpUSername.getText();
-        /* String city = singUpCity.getText();
-        String postalCode = singUpPostalCode.getText(); */
+        /* String city = singUpCity.getText()
+        String postalCode = singUpPostalCode.getText() */
         // TODO: get user's name and address => faking it for now
         User user = new User(username, password, "active",
                 new Person("Urho Kaleva", "Kekkonen", email,
                         "Suomen maa kunta", "Suomen hienoin kaupunki", "42069"));
         awnser = client.register(user);
-        String error = "error happened";
+        //error = "error happened"
         if (singUpRememberMe.isSelected()) {
             client.setRememberUser(true);
         }
@@ -109,8 +121,8 @@ public class LogSingController extends AbstractController {
         signUpUsernameLabel.setText(localeSingleton.getTranslation("username"));
         signUpPasswordLabel.setText(localeSingleton.getTranslation("password"));
         signUpEmailLabel.setText(localeSingleton.getTranslation("email"));
-        /* signUpCityLabel.setText(localeSingleton.getTranslation("city"));
-        signUpPostalcodeLabel.setText(localeSingleton.getTranslation("postalcode")); */
+        /* signUpCityLabel.setText(localeSingleton.getTranslation("city"))
+        signUpPostalcodeLabel.setText(localeSingleton.getTranslation("postalcode")) */
         singUpButton.setText(localeSingleton.getTranslation("signup"));
         singUpRememberMe.setText(localeSingleton.getTranslation("remember_me"));
         singUpErrorMsg.setText(localeSingleton.getTranslation("error happened"));

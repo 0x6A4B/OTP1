@@ -1,6 +1,5 @@
 package controller;
 
-import java.io.IOException;
 import java.util.UUID;
 
 import javafx.event.ActionEvent;
@@ -17,12 +16,17 @@ import util.Trace;
 
 public class AddDeviceController extends AbstractController {
 
-    @FXML private TextField uuid, name, desc;
+    @FXML private TextField uuid;
+    @FXML private TextField name;
+    @FXML private TextField desc;
     @FXML private Label errorMsg;
     @FXML private Button addDeviceButton;
 
     //these are for chanhing text for localization
-    @FXML private Label addDeviceTitle, addDeviceUUID, addDeviceName, addDeviceDescription;
+    @FXML private Label addDeviceTitle;
+    @FXML private Label addDeviceUUID;
+    @FXML private Label addDeviceName;
+    @FXML private Label addDeviceDescription;
 
     @FXML
     private void handleAddDeviceButtonAction() {
@@ -39,11 +43,7 @@ public class AddDeviceController extends AbstractController {
                                         true,
                                         desc.getText(),
                                         "model"));
-            try {
-                gui.closePopup();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            gui.closePopup();
         } catch (Exception e) {
             errorMsg.setVisible(true);
             errorMsg.setText("Failed to create UUID, was it valid?");

@@ -23,26 +23,36 @@ import util.Trace;
 
 public class DeviceListController extends AbstractController {
 
-    private VBox devicesList, deviceDetails;
-    private Label deviceDetailsLabel, logEntriesCountLabel;
-    private ListView deviceDetailsListview;
+    private VBox devicesList;
+    private VBox deviceDetails;
+    private Label deviceDetailsLabel;
+    private Label logEntriesCountLabel;
+    private ListView<String> deviceDetailsListview;
     private Button openDeviceButton;
 
-    @FXML private VBox myDevicesList, sharedDevicesList;
+    @FXML private VBox myDevicesList;
+    @FXML private VBox sharedDevicesList;
 
-    @FXML private Tab ownDevicesTab, sharedDevicesTab;
+    @FXML private Tab ownDevicesTab;
+    @FXML private Tab sharedDevicesTab;
 
-    @FXML private VBox sharedDeviceDetails, ownDeviceDetails;
+    @FXML private VBox sharedDeviceDetails;
+    @FXML private VBox ownDeviceDetails;
 
-    @FXML private Button sharedOpenDeviceButton, ownOpenDeviceButton;
+    @FXML private Button sharedOpenDeviceButton;
+    @FXML private Button ownOpenDeviceButton;
 
-    @FXML private Button removeDeviceButton, removeShareButton, removeButton;
+    @FXML private Button removeDeviceButton;
+    @FXML private Button removeShareButton;
+    @FXML private Button removeButton;
 
-    @FXML private Label ownDeviceDetalsLabel, ownLogEntriesCountLabel;
-    @FXML private ListView ownDeviceDetalsListview;
+    @FXML private Label ownDeviceDetalsLabel;
+    @FXML private Label ownLogEntriesCountLabel;
+    @FXML private ListView<String> ownDeviceDetalsListview;
 
-    @FXML private Label sharedDeviceDetalsLabel, shareLogEntriesCountLabel;
-    @FXML private ListView sharedDeviceDetalsListview;
+    @FXML private Label sharedDeviceDetalsLabel;
+    @FXML private Label shareLogEntriesCountLabel;
+    @FXML private ListView<String> sharedDeviceDetalsListview;
 
     private List<Device> devices;
     private List<Device> sharedDevices = new ArrayList<Device>();
@@ -54,7 +64,8 @@ public class DeviceListController extends AbstractController {
     private Label newDeviceLabelSaver = addNewDeviceButton();
 
     //these are for chanching text for localization
-    @FXML private Label ownDevicesLogTitle, sharedDevicesLogTitle;
+    @FXML private Label ownDevicesLogTitle;
+    @FXML private Label sharedDevicesLogTitle;
     @FXML private Button logOutButton;
 
     static final int LOGSING_WINDOW_WIDTH = 300;
@@ -235,6 +246,7 @@ public class DeviceListController extends AbstractController {
         try {
             logEntriesCountLabel.setText(logEntriesCount + " " + localeSingleton.getTranslation("log_entries"));
         } catch (Exception e) {
+            //gotta catch exception dont know what to do with it
         }
         newDeviceLabelSaver.setText("+ " + localeSingleton.getTranslation("add_new_device"));
     }

@@ -41,8 +41,7 @@ public abstract class AbstractController {
 
     public void start() {
         Trace.out(Trace.Level.DEV, "Starting");
-
-    };
+    }
 
     public void translate() {
         Trace.out(Trace.Level.DEV, "Translating");
@@ -54,7 +53,7 @@ public abstract class AbstractController {
 
     public void setLanguage() {
         localeSingleton.setLocale(localeSingleton.getAvailableLocales().get(languageDropdown.getSelectionModel().getSelectedIndex()));
-        System.out.println("Language set to: " + localeSingleton.getLocale());
+        Trace.out(Trace.Level.DEV, "Language set to: " + localeSingleton.getLocale());
         if (localeSingleton.isRightToLeft()) {
             mainBoio.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
             Trace.out(Trace.Level.DEV, "Right to left");

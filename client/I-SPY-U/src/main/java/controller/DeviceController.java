@@ -14,7 +14,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
@@ -31,12 +30,16 @@ public class DeviceController extends AbstractController {
 
     private ToggleGroup toggleGroup = new ToggleGroup();
 
-    @FXML private RadioButton radioHourly, radioDaily, radioWeekly;
+    @FXML private RadioButton radioHourly;
+    @FXML private RadioButton radioDaily;
+    @FXML private RadioButton radioWeekly;
 
-    @FXML private TextField limitMin, limitMax;
+    @FXML private TextField limitMin;
+    @FXML private TextField limitMax;
     @FXML private Button setLimitsButton;
 
-    @FXML private Tab configTab, shareTab;
+    @FXML private Tab configTab;
+    @FXML private Tab shareTab;
 
     @FXML private TextField sharingEmail;
     @FXML private Button shareButton;
@@ -61,8 +64,6 @@ public class DeviceController extends AbstractController {
     @FXML private TextArea descTextBox;
     @FXML private Button editDescButton;
 
-    @FXML private TabPane tabPane;
-
     private Device device;
     private DeviceShare deviceShare = null;
     private Boolean editing = false;
@@ -72,12 +73,15 @@ public class DeviceController extends AbstractController {
     @FXML private NumberAxis chartYAxis;
     @FXML private Tab dataTab;
     @FXML private Button backToList;
-    @FXML private Label shareLabel, shareEmailLabel, shareRoleLabel, shareDescLabel;
+    @FXML private Label shareLabel;
+    @FXML private Label shareEmailLabel;
+    @FXML private Label shareRoleLabel;
+    @FXML private Label shareDescLabel;
 
-    private final int LOG_ENTRIES_AMOUNT = 30;
+    static final int LOG_ENTRIES_AMOUNT = 30;
 
-    private final int WINDOW_WIDTH = 500;
-    private final int WINDOW_HEIGHT = 500;
+    static final int WINDOW_WIDTH = 500;
+    static final int WINDOW_HEIGHT = 500;
 
     private void setUpCharts() {
         lineChart.getData().clear();
@@ -137,7 +141,7 @@ public class DeviceController extends AbstractController {
         Trace.out(Trace.Level.DEV, sharingEmail.getText());
         /* TODO WIP ota shareChoice ja sen mukaan laita sharen permission read/write */
 
-        DeviceShare deviceShare = new DeviceShare();
+        deviceShare = new DeviceShare();
         User user = new User(sharingEmail.getText(), "");
         sharingEmail.clear();
 
@@ -255,7 +259,7 @@ public class DeviceController extends AbstractController {
                 RadioButton selectedToggle = (RadioButton) newValue;
                 String selectedText = selectedToggle.getText();
                 chartLabel.setText(selectedText + " log entries");
-                //Tässä vaihtais charttia hourly, daily, weekly charts setUpCharts();
+                //Tässä vaihtais charttia hourly, daily, weekly charts setUpCharts()
             }
         });
 

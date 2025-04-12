@@ -15,8 +15,11 @@ import util.Trace;
 so best would be to make a popupmaker class (that could be a builder??) where popup is made */
 public class AreYouSureController extends AbstractController {
     
-    @FXML private Label popUpTitle, warningText1, warningText2;
-    @FXML private Button continueButton, cancelButton;
+    @FXML private Label popUpTitle;
+    @FXML private Label warningText1;
+    @FXML private Label warningText2;
+    @FXML private Button continueButton;
+    @FXML private Button cancelButton;
 
     @FXML
     private void handleRemoveDevice() {
