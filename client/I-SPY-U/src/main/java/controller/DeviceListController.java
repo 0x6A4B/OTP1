@@ -124,17 +124,22 @@ public class DeviceListController extends AbstractController {
         this.removeButton = removeDeviceButton;
     }
 
-    private void highlightSelectedDevice(MouseEvent event) {
+    @FXML
+    private void showDeviceDetails(MouseEvent event, Device dev) {
+        logEntriesCount = 0;
+        Calendar calendar = Calendar.getInstance();
+        Trace.out(Trace.Level.DEV, "ShowDevice: " + dev.getName());
         for (Node node : devicesList.getChildren()) {
             if (node instanceof Label) {
-                node.setStyle("-fx-background-color: white; -fx-border-color: Black;");
+            node.setStyle("-fx-background-color: white; -fx-border-color: Black;");
             }
         }
         ((Label) event.getSource()).setStyle("-fx-background-color: grey; -fx-border-color: Black;");
-    }
-
-    private void populateDeviceDetails(Device dev) {
-        Calendar calendar = Calendar.getInstance();
+        deviceDetails.setVisible(true);
+        openDeviceButton.setVisible(true);
+        removeButton.setVisible(true);
+        deviceDetailsLabel.setText(((Label) event.getSource()).getText());
+        deviceDetailsListview.getItems().clear();
         currentDevice = dev;
         List<LogEntry> entries = client.getLogEntries(dev);
         for (int i = 0; i < entries.size(); i++) {
@@ -142,19 +147,6 @@ public class DeviceListController extends AbstractController {
             calendar.setTime(entries.get(i).getDate());
             deviceDetailsListview.getItems().add(localeSingleton.getShortFormattedDateTime(entries.get(i).getDate()) + ": " + localeSingleton.getFormattedTemperature(Double.parseDouble(entries.get(i).getValue())));
         }
-    }
-
-    @FXML
-    private void showDeviceDetails(MouseEvent event, Device dev) {
-        logEntriesCount = 0;
-        Trace.out(Trace.Level.DEV, "ShowDevice: " + dev.getName());
-        highlightSelectedDevice(event);
-        deviceDetails.setVisible(true);
-        openDeviceButton.setVisible(true);
-        removeButton.setVisible(true);
-        deviceDetailsLabel.setText(((Label) event.getSource()).getText());
-        deviceDetailsListview.getItems().clear();
-        populateDeviceDetails(dev);
         logEntriesCountLabel.setText(logEntriesCount + " " + localeSingleton.getTranslation("log_entries"));
     }
 
