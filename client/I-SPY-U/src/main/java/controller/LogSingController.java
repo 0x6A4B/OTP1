@@ -1,7 +1,5 @@
 package controller;
 
-import java.io.IOException;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -60,7 +58,7 @@ public class LogSingController extends AbstractController {
             try {
                 gui.setUser(awnser);
                 gui.setScene("DevicesList", DEVICELIST_WINDOW_WIDTH, DEVICELIST_WINDOW_HEIGHT);
-            } catch (IOException e) {
+            } catch (Exception e) {
                 Trace.out(Trace.Level.ERR, "Error switching scenes: "+e.getMessage());
             }
         } else {
@@ -89,7 +87,7 @@ public class LogSingController extends AbstractController {
                 gui.setUser(awnser);
                 client.login(user); // logging in with new user
                 gui.setScene("DevicesList", 500, 500);
-            } catch (IOException e) {
+            } catch (Exception e) {
                 Trace.out(Trace.Level.ERR, "Error switching scenes: "+e.getMessage());
             }
         } else {

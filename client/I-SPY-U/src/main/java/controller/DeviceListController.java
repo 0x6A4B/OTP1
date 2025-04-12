@@ -97,7 +97,7 @@ public class DeviceListController extends AbstractController {
         try {
             gui.setCurrentDevice(currentDevice);
             gui.setScene("Device", DEVICE_WINDOW_WIDTH, DEVICE_WINDOW_HEIGHT);
-        } catch (IOException e) {
+        } catch (Exception e) {
             Trace.out(Trace.Level.ERR, "Error switching scenes: "+e.getMessage());
         }
     }
@@ -153,7 +153,7 @@ public class DeviceListController extends AbstractController {
     private void addNewDevice(MouseEvent event) {
         try {
             gui.openPopup("AddDeviceWindow", ADD_WINDOW_WIDTH, ADD_WINDOW_HEIGHT, this);
-        } catch (IOException e) {
+        } catch (Exception e) {
             Trace.out(Trace.Level.ERR, "Error switching scenes: "+e.getMessage());
         }
     }
@@ -163,7 +163,7 @@ public class DeviceListController extends AbstractController {
         client.logout();
         try {
             gui.setScene("LogSingUp", LOGSING_WINDOW_WIDTH, LOGSING_WINDOW_HEIGHT);
-        } catch (IOException e) {
+        } catch (Exception e) {
             Trace.out(Trace.Level.ERR, "Error switching scenes: "+e.getMessage());
             
         }
@@ -175,7 +175,7 @@ public class DeviceListController extends AbstractController {
         gui.setCurrentDevice(currentDevice);
         try {
             gui.openPopup("AreYouSurePopup", POPUP_WINDOW_WIDTH, POPUP_WINDOW_HEIGHT, this);
-        } catch (IOException e) {
+        } catch (Exception e) {
             Trace.out(Trace.Level.ERR, "Error switching scenes: "+e.getMessage());
         }
     }

@@ -27,7 +27,7 @@ public class AreYouSureController extends AbstractController {
         client.removeDevice(gui.getCurrentDevice());
         try {
             gui.closePopup();
-        } catch (IOException e) {
+        } catch (Exception e) {
             Trace.out(Trace.Level.ERR, "Error removing device: "+e.getMessage());
         }
     }
