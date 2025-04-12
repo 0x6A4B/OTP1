@@ -61,7 +61,7 @@ public class LogSingController extends AbstractController {
                 gui.setUser(awnser);
                 gui.setScene("DevicesList", DEVICELIST_WINDOW_WIDTH, DEVICELIST_WINDOW_HEIGHT);
             } catch (IOException e) {
-                e.printStackTrace();
+                Trace.out(Trace.Level.ERR, "Error switching scenes: "+e.getMessage());
             }
         } else {
             setErrorMsg(error);
@@ -90,7 +90,7 @@ public class LogSingController extends AbstractController {
                 client.login(user); // logging in with new user
                 gui.setScene("DevicesList", 500, 500);
             } catch (IOException e) {
-                e.printStackTrace();
+                Trace.out(Trace.Level.ERR, "Error switching scenes: "+e.getMessage());
             }
         } else {
             setErrorMsg(error);

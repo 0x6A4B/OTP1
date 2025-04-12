@@ -2,5 +2,5 @@ projectKey=ispyufrontend
 serverUrl=http://localhost:9999
 serverVersion=25.4.0.105899
 dashboardUrl=http://localhost:9999/dashboard?id=ispyufrontend
-ceTaskId=30c1068a-c9bd-4837-8bf3-6321edd73833
-ceTaskUrl=http://localhost:9999/api/ce/task?id=30c1068a-c9bd-4837-8bf3-6321edd73833
+ceTaskId=9a1faf7c-ef38-4793-8334-060659d81c00
+ceTaskUrl=http://localhost:9999/api/ce/task?id=9a1faf7c-ef38-4793-8334-060659d81c00

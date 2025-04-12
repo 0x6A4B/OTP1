@@ -98,7 +98,7 @@ public class DeviceListController extends AbstractController {
             gui.setCurrentDevice(currentDevice);
             gui.setScene("Device", DEVICE_WINDOW_WIDTH, DEVICE_WINDOW_HEIGHT);
         } catch (IOException e) {
-            e.printStackTrace();
+            Trace.out(Trace.Level.ERR, "Error switching scenes: "+e.getMessage());
         }
     }
 
@@ -154,7 +154,7 @@ public class DeviceListController extends AbstractController {
         try {
             gui.openPopup("AddDeviceWindow", ADD_WINDOW_WIDTH, ADD_WINDOW_HEIGHT, this);
         } catch (IOException e) {
-            e.printStackTrace();
+            Trace.out(Trace.Level.ERR, "Error switching scenes: "+e.getMessage());
         }
     }
 
@@ -164,7 +164,8 @@ public class DeviceListController extends AbstractController {
         try {
             gui.setScene("LogSingUp", LOGSING_WINDOW_WIDTH, LOGSING_WINDOW_HEIGHT);
         } catch (IOException e) {
-            e.printStackTrace();
+            Trace.out(Trace.Level.ERR, "Error switching scenes: "+e.getMessage());
+            
         }
     }
 
@@ -175,7 +176,7 @@ public class DeviceListController extends AbstractController {
         try {
             gui.openPopup("AreYouSurePopup", POPUP_WINDOW_WIDTH, POPUP_WINDOW_HEIGHT, this);
         } catch (IOException e) {
-            e.printStackTrace();
+            Trace.out(Trace.Level.ERR, "Error switching scenes: "+e.getMessage());
         }
     }
 

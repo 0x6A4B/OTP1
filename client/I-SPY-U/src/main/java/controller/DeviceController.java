@@ -106,7 +106,7 @@ public class DeviceController extends AbstractController {
         try {
             gui.setScene("DevicesList", WINDOW_WIDTH, WINDOW_HEIGHT);
         } catch (Exception e) {
-            e.printStackTrace();
+            Trace.out(Trace.Level.ERR, "Error in switching scenes: "+e.getMessage());
         }
     }
 
