@@ -10,16 +10,14 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.Device;
 import util.ConfigSingleton;
 import util.Trace;
 
-public class AddDeviceController extends IController {
+public class AddDeviceController extends AbstractController {
 
     @FXML private TextField uuid, name, desc;
-    @FXML private AnchorPane mainBoio;
     @FXML private Label errorMsg;
     @FXML private Button addDeviceButton;
 
@@ -28,10 +26,10 @@ public class AddDeviceController extends IController {
 
     @FXML
     private void handleAddDeviceButtonAction() {
-        System.out.println("Adding device...");
-        System.out.println(uuid.getText());
-        System.out.println(name.getText());
-        System.out.println(desc.getText());
+        Trace.out(Trace.Level.DEV, "Adding device...");
+        Trace.out(Trace.Level.DEV, String.valueOf(uuid.getText()));
+        Trace.out(Trace.Level.DEV, String.valueOf(name.getText()));
+        Trace.out(Trace.Level.DEV, String.valueOf(desc.getText()));
 
         try {
             UUID realUuid = UUID.fromString(uuid.getText());
@@ -67,7 +65,7 @@ public class AddDeviceController extends IController {
 
     @Override
     public void translate() {
-        System.out.println("Translating");
+        Trace.out(Trace.Level.DEV, "Translating");
         addDeviceTitle.setText(localeSingleton.getTranslation("add_device"));
         addDeviceUUID.setText(localeSingleton.getTranslation("uuid"));
         addDeviceName.setText(localeSingleton.getTranslation("name"));

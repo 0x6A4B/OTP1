@@ -14,10 +14,10 @@ import model.Person;
 import model.User;
 import util.Trace;
 
-public class LogSingController extends IController {
+public class LogSingController extends AbstractController {
     @FXML private TextField logInUsername, singUpEmail;
     @FXML private PasswordField logInPassword, singUpPassword;
-    @FXML private Button logInButtonm, singUpButton;
+    @FXML private Button logInButton, singUpButton;
     @FXML private Label logInErrorMsg, singUpErrorMsg;
     @FXML private CheckBox logInRememberMe, singUpRememberMe;
     @FXML private TextField singUpUSername; //, singUpCity, singUpPostalCode;
@@ -31,8 +31,8 @@ public class LogSingController extends IController {
 
     private User awnser;
 
-    private final int DEVICELIST_WINDOW_WIDTH = 500;
-    private final int DEVICELIST_WINDOW_HEIGHT = 500;
+    static final int DEVICELIST_WINDOW_WIDTH = 500;
+    static final int DEVICELIST_WINDOW_HEIGHT = 500;
 
     @FXML
     private void handleLogInButtonAction(ActionEvent event) {
@@ -94,7 +94,7 @@ public class LogSingController extends IController {
 
     @Override
     public void translate() {
-        System.out.println("Translating");
+        Trace.out(Trace.Level.DEV, "Translating");
 
         logInTab.setText(localeSingleton.getTranslation("login"));
         logInLabel.setText(localeSingleton.getTranslation("login"));

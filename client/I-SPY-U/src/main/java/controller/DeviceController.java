@@ -13,7 +13,6 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
@@ -28,7 +27,7 @@ import model.LogEntry;
 import model.User;
 import util.Trace;
 
-public class DeviceController extends IController {
+public class DeviceController extends AbstractController {
 
     private ToggleGroup toggleGroup = new ToggleGroup();
 
@@ -42,9 +41,9 @@ public class DeviceController extends IController {
     @FXML private TextField sharingEmail;
     @FXML private Button shareButton;
 
-    @FXML private Label actionItemLabel;
+    /* @FXML private Label actionItemLabel;
     @FXML private TextField actionInput;
-    @FXML private Button setActionButton;
+    @FXML private Button setActionButton; */
 
     @FXML private ChoiceBox<String> actionChoice;
 
@@ -62,10 +61,8 @@ public class DeviceController extends IController {
     @FXML private TextArea descTextBox;
     @FXML private Button editDescButton;
 
-    private SingleSelectionModel<Tab> selectionModel;
     @FXML private TabPane tabPane;
 
-    private User user;
     private Device device;
     private DeviceShare deviceShare = null;
     private Boolean editing = false;
@@ -136,8 +133,8 @@ public class DeviceController extends IController {
  */
     @FXML
     private void handleShare() {
-        System.out.println("sharing Happening");
-        System.out.println(sharingEmail.getText());
+        Trace.out(Trace.Level.DEV, "sharing Happening");
+        Trace.out(Trace.Level.DEV, sharingEmail.getText());
         /* TODO WIP ota shareChoice ja sen mukaan laita sharen permission read/write */
 
         DeviceShare deviceShare = new DeviceShare();
@@ -157,7 +154,7 @@ public class DeviceController extends IController {
     @FXML
     private void handleEditDesc() {
         if (editing) {
-            System.out.println("saved desc");
+            Trace.out(Trace.Level.DEV, "saved desc");
             descLabel.setVisible(true);
             descTextBox.setVisible(false);
             editDescButton.setText(localeSingleton.getTranslation("edit_description"));
@@ -167,7 +164,7 @@ public class DeviceController extends IController {
             client.updateDeviceShare(deviceShare);
             editing = false;
         } else {
-            System.out.println("edit desc");
+            Trace.out(Trace.Level.DEV, "edit desc");
             editing = true;
             descLabel.setVisible(false);
             descTextBox.setVisible(true);
@@ -211,7 +208,7 @@ public class DeviceController extends IController {
 
     @Override
     public void translate() {
-        System.out.println("Translating");
+        Trace.out(Trace.Level.DEV, "Translating");
 
         backToList.setText(localeSingleton.getTranslation("back_to_devicelist"));
 
@@ -267,7 +264,6 @@ public class DeviceController extends IController {
 
         actionChoice.setValue("Select an action");
 
-        selectionModel = tabPane.getSelectionModel();
         setUpCharts();
         configTab.setDisable(true);
 

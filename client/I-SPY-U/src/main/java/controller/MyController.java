@@ -2,7 +2,7 @@ package controller;
 
 import java.io.IOException;
 
-public class MyController extends IController {
+public class MyController extends AbstractController {
 
     public void showLogSingUP() {
         try {

@@ -2,7 +2,7 @@ package view;
 
 import java.io.IOException;
 
-import controller.IController;
+import controller.AbstractController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -22,7 +22,7 @@ public class GUI extends Application {
     private User user;
     private Device currentDevice;
     private DeviceShare currentShare;
-    private IController kontrolleri;
+    private AbstractController kontrolleri;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -90,9 +90,9 @@ public class GUI extends Application {
 
 
     // TODO: FIX THIS HACK
-    private IController popupCtrl;
+    private AbstractController popupCtrl;
 
-    public void openPopup(String fxml, int width, int height, IController popupCtrl) throws IOException {
+    public void openPopup(String fxml, int width, int height, AbstractController popupCtrl) throws IOException {
         System.out.println("Opening popup "+fxml);
         popupStage = new Stage();   // we need to create new if popup is called again
         popupStage.initStyle(StageStyle.UNDECORATED);

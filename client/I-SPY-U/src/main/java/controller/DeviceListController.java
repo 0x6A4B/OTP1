@@ -21,7 +21,7 @@ import model.DeviceShare;
 import model.LogEntry;
 import util.Trace;
 
-public class DeviceListController extends IController {
+public class DeviceListController extends AbstractController {
 
     private VBox devicesList, deviceDetails;
     private Label deviceDetailsLabel, logEntriesCountLabel;
@@ -57,17 +57,17 @@ public class DeviceListController extends IController {
     @FXML private Label ownDevicesLogTitle, sharedDevicesLogTitle;
     @FXML private Button logOutButton;
 
-    private final int LOGSING_WINDOW_WIDTH = 300;
-    private final int LOGSING_WINDOW_HEIGHT = 400;
+    static final int LOGSING_WINDOW_WIDTH = 300;
+    static final int LOGSING_WINDOW_HEIGHT = 400;
 
-    private final int POPUP_WINDOW_WIDTH = 300;
-    private final int POPUP_WINDOW_HEIGHT = 190;
+    static final int POPUP_WINDOW_WIDTH = 300;
+    static final int POPUP_WINDOW_HEIGHT = 190;
 
-    private final int ADD_WINDOW_WIDTH = 300;
-    private final int ADD_WINDOW_HEIGHT = 350;
+    static final int ADD_WINDOW_WIDTH = 300;
+    static final int ADD_WINDOW_HEIGHT = 350;
 
-    private final int DEVICE_WINDOW_WIDTH = 500;
-    private final int DEVICE_WINDOW_HEIGHT = 500;
+    static final int DEVICE_WINDOW_WIDTH = 500;
+    static final int DEVICE_WINDOW_HEIGHT = 500;
 
     private Label createNewDeviceLabel(Device dev) {
         Label deviceLabel = new Label(dev.getName());
@@ -82,7 +82,7 @@ public class DeviceListController extends IController {
 
     @FXML
     private void openDevice(ActionEvent event) {
-        System.out.println("Open own device"+currentDevice);
+        Trace.out(Trace.Level.DEV, "Open own device"+currentDevice);
         try {
             gui.setCurrentDevice(currentDevice);
             gui.setScene("Device", DEVICE_WINDOW_WIDTH, DEVICE_WINDOW_HEIGHT);
@@ -171,7 +171,7 @@ public class DeviceListController extends IController {
     // TODO: FIX UGLY HACK
     @Override
     public void hook() {
-        System.out.println("HOOK");
+        Trace.out(Trace.Level.DEV, "HOOK");
         devices = client.getDevices(gui.getUser());
         getDevices(myDevicesList, devices, true);
         ownDeviceDetails.setVisible(false);
@@ -219,7 +219,7 @@ public class DeviceListController extends IController {
 
     @Override
     public void translate() {
-        System.out.println("Translating");
+        Trace.out(Trace.Level.DEV, "Translating");
 
         logOutButton.setText(localeSingleton.getTranslation("logout"));
 
@@ -263,7 +263,7 @@ public class DeviceListController extends IController {
         switchToOwnDevices();
 
         ownDevicesTab.setOnSelectionChanged(e -> {
-            System.err.println("Tab changed own devices tab is: " + ownDevicesTab.isSelected());
+            Trace.out(Trace.Level.DEV, "Tab changed own devices tab is: " + ownDevicesTab.isSelected());
             if (ownDevicesTab.isSelected()) {
                 switchToOwnDevices();
             } else {

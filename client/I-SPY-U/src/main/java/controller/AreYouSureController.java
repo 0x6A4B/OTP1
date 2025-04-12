@@ -8,20 +8,19 @@ import javafx.geometry.NodeOrientation;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import util.Trace;
 
 /*TODO make this into a popup that can be used everywhere
 so best would be to make a popupmaker class (that could be a builder??) where popup is made */
-public class AreYouSureController extends IController {
+public class AreYouSureController extends AbstractController {
     
     @FXML private Label popUpTitle, warningText1, warningText2;
     @FXML private Button continueButton, cancelButton;
-    @FXML private AnchorPane mainBoio;
 
     @FXML
     private void handleRemoveDevice() {
-        System.out.println("Removing device "+gui.getCurrentDevice().getName());
+        Trace.out(Trace.Level.DEV, "Removing device "+gui.getCurrentDevice().getName());
         client.removeDevice(gui.getCurrentDevice());
         try {
             gui.closePopup();
@@ -38,7 +37,7 @@ public class AreYouSureController extends IController {
 
     @Override
     public void translate() {
-        System.out.println("Translating");
+        Trace.out(Trace.Level.DEV, "Translating");
         popUpTitle.setText(localeSingleton.getTranslation("are_you_sure"));
         warningText1.setText(localeSingleton.getTranslation("you_are_removing_device"));
         warningText2.setText(localeSingleton.getTranslation("destructive_action"));
