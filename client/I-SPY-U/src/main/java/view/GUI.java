@@ -51,7 +51,6 @@ public class GUI extends Application {
         try {
             loaded = loader.load();
         } catch (IOException e) {
-            e.printStackTrace();
             Trace.out(Trace.Level.ERR, "Failed to get load: " + e.getMessage());
         }
         //IController
