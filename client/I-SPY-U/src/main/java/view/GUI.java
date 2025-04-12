@@ -9,19 +9,16 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import model.Client;
 import model.Device;
-import model.DeviceShare;
 import model.User;
 import util.ConfigSingleton;
+import util.Trace;
 
 public class GUI extends Application {
     private Scene scene;
     private Stage popupStage;
-    private Client service;
     private User user;
     private Device currentDevice;
-    private DeviceShare currentShare;
     private AbstractController kontrolleri;
 
     @Override
@@ -34,14 +31,14 @@ public class GUI extends Application {
                 && !ConfigSingleton.getInstance().getToken().isEmpty();
         // End of check
 
-        System.out.println("Loading FXML file...");
+        Trace.out(Trace.Level.DEV, "Loading FXML file...");
 
         if (!tokenExists)
             scene = new Scene(getLoader("LogSingUp"), 300, 400);
         else
             scene = new Scene(getLoader("DevicesList"), 500, 500);
 
-        System.out.println("FXML file loaded successfully.");
+        Trace.out(Trace.Level.DEV, "FXML file loaded successfully.");
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setTitle("I-SPY-U");
         stage.setScene(scene);
@@ -55,16 +52,17 @@ public class GUI extends Application {
             loaded = loader.load();
         } catch (IOException e) {
             e.printStackTrace();
+            Trace.out(Trace.Level.ERR, "Failed to get load: " + e.getMessage());
         }
         //IController
         kontrolleri = loader.getController();
-        System.out.println("kontrolleri: "+loader.getController());
+        Trace.out(Trace.Level.DEV, "kontrolleri: "+loader.getController());
         kontrolleri.setGUI(this);
         kontrolleri.start();
         return loaded;
     }
 
-    public void setScene(String fxml, int width, int height) throws IOException {
+    public void setScene(String fxml, int width, int height) {
         scene.setRoot(getLoader(fxml));
         Stage stage = (Stage) scene.getWindow();
         stage.setWidth(width);
@@ -92,8 +90,8 @@ public class GUI extends Application {
     // TODO: FIX THIS HACK
     private AbstractController popupCtrl;
 
-    public void openPopup(String fxml, int width, int height, AbstractController popupCtrl) throws IOException {
-        System.out.println("Opening popup "+fxml);
+    public void openPopup(String fxml, int width, int height, AbstractController popupCtrl) {
+        Trace.out(Trace.Level.DEV, "Opening popup "+fxml);
         popupStage = new Stage();   // we need to create new if popup is called again
         popupStage.initStyle(StageStyle.UNDECORATED);
 
@@ -107,7 +105,7 @@ public class GUI extends Application {
         popupStage.show();
     }
 
-    public void closePopup() throws IOException {
+    public void closePopup() {
         popupStage.close();
         popupCtrl.hook();
         popupCtrl = null;

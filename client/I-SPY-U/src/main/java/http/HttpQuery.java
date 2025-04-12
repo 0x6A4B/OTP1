@@ -1,13 +1,13 @@
 package http;
 
-import util.ConfigSingleton;
-import util.Trace;
-
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.concurrent.CompletableFuture;
+
+import util.ConfigSingleton;
+import util.Trace;
 
 public abstract class HttpQuery {
     protected static String apiUrl = ConfigSingleton.getInstance().getApiUrl();
@@ -134,7 +134,7 @@ public abstract class HttpQuery {
             //if not 204 || 200 then fucked are we
             return response;
         } catch (Exception e) {
-            e.printStackTrace();
+            Trace.out(Trace.Level.ERR, "UPDATE request failed: "+e.getMessage());
         }
         return null;
     }

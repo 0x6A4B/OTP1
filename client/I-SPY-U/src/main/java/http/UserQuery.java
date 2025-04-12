@@ -1,12 +1,14 @@
 package http;
 
+import java.net.http.HttpResponse;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+
 import model.User;
 import util.ConfigSingleton;
 import util.Trace;
-import java.net.http.HttpResponse;
 
 public class UserQuery extends HttpQuery {
 
@@ -75,7 +77,6 @@ public class UserQuery extends HttpQuery {
             //return userParser.parse(response.body());
         }catch(Exception e){
             Trace.out(Trace.Level.ERR, "Error in registering user or reading response");
-            e.printStackTrace();
         }
 
 
