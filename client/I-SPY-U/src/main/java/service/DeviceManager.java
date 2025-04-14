@@ -40,7 +40,7 @@ public class DeviceManager implements IManager {
     // TODO: API not supporting this
     @Override
     public boolean removeAll(Object o){
-        return deviceQuery.removeAllDevices(o);
+        return deviceQuery.removeAllDevices();
     }
 
     // TODO: implement

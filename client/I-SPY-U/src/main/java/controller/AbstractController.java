@@ -1,7 +1,6 @@
 package controller;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -15,21 +14,23 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import model.Client;
 import util.LocaleSingleton;
+import util.Trace;
 import view.GUI;
 
-public abstract class IController {
+public abstract class AbstractController {
     protected GUI gui;
     protected Client client = new Client();
     @FXML protected AnchorPane mainBoio;
     @FXML protected ComboBox<String> languageDropdown;
     LocaleSingleton localeSingleton = LocaleSingleton.getInstance();
 
+    //this gets all windows and closes them, so if a popup is open it closes it aswell
     @FXML
     private void handleCloseButtonAction(ActionEvent event) {
         List<Stage> stages = Window.getWindows().stream()
-            .filter(Stage.class::isInstance)
-            .map(Stage.class::cast)
-            .collect(Collectors.toList());
+            .filter(Stage.class :: isInstance)
+            .map(Stage.class :: cast)
+            .toList();
         for (Stage stage : stages) {
             stage.close();
         }
@@ -39,48 +40,46 @@ public abstract class IController {
         this.gui = gui;
     }
 
-    public void setClient(Client client) {
-        //this.client = client;
+    public void start() {
+        Trace.out(Trace.Level.DEV, "Starting");
     }
 
-    public void start(){
-        System.out.println("Starting");
-    };
-
-    public void translate(){
-        System.out.println("Translating");
+    public void translate() {
+        Trace.out(Trace.Level.DEV, "Translating");
         //this we fill in separate controllers, and where we switch the text in labels and such
     }
 
     // TODO: FIX THIS UGLY HACK
-    public void hook(){}
+    public void hook() {}
 
     public void setLanguage() {
         localeSingleton.setLocale(localeSingleton.getAvailableLocales().get(languageDropdown.getSelectionModel().getSelectedIndex()));
-        System.out.println("Language set to: " + localeSingleton.getLocale());
+        Trace.out(Trace.Level.DEV, "Language set to: " + localeSingleton.getLocale());
         if (localeSingleton.isRightToLeft()) {
             mainBoio.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
-            System.out.println("Right to left");
+            Trace.out(Trace.Level.DEV, "Right to left");
         } else {
             mainBoio.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
-            System.out.println("Left to right");
+            Trace.out(Trace.Level.DEV, "Left to right");
         }
     }
 
     @FXML
     public void initialize() {
+        //reason for this initialize is so that language drowpdown is the same in all views
+        //here we get all the languages and put them into the dropdown
         localeSingleton.getAvailableLocales().forEach(l -> languageDropdown.getItems().add(localeSingleton.getLanguageName(l)));
-        System.out.println(localeSingleton.getLocale());
-        System.out.println(localeSingleton.getAvailableLocales().indexOf(localeSingleton.getLocale()));
+        Trace.out(Trace.Level.DEV, String.valueOf(localeSingleton.getLocale()));
+        Trace.out(Trace.Level.DEV, String.valueOf(localeSingleton.getAvailableLocales().indexOf(localeSingleton.getLocale())));
         languageDropdown.getSelectionModel().select(localeSingleton.getAvailableLocales().indexOf(localeSingleton.getLocale()));
         languageDropdown.setPrefWidth(54);
         languageDropdown.setOnAction(event -> {
             setLanguage();
             translate();
         });
-        
 
-        //this sets the button to always show globe emoji
+
+        //here we set the dropdown to show the globe icon instead of the language name
         StringProperty fixedText = new SimpleStringProperty("🌐");
         languageDropdown.setButtonCell(new ListCell<String>() {
             @Override
@@ -95,10 +94,10 @@ public abstract class IController {
         });
         if (localeSingleton.isRightToLeft()) {
             mainBoio.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
-            System.out.println("Right to left");
+            Trace.out(Trace.Level.DEV, "Right to left");
         } else {
             mainBoio.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
-            System.out.println("Left to right");
+            Trace.out(Trace.Level.DEV, "Left to right");
         }
         translate();
     }

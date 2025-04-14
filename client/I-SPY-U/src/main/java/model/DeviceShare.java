@@ -20,7 +20,6 @@ public class DeviceShare {
     public DeviceShare(Device device, User user, String privilege, String description){
         this.device = device;
         this.user = user;
-        this.sharedDate = sharedDate;
         this.privilege = privilege;
         this.description = description;
     }
@@ -41,7 +40,7 @@ public class DeviceShare {
     public Device getDevice() {
         return device;
     }
-    public User getUser() { return user; };
+    public User getUser() { return user; }
     public Date getSharedDate() { return sharedDate; }
     public String getPrivilege() { return privilege; }
     public String getDescription() { return description; }
@@ -65,7 +64,6 @@ public class DeviceShare {
 
     @Override
     public String toString(){
-        //return id + " - " + name + " - " + description;
         // Return JSON
         return "{"
                 + "\"id\":\"" + id + "\","
@@ -75,9 +73,5 @@ public class DeviceShare {
                 + "\"privilege\":\"" + privilege + "\""
                 + "}";
     }
-//
-//    @Override
-//    public String toString() {
-//        return this.user.getUsername() + " " + this.device.getId();
-//    };
+
 }

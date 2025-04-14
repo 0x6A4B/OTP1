@@ -34,7 +34,7 @@ public class LogQuery extends HttpQuery {
         }catch (Exception e){
             Trace.out(Trace.Level.ERR, "Error in fetching logs: " + e.getMessage());
         }
-        return null;
+        return List.of();
     }
 
     public LogEntry getLogEntry(Long id) {

@@ -7,7 +7,7 @@ import util.Trace;
 
 import java.util.List;
 
-public class LogManager implements IManager{
+public class LogManager implements IManager {
     private final LogQuery logQuery = new LogQuery();
 
     @Override

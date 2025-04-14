@@ -2,7 +2,6 @@ package http;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import model.Device;
 import util.ConfigSingleton;
 import model.User;
 import org.json.JSONObject;
@@ -10,11 +9,11 @@ import util.Trace;
 
 import java.util.List;
 
-public class UserParser implements ResponseParser {
+public class UserParser implements ResponseParser<User> {
 
     @Override
-    public List<Object> parseList(String response){
-        return null;
+    public List<User> parseList(String response){
+        return List.of();
     }
 
     @Override
@@ -37,7 +36,7 @@ public class UserParser implements ResponseParser {
                     + e.getMessage());
             }
         else if (response.contains("id"))
-            try{
+            try {
                 return new ObjectMapper().readValue(response, new TypeReference<User>() {});
             } catch (Exception e) {
                 Trace.out(Trace.Level.ERR, "Parsing error: "

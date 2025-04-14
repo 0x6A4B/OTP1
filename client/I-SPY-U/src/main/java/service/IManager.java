@@ -1,7 +1,6 @@
 package service;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface IManager<T, S> {
     public T read(S s);

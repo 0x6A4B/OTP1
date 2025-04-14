@@ -19,7 +19,6 @@ public class Person {
     }
     public Person(String firstname, String lastname, String email, String street, String city, String postalcode){
         super();
-        //this.userid = userid;
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
@@ -30,7 +29,6 @@ public class Person {
     }
 
     public Long getId(){ return id; }
-    //public Long getUserId(){ return userid; }
     public String getFirstName(){ return firstname; }
     public String getLastName(){ return lastname; }
     public String getEmail(){ return email; }
@@ -39,7 +37,6 @@ public class Person {
     public String getPostalCode(){ return postalcode; }
 
     public void setId(Long id){ this.id = id; }
-    //public void setUserId(Long userid){ this.userid = userid; }
     public void setFirstName(String firstname){ this.firstname = firstname; }
     public void setLastName(String lastname){ this.lastname = lastname; }
     public void setEmail(String email){ this.email = email; }

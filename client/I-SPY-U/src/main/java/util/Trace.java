@@ -10,7 +10,7 @@ public class Trace {
 	/**
 	 * Enum representing the trace levels: INFO, WARNING (WAR), ERROR (ERR).
 	 */
-	public enum Level{DEV, INFO, WAR, ERR}
+	public enum Level {DEV, INFO, WAR, ERR}
 
 	/**
 	 * The current trace level.

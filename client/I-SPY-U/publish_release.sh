@@ -1,4 +1,16 @@
 #!/bin/bash
+echo "Starting sonarqube"
+
+SONAR_TOKEN=sqp_e4e859d9cac79c1d19a2832690208fb3a2e3df64
+
+mvn clean verify sonar:sonar \
+  -f client/I-SPY-U/pom.xml \
+  -Dsonar.projectKey=OTP \
+  -Dsonar.projectName='OTP' \
+  -Dsonar.host.url=http://192.168.1.103:9000 \
+  -Dsonar.token=$SONAR_TOKEN
+
+
 
 echo "Starting publishing of JAR to GitHub releases..." &&
 

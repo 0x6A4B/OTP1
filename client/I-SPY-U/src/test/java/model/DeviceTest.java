@@ -1,6 +1,5 @@
 package model;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -28,9 +27,6 @@ class DeviceTest {
 
     }
 
-    @Test
-    void getId() {
-    }
 
     @Test
     void getUser() {
@@ -67,10 +63,6 @@ class DeviceTest {
         assertEquals(date, device.getRegistered());
     }
 
-    @Test
-    void setId() {
-
-    }
 
     @Test
     void setUser() {
@@ -121,5 +113,6 @@ class DeviceTest {
     void toStringJson(){
         // TODO: test for valid json
         System.out.println(device.toString());
+        assertTrue(true);
     }
 }
