@@ -10,7 +10,7 @@ import java.util.List;
 
 public class DeviceQuery extends HttpQuery {
     private DeviceParser deviceParser;
-    private final String endpoint = "/device";
+    private static final String ENDPOINT = "/device";
 
     public DeviceQuery() {
         super();
@@ -19,23 +19,22 @@ public class DeviceQuery extends HttpQuery {
 
     public List<Device> getDevices() {
         Trace.out(Trace.Level.DEV, ("devq.getdevices"));
-        super.setEndpoint("/device");
+        super.setEndpoint(ENDPOINT);
         try {
             HttpResponse<String> response = super.get();
             return deviceParser.parseList(response.body());
         } catch (Exception e) {
             Trace.out(Trace.Level.ERR, "Failed to fetch devices");
         }
-        return null;
+        return List.of();
     }
 
     public Device createDevice(Device device){
-        super.setEndpoint(endpoint);
+        super.setEndpoint(ENDPOINT);
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
         try {
-            //String body = ow.writeValueAsString(device);
-            Trace.out(Trace.Level.DEV, "POST body: " + device.toString());
-            super.setBody(device.toString());
+            Trace.out(Trace.Level.DEV, "POST body: " + ow.writeValueAsString(device));
+            super.setBody(ow.writeValueAsString(device));
         } catch (Exception e){
             Trace.out(Trace.Level.ERR, "Failed to process json");
         }
@@ -53,7 +52,7 @@ public class DeviceQuery extends HttpQuery {
 
     public boolean removeDevice(Device device){
         Trace.out(Trace.Level.INFO, "Removing device: " + device);
-        super.setEndpoint(endpoint + "/" + device.getId());
+        super.setEndpoint(ENDPOINT + "/" + device.getId());
         try {
             return super.delete();
         }catch (Exception e) {
@@ -64,8 +63,8 @@ public class DeviceQuery extends HttpQuery {
     }
 
     // TODO: IMPLEMENT IN THE API
-    public boolean removeAllDevices(Object o){
-        super.setEndpoint(endpoint + "/deleteall");
+    public boolean removeAllDevices(){
+        super.setEndpoint(ENDPOINT + "/deleteall");
         try {
             super.delete();
             return true;
@@ -77,7 +76,7 @@ public class DeviceQuery extends HttpQuery {
     }
 
     public Device getDevice(Long deviceId){
-        super.setEndpoint(endpoint + "/" + deviceId);
+        super.setEndpoint(ENDPOINT + "/" + deviceId);
         try {
             HttpResponse<String> response = super.get();
             // TODO: response exception

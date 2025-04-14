@@ -48,7 +48,7 @@ public class DeviceShareManager implements IManager {
     // TODO: API not supporting this
     @Override
     public boolean removeAll(Object o){
-        return deviceShareQuery.removeAllSharedDevices(o);
+        return deviceShareQuery.removeAllSharedDevices();
     }
 
     // TODO: implement

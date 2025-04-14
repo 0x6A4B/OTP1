@@ -3,15 +3,12 @@ package http;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import util.ConfigSingleton;
 import model.Device;
 import util.Trace;
 
 import java.util.List;
 
-public class DeviceParser implements ResponseParser {
-    private final String token = ConfigSingleton.getInstance().getToken();
-
+public class DeviceParser implements ResponseParser<Device> {
 
     public Device parse(String response) {
         try {
@@ -31,7 +28,7 @@ public class DeviceParser implements ResponseParser {
         } catch (JsonProcessingException e) {
             Trace.out(Trace.Level.ERR, "Error in parsing device list: " + e.getMessage());
         }
-        return null;
+        return List.of();
     }
 
 }

@@ -14,14 +14,12 @@ public abstract class HttpQuery {
     protected static String token;
     protected static HttpClient httpClient = HttpClient.newHttpClient();
 
-    protected String endpoint;
-    protected String body;
+    private String endpoint;
+    private String body;
 
-    //public HttpQuery(String apiUrl) { this.apiUrl = apiUrl; }
     public HttpQuery() {
     }
 
-    //public void setApiUrl(String apiUrl){ this.apiUrl = apiUrl; }
 
     public void setEndpoint(String endpoint){ this.endpoint = apiUrl + endpoint; }
     public void setBody(String body){ this.body = body; }
