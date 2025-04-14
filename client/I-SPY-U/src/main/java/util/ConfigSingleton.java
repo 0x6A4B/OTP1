@@ -20,7 +20,7 @@ public class ConfigSingleton {
      */
 
     // Saving config file to directory .JAR is run from aka working directory
-    // TODO: Should probably use this instead => //private final String userConfigFile = "app.cfg";
+    // TODO: Should probably use this instead => private final String userConfigFile = "app.cfg";
 
     // Saving to the directory where .JAR file is located... Maybe bad idea? Would end up in /bin/ if .JAR is there
     private final String userConfigFileName = "app.cfg";
@@ -90,19 +90,18 @@ public class ConfigSingleton {
             Trace.out(Trace.Level.ERR, "Error in loading configuration" + e.getMessage());
         }
 
-        if (apiUrl == "")
+        if (apiUrl.isEmpty())
             Trace.out(Trace.Level.ERR,"ERROR, no apiUrl property not found!");
         Trace.out(Trace.Level.DEV,"prop: " + apiUrl + "\ntoken: " + token);
     }
 
     // Remember logged in user
     public void saveToken(){
-        try {
+        try (OutputStream os = new FileOutputStream(userConfigFile)) {
             Properties prop = new Properties();
             prop.setProperty("token", token);
             Trace.out(Trace.Level.DEV, "Saving to file: " + userConfigFile);
-            prop.store(new FileOutputStream(userConfigFile), null);
-
+            prop.store(os, null);
         }catch (Exception e){
             Trace.out(Trace.Level.ERR, "Error in saving user configuration: " + e.getMessage());
         }
@@ -120,9 +119,9 @@ public class ConfigSingleton {
         }
     }
 
-    // Not implemented yet, maybe not possible to save into the .properties -file?
-    // TODO: Probably smarter to use java's preferences library!!
-    private void saveProperties(){
 
+    private void saveProperties(){
+        // Not implemented yet, maybe not possible to save into the .properties -file?
+        // TODO: Probably smarter to use java's preferences library!!
     }
 }

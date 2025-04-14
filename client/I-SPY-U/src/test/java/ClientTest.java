@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -22,7 +21,6 @@ class ClientTest {
         user = new User("jarppi", "jarppi", "active",
                 new Person("Urho Kaleva", "Kekkonen", "urho@kekkonen.gov",
                         "Kekkosenkatu 12", "Kekkoslovakia", "2222"));
-        //client.register(user);
         client.login(user);
     }
 
@@ -137,15 +135,12 @@ class ClientTest {
         assertEquals(newDescription, wasdisShareResponse.getDescription());
 
         // now let's check the description is also saved in the DB
-//        String getResponseDesc = client.getDeviceShares().stream()
-//                .filter(d -> d.getDevice().getId() == deviceResponse.getId())
-//                .findFirst().get().getDescription(); // this needs work...
         String getResponseDesc = client.getDeviceShares().getLast().getDescription();
         assertEquals(newDescription, getResponseDesc);
 
 
         //delete share
-        boolean successfulDelete = client.removeDeviceShare(wasdisShare);
+        client.removeDeviceShare(wasdisShare);
         //assertNotEquals(null , client.getDevices(user).getLast());
         // get shares, last isn't our share
         // if no shares this will fail?
@@ -166,14 +161,14 @@ class ClientTest {
 
     }
 
+    /*
     @Test
     void register() {
         // We can't just keep registering new users every test => need a test DB
-        /*
         user = new User("mannerheim", "marskin_salasana", "active",
                 new Person("Marsalkka", "Mannerheim", "marski@marski.gov",
                         "Mannerheimintie 12", "Marskila", "2222"));
         assertEquals("mannerheim", client.register(user).getUsername());
-       */
     }
+    */
 }

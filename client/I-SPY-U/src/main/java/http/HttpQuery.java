@@ -52,8 +52,8 @@ public abstract class HttpQuery {
             return response;
         } catch (Exception e) {
             Trace.out(Trace.Level.ERR, "POST request failed" + e.getMessage());
+            throw e;
         }
-        return null;
     }
 
     public HttpResponse<String> get() throws Exception {
@@ -75,10 +75,8 @@ public abstract class HttpQuery {
             return response;
         } catch (Exception e) {
             Trace.out(Trace.Level.ERR, "GET request failed" + e.getMessage());
+            throw e;
         }
-
-
-        return null;
     }
 
     public /*HttpResponse<String>*/ boolean delete() throws Exception {
@@ -107,8 +105,8 @@ public abstract class HttpQuery {
             }
         } catch (Exception e) {
             Trace.out(Trace.Level.ERR, "DELETE request failed" + e.getMessage());
+            throw e;
         }
-        return false;
     }
 
     public HttpResponse<String> patch() throws Exception {
@@ -132,8 +130,8 @@ public abstract class HttpQuery {
             return response;
         } catch (Exception e) {
             Trace.out(Trace.Level.ERR, "UPDATE request failed: "+e.getMessage());
+            throw e;
         }
-        return null;
     }
 }
 

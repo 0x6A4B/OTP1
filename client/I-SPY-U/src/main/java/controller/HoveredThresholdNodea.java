@@ -2,8 +2,10 @@ package controller;
 
 import javafx.scene.Cursor;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import util.Trace;
 
 class HoveredThresholdNodea extends StackPane {
 
@@ -17,9 +19,9 @@ class HoveredThresholdNodea extends StackPane {
             setCursor(Cursor.NONE);
             toFront();
         });
-        setOnMouseExited(mouseEvent -> {
-            getChildren().clear();
-        });
+        setOnMouseExited(mouseEvent ->
+            getChildren().clear()
+        );
     }
 
     private Label createDataThresholdLabel(String string, Object object) {
@@ -27,7 +29,7 @@ class HoveredThresholdNodea extends StackPane {
         label.getStyleClass().addAll("default-color0", "chart-line-symbol", "chart-series-line");
         label.setStyle("-fx-font-size: 20; -fx-font-weight: bold;");
 
-        System.out.println(string);
+        Trace.out(Trace.Level.DEV, string);
         if (string.equals("engine1")) {
             label.setTextFill(Color.RED);
             label.setStyle("-fx-border-color: RED;");
@@ -39,7 +41,7 @@ class HoveredThresholdNodea extends StackPane {
             label.setStyle("-fx-border-color: GREEN;");
         }
 
-        label.setMinSize(Label.USE_PREF_SIZE, Label.USE_PREF_SIZE);
+        label.setMinSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
         return label;
     }
 }

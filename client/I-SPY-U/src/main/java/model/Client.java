@@ -115,7 +115,6 @@ public class Client {
      * @return a list of LogEntry objects associated with the device.
      * */
     public List<LogEntry> getLogEntries(Device device){
-        //return connectionManager.getLogEntries(device);
         return getLogEntries(device, -1);
     }
 
@@ -143,8 +142,7 @@ public class Client {
      */
     public User login(User user){
         Trace.out(Trace.Level.DEV, "client.login");
-        //if (ConfigSingleton.getInstance().getToken() != null && !ConfigSingleton.getInstance().getToken().isEmpty())
-        //    rememberUser = true;
+
         User loggedUser = connectionManager.login(user);
         if (rememberUser)
             ConfigSingleton.getInstance().saveToken();

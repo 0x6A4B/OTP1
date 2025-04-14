@@ -66,7 +66,7 @@ public class DeviceController extends AbstractController {
 
     private Device device;
     private DeviceShare deviceShare = null;
-    private Boolean editing = false;
+    private boolean editing = false;
 
     //these are for chanhing text for localization
     @FXML private CategoryAxis chartXAxis;

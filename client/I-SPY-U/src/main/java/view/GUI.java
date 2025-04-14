@@ -19,7 +19,6 @@ public class GUI extends Application {
     private Stage popupStage;
     private User user;
     private Device currentDevice;
-    private AbstractController kontrolleri;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -54,7 +53,7 @@ public class GUI extends Application {
             Trace.out(Trace.Level.ERR, "Failed to get load: " + e.getMessage());
         }
         //IController
-        kontrolleri = loader.getController();
+        AbstractController kontrolleri = loader.getController();
         Trace.out(Trace.Level.DEV, "kontrolleri: "+loader.getController());
         kontrolleri.setGUI(this);
         kontrolleri.start();

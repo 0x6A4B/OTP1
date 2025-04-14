@@ -21,8 +21,6 @@ public class ConnectionManager {
     private DeviceShareManager deviceShareManager = new DeviceShareManager();
 
 
-    public ConnectionManager(){}
-
     /**
      * Forwards the login request to the UserManager.
      *

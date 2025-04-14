@@ -1,10 +1,9 @@
 package service;
 
-import http.DeviceQuery;
+
 import http.DeviceShareQuery;
 import model.Device;
 import model.DeviceShare;
-import model.User;
 import util.Trace;
 
 import java.util.List;

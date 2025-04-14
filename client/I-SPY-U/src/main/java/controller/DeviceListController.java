@@ -1,6 +1,5 @@
 package controller;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -55,7 +54,7 @@ public class DeviceListController extends AbstractController {
     @FXML private ListView<String> sharedDeviceDetalsListview;
 
     private List<Device> devices;
-    private List<Device> sharedDevices = new ArrayList<Device>();
+    private List<Device> sharedDevices = new ArrayList<>();
     private Device currentDevice;
 
     private int logEntriesCount = 0;
@@ -216,7 +215,7 @@ public class DeviceListController extends AbstractController {
         return newdeviceLabel;
     }
 
-    private void getDevices(VBox boksi, List<Device> devices, Boolean isOwn) {
+    private void getDevices(VBox boksi, List<Device> devices, boolean isOwn) {
         boksi.getChildren().clear();
         for (Device device : devices) {
             boksi.getChildren().add(createNewDeviceLabel(device));

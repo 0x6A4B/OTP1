@@ -40,9 +40,6 @@ class LocaleSingletonTest {
         assertNotNull(instance);
     }
 
-    @Test
-    void setLocale() {
-    }
 
     @Test
     void getAvailableLocales() {
