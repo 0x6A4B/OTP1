@@ -7,7 +7,7 @@ import model.LogEntry;
 import util.Trace;
 import java.util.List;
 
-public class LogParser implements ResponseParser {
+public class LogParser implements ResponseParser<LogEntry> {
     private final ObjectMapper mapper = new ObjectMapper();
 
     public List<LogEntry> parseList(String response) {
@@ -24,7 +24,7 @@ public class LogParser implements ResponseParser {
             return logs;
         } catch (JsonProcessingException e){
             Trace.out(Trace.Level.ERR, "Parsing error: " + e.getMessage());
-            return null;
+            return List.of();
         }
     }
 

@@ -35,14 +35,11 @@ public class LocaleSingleton {
         /* Is this really how we are supposed to do it? Ugly mess for a simple job... */
         /* List all translation files */
         try {
-            System.out.println("XX");
             Enumeration<URL> en = LocaleSingleton.class.getClassLoader().getResources("");
-            System.out.println("XZX: " + en.hasMoreElements());
-            System.out.println("__: " + LocaleSingleton.class.getClassLoader().getResource("Translation.properties").getPath());
 
             // In JAR
             // TODO: FIX this ugly hack => make sure works in development as well as in deployed JAR file
-            if (en.hasMoreElements() == false){
+            if (!en.hasMoreElements()){
                 CodeSource src = LocaleSingleton.class.getProtectionDomain().getCodeSource();
                 if (src != null) {
                     URL jar = src.getLocation();
@@ -50,12 +47,12 @@ public class LocaleSingleton {
                     while(zip.available() > 0){
                         ZipEntry entry = zip.getNextEntry();
                         if (entry == null) break;
-                        if (!entry.getName().endsWith(".properties") || !entry.getName().startsWith("Translation_")) continue;
-
-                        System.out.println("FOUND: " + entry.getName());
-                        availableLocales.add(Locale.forLanguageTag(entry.getName()
-                                .substring("Translation_".length(), entry.getName().indexOf(".")).replace("_", "-")
-                        ));
+                        if (entry.getName().endsWith(".properties") || entry.getName().startsWith("Translation_")) {
+                            Trace.out(Trace.Level.DEV, "FOUND: " + entry.getName());
+                            availableLocales.add(Locale.forLanguageTag(entry.getName()
+                                    .substring("Translation_".length(), entry.getName().indexOf(".")).replace("_", "-")
+                            ));
+                        }
                     }
                 }
             }
@@ -64,18 +61,16 @@ public class LocaleSingleton {
 
             while (en.hasMoreElements()) {
                 URL url = en.nextElement();
-                System.out.println("ZZX: " + url);
 
                 File file = new File(url.toURI());
-                System.out.println("X: " + url + " - " + file);
+                Trace.out(Trace.Level.DEV, "X: " + url + " - " + file);
                 if (file.isDirectory())
                     Arrays.stream(file.listFiles())
                             .filter(f -> f.getName().startsWith("Translation_"))
                             .filter(f -> f.getName().endsWith(".properties"))
-                            .forEach(f -> {
+                            .forEach(f ->
                                 availableLocales.add(Locale.forLanguageTag(f.getName()
-                                        .substring("Translation_".length(), f.getName().indexOf(".")).replace("_", "-")));
-                            });
+                                        .substring("Translation_".length(), f.getName().indexOf(".")).replace("_", "-"))));
             }
         } catch (Exception e) {
             Trace.out(Trace.Level.ERR, "Unable to find available locales: " + e.getMessage());
@@ -147,11 +142,6 @@ public class LocaleSingleton {
                         .toLocalizedPattern()
                 , locale);
         return dateFormat.format(date);
-        /*
-        DateTimeFormatter dateFormat = DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)
-                .withLocale(locale)
-                .withDecimalStyle(DecimalStyle.of(locale));
-        return dateFormat.format(date.toInstant());*/
     }
 
     public String getLongFormattedDate(Date date) {
@@ -197,13 +187,7 @@ public class LocaleSingleton {
         double convertedTemperature = celsius ? temperature : temperature * 1.8 + 32;
         NumberFormat format = NumberFormat.getNumberInstance(locale);
         format.setMaximumFractionDigits(2);
-        String result = MessageFormat.format(getTranslation(tempSymbol).toUpperCase(), format.format(convertedTemperature), locale);
-        return result;
-
-
-        //DecimalFormat decimalFormat = new DecimalFormat(getTranslation("temp.format"), DecimalFormatSymbols.getInstance(locale));
-        //String result = decimalFormat.format(convertedTemperature); // + tempSymbol;
-        //return format.format(temperature) + tempSymbol;
+        return MessageFormat.format(getTranslation(tempSymbol).toUpperCase(), format.format(convertedTemperature), locale);
     }
 
 }

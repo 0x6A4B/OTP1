@@ -65,8 +65,8 @@ public class DeviceShareQuery extends HttpQuery {
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
         try {
             String json = ow.writeValueAsString(deviceShare);
-            Trace.out(Trace.Level.DEV, "POST body: " + json); //deviceShare.toString());
-            super.setBody(json); //deviceShare.toString());
+            Trace.out(Trace.Level.DEV, "POST body: " + json);
+            super.setBody(json);
         } catch (Exception e){
             Trace.out(Trace.Level.ERR, "Failed to process json: " + e.getMessage());
         }

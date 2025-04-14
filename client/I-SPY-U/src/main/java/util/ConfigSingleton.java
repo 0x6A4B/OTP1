@@ -20,14 +20,13 @@ public class ConfigSingleton {
      */
 
     // Saving config file to directory .JAR is run from aka working directory
-    //private final String userConfigFile = "app.cfg";
+    // TODO: Should probably use this instead => //private final String userConfigFile = "app.cfg";
 
     // Saving to the directory where .JAR file is located... Maybe bad idea? Would end up in /bin/ if .JAR is there
     private final String userConfigFileName = "app.cfg";
     private final String jarDirectory = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath()
             .substring(0, this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath().lastIndexOf("/"));
     private final String userConfigFile = jarDirectory + "/" + userConfigFileName;
-    //private final String userConfigFile = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath().substring() + "app.cfg";
 
     // TODO: GET a better solution for UI to track user
     private User user;
@@ -77,15 +76,14 @@ public class ConfigSingleton {
                 case "warn" -> Trace.setTraceLevel(Trace.Level.WAR);
                 case  "error" -> Trace.setTraceLevel(Trace.Level.ERR);
                 case "dev" -> Trace.setTraceLevel(Trace.Level.DEV);
+                default -> Trace.setTraceLevel(Trace.Level.ERR);
             }
 
             if (apiUrl.isEmpty()) {
                 // eerror in reading apirul property
-                //throw new Exception("Error in reading property: apiurl");
                 Trace.out(Trace.Level.ERR,"Error in reading prop: apiurl");
             }
             Trace.out(Trace.Level.DEV,"Loaded config apiurl: " + apiUrl);
-            //token = prop.getProperty("token");
             loadToken();
             configLoaded = true;
         }catch (IOException e){
@@ -122,6 +120,8 @@ public class ConfigSingleton {
         }
     }
 
+    // Not implemented yet, maybe not possible to save into the .properties -file?
+    // TODO: Probably smarter to use java's preferences library!!
     private void saveProperties(){
 
     }

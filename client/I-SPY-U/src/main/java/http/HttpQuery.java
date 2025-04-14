@@ -17,7 +17,7 @@ public abstract class HttpQuery {
     private String endpoint;
     private String body;
 
-    public HttpQuery() {
+    protected HttpQuery() {
     }
 
 
@@ -100,8 +100,7 @@ public abstract class HttpQuery {
             //if not 204 || 200 then fucked are we
             // throw new Exception
             switch (response.statusCode()){
-                case 200:
-                case 204:
+                case 200, 204:
                     return true;
                 default:
                     return false;
