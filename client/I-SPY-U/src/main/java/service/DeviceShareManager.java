@@ -1,10 +1,9 @@
 package service;
 
-import http.DeviceQuery;
+
 import http.DeviceShareQuery;
 import model.Device;
 import model.DeviceShare;
-import model.User;
 import util.Trace;
 
 import java.util.List;
@@ -48,7 +47,7 @@ public class DeviceShareManager implements IManager {
     // TODO: API not supporting this
     @Override
     public boolean removeAll(Object o){
-        return deviceShareQuery.removeAllSharedDevices(o);
+        return deviceShareQuery.removeAllSharedDevices();
     }
 
     // TODO: implement

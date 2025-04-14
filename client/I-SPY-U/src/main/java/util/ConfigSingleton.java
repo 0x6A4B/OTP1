@@ -20,14 +20,13 @@ public class ConfigSingleton {
      */
 
     // Saving config file to directory .JAR is run from aka working directory
-    //private final String userConfigFile = "app.cfg";
+    // TODO: Should probably use this instead => private final String userConfigFile = "app.cfg";
 
     // Saving to the directory where .JAR file is located... Maybe bad idea? Would end up in /bin/ if .JAR is there
     private final String userConfigFileName = "app.cfg";
     private final String jarDirectory = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath()
             .substring(0, this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath().lastIndexOf("/"));
     private final String userConfigFile = jarDirectory + "/" + userConfigFileName;
-    //private final String userConfigFile = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath().substring() + "app.cfg";
 
     // TODO: GET a better solution for UI to track user
     private User user;
@@ -77,34 +76,32 @@ public class ConfigSingleton {
                 case "warn" -> Trace.setTraceLevel(Trace.Level.WAR);
                 case  "error" -> Trace.setTraceLevel(Trace.Level.ERR);
                 case "dev" -> Trace.setTraceLevel(Trace.Level.DEV);
+                default -> Trace.setTraceLevel(Trace.Level.ERR);
             }
 
             if (apiUrl.isEmpty()) {
                 // eerror in reading apirul property
-                //throw new Exception("Error in reading property: apiurl");
                 Trace.out(Trace.Level.ERR,"Error in reading prop: apiurl");
             }
             Trace.out(Trace.Level.DEV,"Loaded config apiurl: " + apiUrl);
-            //token = prop.getProperty("token");
             loadToken();
             configLoaded = true;
         }catch (IOException e){
             Trace.out(Trace.Level.ERR, "Error in loading configuration" + e.getMessage());
         }
 
-        if (apiUrl == "")
+        if (apiUrl.isEmpty())
             Trace.out(Trace.Level.ERR,"ERROR, no apiUrl property not found!");
         Trace.out(Trace.Level.DEV,"prop: " + apiUrl + "\ntoken: " + token);
     }
 
     // Remember logged in user
     public void saveToken(){
-        try{
+        try (OutputStream os = new FileOutputStream(userConfigFile)) {
             Properties prop = new Properties();
             prop.setProperty("token", token);
             Trace.out(Trace.Level.DEV, "Saving to file: " + userConfigFile);
-            prop.store(new FileOutputStream(userConfigFile), null);
-
+            prop.store(os, null);
         }catch (Exception e){
             Trace.out(Trace.Level.ERR, "Error in saving user configuration: " + e.getMessage());
         }
@@ -122,7 +119,9 @@ public class ConfigSingleton {
         }
     }
 
-    private void saveProperties(){
 
+    private void saveProperties(){
+        // Not implemented yet, maybe not possible to save into the .properties -file?
+        // TODO: Probably smarter to use java's preferences library!!
     }
 }

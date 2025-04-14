@@ -11,7 +11,7 @@ import java.util.List;
 
 public class DeviceShareQuery extends HttpQuery {
     private DeviceShareParser deviceShareParser;
-    private final String endpoint = "/deviceshare";
+    private static final String ENDPOINT = "/deviceshare";
 
     public DeviceShareQuery() {
         super();
@@ -19,41 +19,37 @@ public class DeviceShareQuery extends HttpQuery {
     }
 
     public List<DeviceShare> getSharedDevices() {
-        System.out.println("devq.getdevices");
-        super.setEndpoint(endpoint);
-        try{
+        super.setEndpoint(ENDPOINT);
+        try {
             HttpResponse<String> response = super.get();
             return deviceShareParser.parseList(response.body());
         } catch (Exception e) {
             Trace.out(Trace.Level.ERR, "Failed to fetch devices");
         }
-        return null;
+        return List.of();
     }
 
     public List<DeviceShare> getDeviceShares(Device device) {
-        System.out.println("devq.getdevicessahres for device:" + device.getName());
-        super.setEndpoint(endpoint + "/" + device.getId());
-        try{
+        super.setEndpoint(ENDPOINT + "/" + device.getId());
+        try {
             HttpResponse<String> response = super.get();
             return deviceShareParser.parseList(response.body());
         } catch (Exception e) {
             Trace.out(Trace.Level.ERR, "Failed to fetch shares for device:" + device.getName());
         }
-        return null;
+        return List.of();
     }
 
     public DeviceShare shareDevice(DeviceShare deviceShare) {
-        super.setEndpoint(endpoint);
+        super.setEndpoint(ENDPOINT);
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
         try {
-            //String body = ow.writeValueAsString(device);
-            Trace.out(Trace.Level.DEV, "POST body: " + ow.writeValueAsString(deviceShare)); //deviceShare.toString());
-            //super.setBody(deviceShare.toString());
+            Trace.out(Trace.Level.DEV, "POST body: " + ow.writeValueAsString(deviceShare));
             super.setBody(ow.writeValueAsString(deviceShare));
         } catch (Exception e){
             Trace.out(Trace.Level.ERR, "Failed to process json: " + e.getMessage());
         }
-        try{
+        try {
             HttpResponse<String> response = super.post();
             // TODO: response exception
             return deviceShareParser.parse(response.body());
@@ -65,17 +61,16 @@ public class DeviceShareQuery extends HttpQuery {
     }
 
     public DeviceShare updateSharedDevice(DeviceShare deviceShare) {
-        super.setEndpoint(endpoint);
+        super.setEndpoint(ENDPOINT);
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
         try {
-            //String body = ow.writeValueAsString(device);
             String json = ow.writeValueAsString(deviceShare);
-            Trace.out(Trace.Level.DEV, "POST body: " + json); //deviceShare.toString());
-            super.setBody(json); //deviceShare.toString());
+            Trace.out(Trace.Level.DEV, "POST body: " + json);
+            super.setBody(json);
         } catch (Exception e){
             Trace.out(Trace.Level.ERR, "Failed to process json: " + e.getMessage());
         }
-        try{
+        try {
             HttpResponse<String> response = super.patch();
             // TODO: response exception
             return deviceShareParser.parse(response.body());
@@ -88,7 +83,7 @@ public class DeviceShareQuery extends HttpQuery {
 
     public boolean removeSharedDevice(DeviceShare deviceShare){
         Trace.out(Trace.Level.INFO, "Removing device: " + deviceShare.getId());
-        super.setEndpoint(endpoint + "/" + deviceShare.getId());
+        super.setEndpoint(ENDPOINT + "/" + deviceShare.getId());
         try {
             return super.delete();
         }catch (Exception e) {
@@ -99,8 +94,8 @@ public class DeviceShareQuery extends HttpQuery {
     }
 
     // TODO: IMPLEMENT IN THE API
-    public boolean removeAllSharedDevices(Object o){
-        super.setEndpoint(endpoint + "/deleteall");
+    public boolean removeAllSharedDevices(){
+        super.setEndpoint(ENDPOINT + "/deleteall");
         try {
             super.delete();
             return true;

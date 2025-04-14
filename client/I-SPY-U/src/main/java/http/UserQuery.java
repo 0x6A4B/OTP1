@@ -1,12 +1,14 @@
 package http;
 
+import java.net.http.HttpResponse;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+
 import model.User;
 import util.ConfigSingleton;
 import util.Trace;
-import java.net.http.HttpResponse;
 
 public class UserQuery extends HttpQuery {
 
@@ -36,7 +38,6 @@ public class UserQuery extends HttpQuery {
         try {
             HttpResponse<String> response = super.post();
             // TODO: FIX THIS QUICK fix to have user available in view
-            //return userParser.parse(response.body());
 
             // TODO: Oh dear lord fix this
             User temp = userParser.parse(response.body());
@@ -63,7 +64,7 @@ public class UserQuery extends HttpQuery {
             String json = ow.writeValueAsString(user);
             Trace.out(Trace.Level.DEV, "JSON: " + json);
 
-            super.setBody(json.toString());
+            super.setBody(json);
             HttpResponse<String> response = super.post();
             // TODO: Fix response in backend => API responds with "success" instead of
             // user object
@@ -72,10 +73,8 @@ public class UserQuery extends HttpQuery {
             }
             return null;
             // END OF FIX
-            //return userParser.parse(response.body());
         }catch(Exception e){
             Trace.out(Trace.Level.ERR, "Error in registering user or reading response");
-            e.printStackTrace();
         }
 
 

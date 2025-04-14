@@ -9,7 +9,7 @@ import util.Trace;
 
 import java.util.List;
 
-public class DeviceShareParser implements ResponseParser {
+public class DeviceShareParser implements ResponseParser<DeviceShare> {
     public DeviceShare parse(String response) {
         try {
             return new ObjectMapper().readValue(response, new TypeReference<DeviceShare>() {
@@ -26,7 +26,7 @@ public class DeviceShareParser implements ResponseParser {
         } catch (Exception e) {
             Trace.out(Trace.Level.ERR, "Error in parsing deviceShare list: " + e.getMessage());
         }
-        return null;
+        return List.of();
 
     }
 }

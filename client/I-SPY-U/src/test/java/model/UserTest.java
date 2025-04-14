@@ -1,6 +1,5 @@
 package model;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -32,10 +31,7 @@ class UserTest {
         assertEquals("salasana", user.getPassword());
     }
 
-    @Test
-    void setId() {
 
-    }
 
     @Test
     void setUsername() {
@@ -54,8 +50,4 @@ class UserTest {
         assertEquals("urho", user.getPerson().getFirstName());
     }
 
-    @Test
-    void setPerson() {
-        user.setPerson(new Person("urho", "kekkonen", "urho@kekkonen.fi"));
-    }
 }

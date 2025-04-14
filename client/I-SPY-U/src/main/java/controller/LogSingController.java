@@ -1,7 +1,5 @@
 package controller;
 
-import java.io.IOException;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -14,23 +12,20 @@ import model.Person;
 import model.User;
 import util.Trace;
 
-public class LogSingController extends IController {
+public class LogSingController extends AbstractController {
     @FXML private TextField logInUsername;
-    @FXML private PasswordField logInPassword;
-    @FXML private Button logInButton;
-    @FXML private Label logInErrorMsg;
-    @FXML private CheckBox logInRememberMe;
-
     @FXML private TextField singUpEmail;
+    @FXML private PasswordField logInPassword;
     @FXML private PasswordField singUpPassword;
-    @FXML private TextField singUpUSername;
-    /* @FXML private TextField singUpCity;
-    @FXML private TextField singUpPostalCode; */
+    @FXML private Button logInButton;
     @FXML private Button singUpButton;
+    @FXML private Label logInErrorMsg;
     @FXML private Label singUpErrorMsg;
+    @FXML private CheckBox logInRememberMe;
     @FXML private CheckBox singUpRememberMe;
+    @FXML private TextField singUpUSername; //singUpCity, singUpPostalCode
 
-    //these are for chanhing text for localization
+    //these are for chanching text for localization
     @FXML private Tab logInTab;
     @FXML private Label logInLabel;
     @FXML private Label usernameLabel;
@@ -41,17 +36,20 @@ public class LogSingController extends IController {
     @FXML private Label signUpPasswordLabel;
     @FXML private Label signUpUsernameLabel;
     @FXML private Label signUpEmailLabel;
-    /* @FXML private Label signUpCityLabel;
-    @FXML private Label signUpPostalcodeLabel; */
+    String error = "error happened";
+    //signUpCityLabel, signUpPostalcodeLabel
 
     private User awnser;
+
+    static final int DEVICELIST_WINDOW_WIDTH = 500;
+    static final int DEVICELIST_WINDOW_HEIGHT = 500;
 
     @FXML
     private void handleLogInButtonAction(ActionEvent event) {
         String username = logInUsername.getText();
         String password = logInPassword.getText();
-        String error = "error happened";
-        if (logInRememberMe.isSelected()){
+        //error = "error happened"
+        if (logInRememberMe.isSelected()) {
             Trace.out(Trace.Level.DEV, "Remember user");
             client.setRememberUser(true);
         }
@@ -59,9 +57,9 @@ public class LogSingController extends IController {
         if (awnser != null) {
             try {
                 gui.setUser(awnser);
-                gui.setScene("DevicesList", 500, 500);
-            } catch (IOException e) {
-                e.printStackTrace();
+                gui.setScene("DevicesList", DEVICELIST_WINDOW_WIDTH, DEVICELIST_WINDOW_HEIGHT);
+            } catch (Exception e) {
+                Trace.out(Trace.Level.ERR, "Error switching scenes: "+e.getMessage());
             }
         } else {
             setErrorMsg(error);
@@ -73,15 +71,14 @@ public class LogSingController extends IController {
         String email = singUpEmail.getText();
         String password = singUpPassword.getText();
         String username = singUpUSername.getText();
-        /* String city = singUpCity.getText();
-        String postalCode = singUpPostalCode.getText(); */
-        // TODO: get user's name and address => faking it for now
+        /* String city = singUpCity.getText()
+        String postalCode = singUpPostalCode.getText() */
+        // TODO: maybe find a way to include user's name, address, steet and city => faking it for now
         User user = new User(username, password, "active",
                 new Person("Urho Kaleva", "Kekkonen", email,
                         "Suomen maa kunta", "Suomen hienoin kaupunki", "42069"));
         awnser = client.register(user);
-        String error = "error happened";
-        if (singUpRememberMe.isSelected()){
+        if (singUpRememberMe.isSelected()) {
             client.setRememberUser(true);
         }
         if (awnser != null) {
@@ -89,8 +86,8 @@ public class LogSingController extends IController {
                 gui.setUser(awnser);
                 client.login(user); // logging in with new user
                 gui.setScene("DevicesList", 500, 500);
-            } catch (IOException e) {
-                e.printStackTrace();
+            } catch (Exception e) {
+                Trace.out(Trace.Level.ERR, "Error switching scenes: "+e.getMessage());
             }
         } else {
             setErrorMsg(error);
@@ -105,9 +102,9 @@ public class LogSingController extends IController {
     }
 
     @Override
-    public void translate(){
-        System.out.println("Translating");
-        
+    public void translate() {
+        Trace.out(Trace.Level.DEV, "Translating");
+
         logInTab.setText(localeSingleton.getTranslation("login"));
         logInLabel.setText(localeSingleton.getTranslation("login"));
         usernameLabel.setText(localeSingleton.getTranslation("username"));
@@ -121,8 +118,8 @@ public class LogSingController extends IController {
         signUpUsernameLabel.setText(localeSingleton.getTranslation("username"));
         signUpPasswordLabel.setText(localeSingleton.getTranslation("password"));
         signUpEmailLabel.setText(localeSingleton.getTranslation("email"));
-        /* signUpCityLabel.setText(localeSingleton.getTranslation("city"));
-        signUpPostalcodeLabel.setText(localeSingleton.getTranslation("postalcode")); */
+        /* signUpCityLabel.setText(localeSingleton.getTranslation("city"))
+        signUpPostalcodeLabel.setText(localeSingleton.getTranslation("postalcode")) */
         singUpButton.setText(localeSingleton.getTranslation("signup"));
         singUpRememberMe.setText(localeSingleton.getTranslation("remember_me"));
         singUpErrorMsg.setText(localeSingleton.getTranslation("error happened"));
@@ -134,17 +131,5 @@ public class LogSingController extends IController {
         singUpButton.disableProperty().bind(singUpEmail.textProperty().isEmpty().or(singUpPassword.textProperty().isEmpty().or(singUpUSername.textProperty().isEmpty())));
         logInErrorMsg.setVisible(false);
         singUpErrorMsg.setVisible(false);
-
-        /* fill fields for easier testing so no need to fill them out */
-        //logInUsername.setText("wasdi");
-        //logInPassword.setText("wasdi");
-
-        /* singUpEmail.setText("emaili");
-        singUpPassword.setText("passwordi");
-        singUpUSername.setText("usernami");
-        singUpCity.setText("cityni");
-        singUpPostalCode.setText("postalcodeni"); */
-
-        //mirrorUI();
     }
 }

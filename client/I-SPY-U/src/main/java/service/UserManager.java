@@ -21,7 +21,7 @@ public class UserManager {
         return userQuery.register(user);
     }
 
-    public User logout(User user){
+    public User logout(){
         // Let's reset token
         ConfigSingleton.getInstance().setToken("");
         // TODO: Should we also remove from config file?

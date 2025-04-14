@@ -2,27 +2,23 @@ package view;
 
 import java.io.IOException;
 
-import controller.IController;
+import controller.AbstractController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import model.Client;
 import model.Device;
-import model.DeviceShare;
 import model.User;
 import util.ConfigSingleton;
+import util.Trace;
 
 public class GUI extends Application {
-    private /*static*/ Scene scene;
-    private /*static*/ Stage popupStage;
-    private /*static*/ Client service;
-    private /*static*/ User user;
-    private /*static*/ Device currentDevice;
-    private /*static*/ DeviceShare currentShare;
-    private IController kontrolleri;
+    private Scene scene;
+    private Stage popupStage;
+    private User user;
+    private Device currentDevice;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -34,15 +30,14 @@ public class GUI extends Application {
                 && !ConfigSingleton.getInstance().getToken().isEmpty();
         // End of check
 
-        System.out.println("Loading FXML file...");
-        //scene = new Scene(getLoader("MainView"), 300, 300);
+        Trace.out(Trace.Level.DEV, "Loading FXML file...");
 
         if (!tokenExists)
             scene = new Scene(getLoader("LogSingUp"), 300, 400);
         else
             scene = new Scene(getLoader("DevicesList"), 500, 500);
 
-        System.out.println("FXML file loaded successfully.");
+        Trace.out(Trace.Level.DEV, "FXML file loaded successfully.");
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setTitle("I-SPY-U");
         stage.setScene(scene);
@@ -55,18 +50,17 @@ public class GUI extends Application {
         try {
             loaded = loader.load();
         } catch (IOException e) {
-            e.printStackTrace();
+            Trace.out(Trace.Level.ERR, "Failed to get load: " + e.getMessage());
         }
         //IController
-        kontrolleri = loader.getController();
-        System.out.println("kontrolleri: "+loader.getController());
-//        kontrolleri.setClient(GUI.service);
+        AbstractController kontrolleri = loader.getController();
+        Trace.out(Trace.Level.DEV, "kontrolleri: "+loader.getController());
         kontrolleri.setGUI(this);
         kontrolleri.start();
         return loaded;
     }
 
-    public /*static*/ void setScene(String fxml, int width, int height) throws IOException {
+    public void setScene(String fxml, int width, int height) {
         scene.setRoot(getLoader(fxml));
         Stage stage = (Stage) scene.getWindow();
         stage.setWidth(width);
@@ -74,29 +68,28 @@ public class GUI extends Application {
         stage.centerOnScreen();
     }
 
-    public /*static*/ void setUser(User user) {
-        //GUI.
+    public void setUser(User user) {
         this.user = user;
     }
 
-    public /*static*/ User getUser() {
+    public User getUser() {
         return this.user;
     }
 
-    public /*static*/ void setCurrentDevice(Device currentDevice) {
+    public void setCurrentDevice(Device currentDevice) {
         this.currentDevice = currentDevice;
     }
 
-    public /*static*/ Device getCurrentDevice() {
+    public Device getCurrentDevice() {
         return currentDevice;
     }
 
 
     // TODO: FIX THIS HACK
-    private IController popupCtrl;
+    private AbstractController popupCtrl;
 
-    public /*static*/ void openPopup(String fxml, int width, int height, IController popupCtrl) throws IOException {
-        System.out.println("Opening popup "+fxml);
+    public void openPopup(String fxml, int width, int height, AbstractController popupCtrl) {
+        Trace.out(Trace.Level.DEV, "Opening popup "+fxml);
         popupStage = new Stage();   // we need to create new if popup is called again
         popupStage.initStyle(StageStyle.UNDECORATED);
 
@@ -110,7 +103,7 @@ public class GUI extends Application {
         popupStage.show();
     }
 
-    public /*static*/ void closePopup() throws IOException {
+    public void closePopup() {
         popupStage.close();
         popupCtrl.hook();
         popupCtrl = null;

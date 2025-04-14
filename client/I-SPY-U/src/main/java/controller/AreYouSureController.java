@@ -1,6 +1,5 @@
 package controller;
 
-import java.io.IOException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,27 +7,27 @@ import javafx.geometry.NodeOrientation;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import util.Trace;
 
-
-public class AreYouSureController extends IController {
+/*TODO make this into a popup that can be used everywhere
+so best would be to make a popupmaker class (that could be a builder??) where popup is made */
+public class AreYouSureController extends AbstractController {
     
     @FXML private Label popUpTitle;
     @FXML private Label warningText1;
     @FXML private Label warningText2;
     @FXML private Button continueButton;
     @FXML private Button cancelButton;
-    @FXML private AnchorPane mainBoio;
-    
+
     @FXML
-    private void handleRemoveDevice(){
-        System.out.println("Removing device "+gui.getCurrentDevice().getName());
+    private void handleRemoveDevice() {
+        Trace.out(Trace.Level.DEV, "Removing device "+gui.getCurrentDevice().getName());
         client.removeDevice(gui.getCurrentDevice());
         try {
             gui.closePopup();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            Trace.out(Trace.Level.ERR, "Error removing device: "+e.getMessage());
         }
     }
 
@@ -39,8 +38,8 @@ public class AreYouSureController extends IController {
     }
 
     @Override
-    public void translate(){
-        System.out.println("Translating");
+    public void translate() {
+        Trace.out(Trace.Level.DEV, "Translating");
         popUpTitle.setText(localeSingleton.getTranslation("are_you_sure"));
         warningText1.setText(localeSingleton.getTranslation("you_are_removing_device"));
         warningText2.setText(localeSingleton.getTranslation("destructive_action"));
@@ -50,7 +49,7 @@ public class AreYouSureController extends IController {
 
 
     @Override
-    public void initialize(){
+    public void initialize() {
         if (localeSingleton.isRightToLeft()) {
             mainBoio.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
         } else {

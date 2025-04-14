@@ -13,9 +13,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
@@ -28,13 +26,13 @@ import model.LogEntry;
 import model.User;
 import util.Trace;
 
-public class DeviceController extends IController {
+public class DeviceController extends AbstractController {
 
     private ToggleGroup toggleGroup = new ToggleGroup();
 
+    @FXML private RadioButton radioHourly;
     @FXML private RadioButton radioDaily;
     @FXML private RadioButton radioWeekly;
-    @FXML private RadioButton radioHourly;
 
     @FXML private TextField limitMin;
     @FXML private TextField limitMax;
@@ -46,9 +44,9 @@ public class DeviceController extends IController {
     @FXML private TextField sharingEmail;
     @FXML private Button shareButton;
 
-    @FXML private Label actionItemLabel;
+    /* @FXML private Label actionItemLabel;
     @FXML private TextField actionInput;
-    @FXML private Button setActionButton;
+    @FXML private Button setActionButton; */
 
     @FXML private ChoiceBox<String> actionChoice;
 
@@ -66,13 +64,9 @@ public class DeviceController extends IController {
     @FXML private TextArea descTextBox;
     @FXML private Button editDescButton;
 
-    private SingleSelectionModel<Tab> selectionModel;
-    @FXML private TabPane tabPane;
-
-    private User user;
     private Device device;
     private DeviceShare deviceShare = null;
-    private Boolean editing = false;
+    private boolean editing = false;
 
     //these are for chanhing text for localization
     @FXML private CategoryAxis chartXAxis;
@@ -84,17 +78,25 @@ public class DeviceController extends IController {
     @FXML private Label shareRoleLabel;
     @FXML private Label shareDescLabel;
 
+    static final int LOG_ENTRIES_AMOUNT = 30;
+
+    static final int WINDOW_WIDTH = 500;
+    static final int WINDOW_HEIGHT = 500;
+
     private void setUpCharts() {
+        //clear the chart if something is resetted
         lineChart.getData().clear();
         XYChart.Series<String, Double> series = new XYChart.Series<>();
         series.setName(device.getName());
-        List<LogEntry> logs = client.getLogEntries(device, 30);
+        //get all the log entries
+        List<LogEntry> logs = client.getLogEntries(device, LOG_ENTRIES_AMOUNT);
         Trace.out(Trace.Level.DEV, "Loading logentries:");
         for (LogEntry i : logs) {
             Trace.out(Trace.Level.DEV, "\tLogEntry: " + i);
             final XYChart.Data<String, Double> data = new XYChart.Data<>(
+                //put date and then the log entry value to the chart
                 (localeSingleton.getShortFormattedDateTime(i.getDate())),
-                Double.parseDouble(i.getValue())/*.substring(0, 6)*/);
+                Double.parseDouble(i.getValue()));
                 data.setNode(new HoveredThresholdNodea("temperature", localeSingleton.getFormattedTemperature(Double.parseDouble(i.getValue()))));
             series.getData().add(data);
         }
@@ -105,44 +107,46 @@ public class DeviceController extends IController {
     @FXML
     private void handleBackButton(){
         try {
-            gui.setScene("DevicesList", 500, 500);
+            gui.setScene("DevicesList", WINDOW_WIDTH, WINDOW_HEIGHT);
         } catch (Exception e) {
-            e.printStackTrace();
+            Trace.out(Trace.Level.ERR, "Error in switching scenes: "+e.getMessage());
         }
     }
 
-    @FXML
+    //TODO these commented functions are for device config
+
+    /* @FXML
     private void handleSetLimits() {
         System.out.println(limitMin.getText());
         System.out.println(limitMax.getText());
-        /* TODO tässä laitetaan limitit eteenpäin */
+        // TODO tässä laitetaan limitit eteenpäin
         System.out.println("set Limits");
         selectionModel.select(0);
-    }
+    } */
 
-    @FXML
+    /* @FXML
     private void handleActionChoice() {
         String actionString = actionChoice.getValue();
         actionItemLabel.setText(actionString.substring(7, actionString.length())+" for action");
         System.out.println("set Action choice");
-    }
+    } */
 
-    @FXML
+    /* @FXML
     private void handleSetAction() {
         System.out.println(actionChoice.getValue());
         System.out.println(actionInput.getText());
-        /* TODO tässä laitetaan action eteenpäin */
+        // TODO tässä laitetaan action eteenpäin
         System.out.println("set Action Happening");
         selectionModel.select(0);
     }
-
+ */
     @FXML
     private void handleShare() {
-        System.out.println("sharing Happening");
-        System.out.println(sharingEmail.getText());
+        Trace.out(Trace.Level.DEV, "sharing Happening");
+        Trace.out(Trace.Level.DEV, sharingEmail.getText());
         /* TODO WIP ota shareChoice ja sen mukaan laita sharen permission read/write */
 
-        DeviceShare deviceShare = new DeviceShare();
+        deviceShare = new DeviceShare();
         User user = new User(sharingEmail.getText(), "");
         sharingEmail.clear();
 
@@ -157,19 +161,14 @@ public class DeviceController extends IController {
     }
 
     @FXML
-    private void handleSetShare() {
-        System.out.println(shareChoice.getValue());
-        /* TODO tässä laitetaan sharing settings eteenpäin */
-        System.out.println("sharing settings Happening");
-        selectionModel.select(0);
-    }
-
-    @FXML
     private void handleEditDesc() {
+        //this switched between label and textbox for editing the description
         if (editing) {
-            System.out.println("saved desc");
+            //if editing is true, hide textbox and show label then
+            Trace.out(Trace.Level.DEV, "saved desc");
             descLabel.setVisible(true);
             descTextBox.setVisible(false);
+            //then get the textboxes text and update share description
             editDescButton.setText(localeSingleton.getTranslation("edit_description"));
             deviceShare.setDescription(descTextBox.getText());
             descLabel.setText(descTextBox.getText());
@@ -177,15 +176,19 @@ public class DeviceController extends IController {
             client.updateDeviceShare(deviceShare);
             editing = false;
         } else {
-            System.out.println("edit desc");
+            //if editing is false, hide label and show textbox then
+            Trace.out(Trace.Level.DEV, "edit desc");
             editing = true;
             descLabel.setVisible(false);
             descTextBox.setVisible(true);
+            //and set textbox text to the current description
             editDescButton.setText(localeSingleton.getTranslation("Save"));
         }
     }
 
-    private HBox makeTheBox(String name, DeviceShare share){
+    //this creates a HBox for each shared user in the list
+    //it has a label with the user id and a button to remove the share
+    private HBox createShareListBox(String name, DeviceShare share) {
         HBox hbox = new HBox();
         hbox.setPrefHeight(25.0);
         hbox.setPrefWidth(200.0);
@@ -201,6 +204,7 @@ public class DeviceController extends IController {
         Button button = new Button("X");
         button.setStyle("-fx-background-color: darkred;");
         button.setTextFill(Color.WHITE);
+        //when the X button is clicked remove from share and refill the list with the new shares
         button.setOnAction(e -> {
             client.removeDeviceShare(share);
             fillSharedUsersList();
@@ -214,14 +218,14 @@ public class DeviceController extends IController {
         sharedUsersList.getChildren().clear();
         List<DeviceShare> shares = client.getDeviceShares(device);
         for (DeviceShare i : shares) {
-            HBox userBox = makeTheBox("Id: "+i.getUserId(), i);
+            HBox userBox = createShareListBox("Id: "+i.getUserId(), i);
             sharedUsersList.getChildren().add(userBox);
         }
     }
 
     @Override
     public void translate() {
-        System.out.println("Translating");
+        Trace.out(Trace.Level.DEV, "Translating");
 
         backToList.setText(localeSingleton.getTranslation("back_to_devicelist"));
 
@@ -251,9 +255,8 @@ public class DeviceController extends IController {
     }
 
     @Override
-    public void start(){
+    public void start() {
         device = gui.getCurrentDevice();
-        // Tarviiko user???? user = gui.getUser();
         radioDaily.setToggleGroup(toggleGroup);
         radioDaily.setSelected(true);
         radioWeekly.setToggleGroup(toggleGroup);
@@ -269,7 +272,7 @@ public class DeviceController extends IController {
                 RadioButton selectedToggle = (RadioButton) newValue;
                 String selectedText = selectedToggle.getText();
                 chartLabel.setText(selectedText + " log entries");
-                //Tässä vaihtais charttia hourly, daily, weekly charts setUpCharts();
+                //Tässä vaihtais charttia hourly, daily, weekly charts setUpCharts()
             }
         });
 
@@ -278,17 +281,18 @@ public class DeviceController extends IController {
 
         actionChoice.setValue("Select an action");
 
-        selectionModel = tabPane.getSelectionModel();
         setUpCharts();
         configTab.setDisable(true);
-        //shareTab.setDisable(true); working on this now
 
+        //here we see if the device is owned by the user or shared with them
         if (device.isOwned()) {
+            //if the device is owned by the user, we can share the device
             descLabel.setDisable(true);
             editDescButton.setDisable(true);
             descTextBox.setVisible(true);
             fillSharedUsersList();
         } else {
+            //if the device is shared to the user, we disable sharing and enable description editing
             List<DeviceShare> shares = client.getDeviceShares();
             for (DeviceShare share : shares) {
                 if (share.getDeviceId() == device.getId()) {
@@ -306,6 +310,5 @@ public class DeviceController extends IController {
             sharedUsersListContainer.setVisible(false);
             sharedUsersLabel.setVisible(false);
         }
-        //mirrorUI();
     }
 }

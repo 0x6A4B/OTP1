@@ -1,27 +1,25 @@
 package http;
 
-import util.ConfigSingleton;
-import util.Trace;
-
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.concurrent.CompletableFuture;
 
+import util.ConfigSingleton;
+import util.Trace;
+
 public abstract class HttpQuery {
     protected static String apiUrl = ConfigSingleton.getInstance().getApiUrl();
     protected static String token;
     protected static HttpClient httpClient = HttpClient.newHttpClient();
 
-    protected String endpoint;
-    protected String body;
+    private String endpoint;
+    private String body;
 
-    //public HttpQuery(String apiUrl) { this.apiUrl = apiUrl; }
-    public HttpQuery() {
+    protected HttpQuery() {
     }
 
-    //public void setApiUrl(String apiUrl){ this.apiUrl = apiUrl; }
 
     public void setEndpoint(String endpoint){ this.endpoint = apiUrl + endpoint; }
     public void setBody(String body){ this.body = body; }
@@ -54,8 +52,8 @@ public abstract class HttpQuery {
             return response;
         } catch (Exception e) {
             Trace.out(Trace.Level.ERR, "POST request failed" + e.getMessage());
+            throw e;
         }
-        return null;
     }
 
     public HttpResponse<String> get() throws Exception {
@@ -77,10 +75,8 @@ public abstract class HttpQuery {
             return response;
         } catch (Exception e) {
             Trace.out(Trace.Level.ERR, "GET request failed" + e.getMessage());
+            throw e;
         }
-
-
-        return null;
     }
 
     public /*HttpResponse<String>*/ boolean delete() throws Exception {
@@ -102,16 +98,15 @@ public abstract class HttpQuery {
             //if not 204 || 200 then fucked are we
             // throw new Exception
             switch (response.statusCode()){
-                case 200:
-                case 204:
+                case 200, 204:
                     return true;
                 default:
                     return false;
             }
         } catch (Exception e) {
             Trace.out(Trace.Level.ERR, "DELETE request failed" + e.getMessage());
+            throw e;
         }
-        return false;
     }
 
     public HttpResponse<String> patch() throws Exception {
@@ -134,9 +129,9 @@ public abstract class HttpQuery {
             //if not 204 || 200 then fucked are we
             return response;
         } catch (Exception e) {
-            e.printStackTrace();
+            Trace.out(Trace.Level.ERR, "UPDATE request failed: "+e.getMessage());
+            throw e;
         }
-        return null;
     }
 }
 
