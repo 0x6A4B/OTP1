@@ -24,6 +24,7 @@ public abstract class AbstractController {
     @FXML protected ComboBox<String> languageDropdown;
     LocaleSingleton localeSingleton = LocaleSingleton.getInstance();
 
+    //this gets all windows and closes them, so if a popup is open it closes it aswell
     @FXML
     private void handleCloseButtonAction(ActionEvent event) {
         List<Stage> stages = Window.getWindows().stream()
@@ -65,6 +66,8 @@ public abstract class AbstractController {
 
     @FXML
     public void initialize() {
+        //reason for this initialize is so that language drowpdown is the same in all views
+        //here we get all the languages and put them into the dropdown
         localeSingleton.getAvailableLocales().forEach(l -> languageDropdown.getItems().add(localeSingleton.getLanguageName(l)));
         Trace.out(Trace.Level.DEV, String.valueOf(localeSingleton.getLocale()));
         Trace.out(Trace.Level.DEV, String.valueOf(localeSingleton.getAvailableLocales().indexOf(localeSingleton.getLocale())));
@@ -76,7 +79,7 @@ public abstract class AbstractController {
         });
 
 
-        //this sets the button to always show globe emoji
+        //here we set the dropdown to show the globe icon instead of the language name
         StringProperty fixedText = new SimpleStringProperty("🌐");
         languageDropdown.setButtonCell(new ListCell<String>() {
             @Override

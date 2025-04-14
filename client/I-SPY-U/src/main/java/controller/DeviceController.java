@@ -84,14 +84,17 @@ public class DeviceController extends AbstractController {
     static final int WINDOW_HEIGHT = 500;
 
     private void setUpCharts() {
+        //clear the chart if something is resetted
         lineChart.getData().clear();
         XYChart.Series<String, Double> series = new XYChart.Series<>();
         series.setName(device.getName());
+        //get all the log entries
         List<LogEntry> logs = client.getLogEntries(device, LOG_ENTRIES_AMOUNT);
         Trace.out(Trace.Level.DEV, "Loading logentries:");
         for (LogEntry i : logs) {
             Trace.out(Trace.Level.DEV, "\tLogEntry: " + i);
             final XYChart.Data<String, Double> data = new XYChart.Data<>(
+                //put date and then the log entry value to the chart
                 (localeSingleton.getShortFormattedDateTime(i.getDate())),
                 Double.parseDouble(i.getValue()));
                 data.setNode(new HoveredThresholdNodea("temperature", localeSingleton.getFormattedTemperature(Double.parseDouble(i.getValue()))));
@@ -109,6 +112,8 @@ public class DeviceController extends AbstractController {
             Trace.out(Trace.Level.ERR, "Error in switching scenes: "+e.getMessage());
         }
     }
+
+    //TODO these commented functions are for device config
 
     /* @FXML
     private void handleSetLimits() {
@@ -157,10 +162,13 @@ public class DeviceController extends AbstractController {
 
     @FXML
     private void handleEditDesc() {
+        //this switched between label and textbox for editing the description
         if (editing) {
+            //if editing is true, hide textbox and show label then
             Trace.out(Trace.Level.DEV, "saved desc");
             descLabel.setVisible(true);
             descTextBox.setVisible(false);
+            //then get the textboxes text and update share description
             editDescButton.setText(localeSingleton.getTranslation("edit_description"));
             deviceShare.setDescription(descTextBox.getText());
             descLabel.setText(descTextBox.getText());
@@ -168,15 +176,19 @@ public class DeviceController extends AbstractController {
             client.updateDeviceShare(deviceShare);
             editing = false;
         } else {
+            //if editing is false, hide label and show textbox then
             Trace.out(Trace.Level.DEV, "edit desc");
             editing = true;
             descLabel.setVisible(false);
             descTextBox.setVisible(true);
+            //and set textbox text to the current description
             editDescButton.setText(localeSingleton.getTranslation("Save"));
         }
     }
 
-    private HBox makeTheBox(String name, DeviceShare share) {
+    //this creates a HBox for each shared user in the list
+    //it has a label with the user id and a button to remove the share
+    private HBox createShareListBox(String name, DeviceShare share) {
         HBox hbox = new HBox();
         hbox.setPrefHeight(25.0);
         hbox.setPrefWidth(200.0);
@@ -192,6 +204,7 @@ public class DeviceController extends AbstractController {
         Button button = new Button("X");
         button.setStyle("-fx-background-color: darkred;");
         button.setTextFill(Color.WHITE);
+        //when the X button is clicked remove from share and refill the list with the new shares
         button.setOnAction(e -> {
             client.removeDeviceShare(share);
             fillSharedUsersList();
@@ -205,7 +218,7 @@ public class DeviceController extends AbstractController {
         sharedUsersList.getChildren().clear();
         List<DeviceShare> shares = client.getDeviceShares(device);
         for (DeviceShare i : shares) {
-            HBox userBox = makeTheBox("Id: "+i.getUserId(), i);
+            HBox userBox = createShareListBox("Id: "+i.getUserId(), i);
             sharedUsersList.getChildren().add(userBox);
         }
     }
@@ -271,12 +284,15 @@ public class DeviceController extends AbstractController {
         setUpCharts();
         configTab.setDisable(true);
 
+        //here we see if the device is owned by the user or shared with them
         if (device.isOwned()) {
+            //if the device is owned by the user, we can share the device
             descLabel.setDisable(true);
             editDescButton.setDisable(true);
             descTextBox.setVisible(true);
             fillSharedUsersList();
         } else {
+            //if the device is shared to the user, we disable sharing and enable description editing
             List<DeviceShare> shares = client.getDeviceShares();
             for (DeviceShare share : shares) {
                 if (share.getDeviceId() == device.getId()) {

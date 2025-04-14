@@ -103,6 +103,7 @@ public class DeviceListController extends AbstractController {
     }
 
     @FXML
+    //here we switch variables we use to shared ones, when user switched to share tab
     private void switchToSharedDevices() {
         this.openDeviceButton = sharedOpenDeviceButton;
         this.devicesList = sharedDevicesList;
@@ -114,6 +115,8 @@ public class DeviceListController extends AbstractController {
     }
 
     @FXML
+    //here we switch variables we use to owned ones, when user switched to own tab
+
     private void switchToOwnDevices() {
         this.openDeviceButton = ownOpenDeviceButton;
         this.devicesList = myDevicesList;
@@ -125,15 +128,19 @@ public class DeviceListController extends AbstractController {
     }
 
     @FXML
+    //this happenns when user clicks on the device label in the list of devices
     private void showDeviceDetails(MouseEvent event, Device dev) {
+        //first we set everything up like count to 0 and calendar
         logEntriesCount = 0;
         Calendar calendar = Calendar.getInstance();
         Trace.out(Trace.Level.DEV, "ShowDevice: " + dev.getName());
+        //then we set all devices background white and text black,
         for (Node node : devicesList.getChildren()) {
             if (node instanceof Label) {
             node.setStyle("-fx-background-color: white; -fx-border-color: Black;");
             }
         }
+        //and then set the chosen devices background to grey to highlight it being chose
         ((Label) event.getSource()).setStyle("-fx-background-color: grey; -fx-border-color: Black;");
         deviceDetails.setVisible(true);
         openDeviceButton.setVisible(true);
@@ -141,7 +148,9 @@ public class DeviceListController extends AbstractController {
         deviceDetailsLabel.setText(((Label) event.getSource()).getText());
         deviceDetailsListview.getItems().clear();
         currentDevice = dev;
+        //get all all entries for the device
         List<LogEntry> entries = client.getLogEntries(dev);
+        //go trought all the log entires and add them to the listview, also count them to show how many the device has in total
         for (int i = 0; i < entries.size(); i++) {
             logEntriesCount++;
             calendar.setTime(entries.get(i).getDate());
@@ -193,6 +202,9 @@ public class DeviceListController extends AbstractController {
         ownOpenDeviceButton.setVisible(false);
     }
 
+    //this creates a label that when clicked, opens new device window
+    //it is used in the list of devices, so user can add new device to his list
+    //it is always at the bottom of the list
     private Label addNewDeviceButton() {
         Label newdeviceLabel = new Label("+ " + localeSingleton.getTranslation("add_new_device"));
         newdeviceLabel.setAlignment(Pos.CENTER);

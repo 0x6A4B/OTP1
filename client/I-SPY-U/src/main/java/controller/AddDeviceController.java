@@ -31,10 +31,6 @@ public class AddDeviceController extends AbstractController {
     @FXML
     private void handleAddDeviceButtonAction() {
         Trace.out(Trace.Level.DEV, "Adding device...");
-        Trace.out(Trace.Level.DEV, String.valueOf(uuid.getText()));
-        Trace.out(Trace.Level.DEV, String.valueOf(name.getText()));
-        Trace.out(Trace.Level.DEV, String.valueOf(desc.getText()));
-
         try {
             UUID realUuid = UUID.fromString(uuid.getText());
             client.addDevice(new Device(ConfigSingleton.getInstance().getUser(),

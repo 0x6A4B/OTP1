@@ -73,12 +73,11 @@ public class LogSingController extends AbstractController {
         String username = singUpUSername.getText();
         /* String city = singUpCity.getText()
         String postalCode = singUpPostalCode.getText() */
-        // TODO: get user's name and address => faking it for now
+        // TODO: maybe find a way to include user's name, address, steet and city => faking it for now
         User user = new User(username, password, "active",
                 new Person("Urho Kaleva", "Kekkonen", email,
                         "Suomen maa kunta", "Suomen hienoin kaupunki", "42069"));
         awnser = client.register(user);
-        //error = "error happened"
         if (singUpRememberMe.isSelected()) {
             client.setRememberUser(true);
         }
