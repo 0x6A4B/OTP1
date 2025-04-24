@@ -47,7 +47,7 @@ public class LocaleSingleton {
                         while(zip.available() > 0){
                             ZipEntry entry = zip.getNextEntry();
                             if (entry == null) break;
-                            if (entry.getName().endsWith(".properties") || entry.getName().startsWith("Translation_")) {
+                            if (entry.getName().endsWith(".properties") && entry.getName().startsWith("Translation_")) {
                                 Trace.out(Trace.Level.DEV, "FOUND: " + entry.getName());
                                 availableLocales.add(Locale.forLanguageTag(entry.getName()
                                         .substring("Translation_".length(), entry.getName().indexOf(".")).replace("_", "-")

@@ -70,7 +70,7 @@
                                     <TextField layoutX="68.0" layoutY="96.0" fx:id="limitMax"/>
                                     <Label layoutX="30.0" layoutY="64.0" text="Min:" />
                                     <Label layoutX="30.0" layoutY="100.0" text="Max:" />
-                                    <Button layoutX="30.0" layoutY="132.0" mnemonicParsing="false" text="Set" fx:id="setLimitsButton" onAction="#handleSetLimits">
+                                    <Button layoutX="30.0" layoutY="132.0" mnemonicParsing="false" text="Set" fx:id="setLimitsButton">
                                        <padding>
                                           <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
                                        </padding>
@@ -80,7 +80,7 @@
                                           <Font size="20.0" />
                                        </font>
                                     </Label>
-                                    <ChoiceBox layoutX="30.0" layoutY="227.0" prefWidth="150.0" fx:id="actionChoice" onAction="#handleActionChoice">
+                                    <ChoiceBox layoutX="30.0" layoutY="227.0" prefWidth="150.0" fx:id="actionChoice">
                                        <items>
                                           <FXCollections fx:factory="observableArrayList">
                                              <String fx:value="Send a email" />
@@ -90,7 +90,7 @@
                                     </ChoiceBox>
                                     <Label layoutX="30.0" layoutY="283.0" text="Email for action:" fx:id="actionItemLabel"/>
                                     <TextField layoutX="30.0" layoutY="300.0" promptText="GIVE ME INPUT" fx:id="actionInput"/>
-                                    <Button layoutX="30.0" layoutY="340.0" mnemonicParsing="false" text="Set" fx:id="setActionButton" onAction="#handleSetAction">
+                                    <Button layoutX="30.0" layoutY="340.0" mnemonicParsing="false" text="Set" fx:id="setActionButton">
                                        <padding>
                                           <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
                                        </padding>
@@ -132,7 +132,7 @@
                                           <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
                                        </padding>
                                     </Button>
-                                    <Button layoutX="26.0" layoutY="232.0" mnemonicParsing="false" text="Set" fx:id="setShareButton" onAction="#handleSetShare">
+                                    <Button layoutX="26.0" layoutY="232.0" mnemonicParsing="false" text="Set" fx:id="setShareButton" >
                                        <padding>
                                           <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
                                        </padding>
