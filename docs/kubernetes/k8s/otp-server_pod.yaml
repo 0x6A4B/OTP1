@@ -109,7 +109,7 @@ metadata:
 spec:
   containers:
     - image: 0x6a4b/otp:server
-      imagePullPolicy: IfNotPresent
+      imagePullPolicy: Always
       name: otp-server
       ports:
         - containerPort: 8088

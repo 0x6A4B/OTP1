@@ -106,3 +106,87 @@ firewall-cmd --permanent --zone=trusted --add-source=10.42.0.0/16 #pods
 firewall-cmd --permanent --zone=trusted --add-source=10.43.0.0/16 #services
 firewall-cmd --reload
 ```
+
+
+
+# Kubernetes API
+
+
+sudo /usr/local/bin/kubectl create serviceaccount servicebot -n local
+
+sudo /usr/local/bin/kubectl get serviceaccounts -n local
+
+sudo /usr/local/bin/kubectl describe serviceaccount servicebot -n local
+
+sudo /usr/local/bin/kubectl create token servicebot -n local
+
+create role
+
+sudo /usr/sbin/kubectl apply -f servicebot_role.yaml
+
+check
+
+sudo /usr/local/bin/kubectl get role servicebot-role -n local
+
+sudo /usr/local/bin/kubectl get rolebinding servicebot-binding -n local
+
+can i patch:
+
+sudo /usr/local/bin/kubectl auth can-i patch deployments.apps --as=system:serviceaccount:local:servicebot --namespace=local
+
+
+ca-data
+
+sudo /usr/local/bin/kubectl config view --raw --output='jsonpath={.clusters[0].cluster.certificate-authority-data}'
+
+
+curl -X GET https://localhost:42473/api --header "Authorization: Bearer TOKEN" --insecure
+
+
+
+sudo /usr/local/bin/kubectl get pods -n local
+
+
+
+ 
+curl -X GET https://1localhost:42473/api --header "Authorization: Bearer TOKEN" --insecure
+
+ 
+curl -X GET https://localhost:42473/api --header "Authorization: Bearer TOKEN" --insecure 
+ 
+curl -X GET https://localhost:42473/api/v1/namespaces/local/pods --header "Authorization: Bearer TOKEN" --insecure
+
+
+
+
+remote computer
+
+kubectl get pods -n local --kubeconfig=kubeconfig  --insecure-skip-tls-verify
+
+kubectl apply -f deployment.yaml -n local --kubeconfig=kubeconfig  --insecure-skip-tls-verify
+
+cat deployment.yaml | sed "s/{{KUBE_DATE}}/$(date +"%Y-%m-%d_%H:%M")/g" | kubectl apply -f - -n local --kubeconfig=kubeconfig --insecure-skip-tls-verify
+
+kubectl apply -f $(sed "s/{{KUBE_DATE}}/v$(date +"%Y%m%d%H%M")/g") -n local --kubeconfig=kubeconfig --insecure-skip-tls-verify
+
+
+DEPLOY
+
+```
+kubectl get deployment otp-server -n local --kubeconfig=kubeconfig --insecure-skip-tls-verify -o yaml > temp.yaml
+
+sed -i "s/\bdate:.*$/date: v$(date +"%Y%m%d%H%M")/" temp.yaml
+
+kubectl apply -f temp.yaml -n local --kubeconfig=kubeconfig --insecure-skip-tls-verify
+```
+
+
+
+THIS WONT WORK AS IT WONT PASS VALIDATION?!?!
+
+TEMPFILE=$(mktemp)
+sed "s/{{KUBE_DATE}}/v$(date +"%Y%m%d%H%M")/g" deployment.yaml > "$TEMPFILE"
+kubectl apply -f "$TEMPFILE" -n local --kubeconfig=kubeconfig --insecure-skip-tls-verify
+rm "$TEMPFILE"
+
+
